@@ -22,10 +22,12 @@ namespace College_App.Controllers
         {
             var students = collegeRepository.students.Select(n => new studentDTO()
             {
-                //studentId = n.studentId,
+                studentId = n.studentId,
                 name = n.name,
                 age = n.age,
-                email = n.email
+                email = n.email,
+                password = "",
+                confirmPassword = "",
             });
             return Ok(students);
         }
@@ -73,10 +75,12 @@ namespace College_App.Controllers
                 FirstOrDefault();
             var studentDTO = new studentDTO()
             {
-                //studentId = student.studentId,
+                studentId = student.studentId,
                 name = student.name,
                 age = student.age,
-                email = student.email
+                email = student.email,
+                password = "",
+                confirmPassword = ""
             };
             if (id == null)
             {
@@ -98,7 +102,9 @@ namespace College_App.Controllers
                 studentId = newid,
                 name = Model.name,
                 age = Model.age,
-                email = Model.email
+                email = Model.email,
+                password = Model.password,
+                confirmPassword = Model.confirmPassword,
             };
             collegeRepository.students.Add(studentnew);
             return Ok(Model);
