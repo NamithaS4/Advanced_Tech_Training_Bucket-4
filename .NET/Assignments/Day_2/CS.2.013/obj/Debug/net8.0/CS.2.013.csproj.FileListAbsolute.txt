@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\bin\Debug\net8.0\CS.2.013.exe
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\bin\Debug\net8.0\CS.2.013.deps.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\bin\Debug\net8.0\CS.2.013.runtimeconfig.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\bin\Debug\net8.0\CS.2.013.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\bin\Debug\net8.0\CS.2.013.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.AssemblyInfo.cs
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\refint\CS.2.013.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\CS.2.013.genruntimeconfig.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_2\CS.2.013\obj\Debug\net8.0\ref\CS.2.013.dll

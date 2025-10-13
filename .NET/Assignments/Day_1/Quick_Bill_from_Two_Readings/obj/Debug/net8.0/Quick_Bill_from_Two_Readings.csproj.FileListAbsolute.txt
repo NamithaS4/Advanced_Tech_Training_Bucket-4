@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\bin\Debug\net8.0\Quick_Bill_from_Two_Readings.exe
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\bin\Debug\net8.0\Quick_Bill_from_Two_Readings.deps.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\bin\Debug\net8.0\Quick_Bill_from_Two_Readings.runtimeconfig.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\bin\Debug\net8.0\Quick_Bill_from_Two_Readings.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\bin\Debug\net8.0\Quick_Bill_from_Two_Readings.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.AssemblyInfo.cs
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\refint\Quick_Bill_from_Two_Readings.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\Quick_Bill_from_Two_Readings.genruntimeconfig.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Quick_Bill_from_Two_Readings\obj\Debug\net8.0\ref\Quick_Bill_from_Two_Readings.dll

@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.AssemblyInfo.cs
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\bin\Debug\net8.0\Task_1.exe
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\bin\Debug\net8.0\Task_1.deps.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\bin\Debug\net8.0\Task_1.runtimeconfig.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\bin\Debug\net8.0\Task_1.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\bin\Debug\net8.0\Task_1.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\refint\Task_1.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\Task_1.genruntimeconfig.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Day_3\Task_1\obj\Debug\net8.0\ref\Task_1.dll

@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\bin\Debug\net8.0\Weekly_Consumption_Basics.exe
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\bin\Debug\net8.0\Weekly_Consumption_Basics.deps.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\bin\Debug\net8.0\Weekly_Consumption_Basics.runtimeconfig.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\bin\Debug\net8.0\Weekly_Consumption_Basics.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\bin\Debug\net8.0\Weekly_Consumption_Basics.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.AssemblyInfo.cs
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\refint\Weekly_Consumption_Basics.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\Weekly_Consumption_Basics.genruntimeconfig.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\Weekly_Consumption_Basics\obj\Debug\net8.0\ref\Weekly_Consumption_Basics.dll

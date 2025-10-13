@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Quick_Bill_from_Two_Readings/1.0.0": {
+        "runtime": {
+          "Quick_Bill_from_Two_Readings.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Quick_Bill_from_Two_Readings/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
