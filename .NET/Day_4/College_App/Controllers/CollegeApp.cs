@@ -1,6 +1,7 @@
 ﻿using College_App.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace College_App.Controllers
@@ -15,7 +16,17 @@ namespace College_App.Controllers
         //{
         //    return collegeRepository.students;
         //}
+        [HttpPatch]
+        [Route("{id:int}/UpdatePartial")]
 
+        public ActionResult UpdateStudentPartial(int id, [FromBody] JsonPatchDocument<studentDTO> patchDocument)
+        {
+            if(patchDocument == null || id <= 0)
+            {
+                return BadRequest();
+            }
+            var exsistingStudent = collegeRepository.students.Where(s => s.studentId == id);
+        }
         [HttpGet]
         [Route("All")]
         public ActionResult<IEnumerable<studentDTO>> getstudents()
@@ -32,7 +43,27 @@ namespace College_App.Controllers
             return Ok(students);
         }
 
+        [HttpPut]
 
+        public ActionResult updateStudent([FromBody] studentDTO Model)
+        {
+            if (Model == null)
+                return BadRequest();
+
+            var existingStudent = collegeRepository.students.Where(s => s.studentId == Model.studentId)
+                .FirstOrDefault();
+
+            if(existingStudent == null)
+            {
+                return NotFound($"The student with id {Model.studentId} not found");
+            }
+
+            existingStudent.name = Model.name;
+            existingStudent.age = Model.age;
+            existingStudent.email = Model.email;
+
+            return Ok(existingStudent);
+        }
         //[HttpGet("{id:Int}", Name = "getstudentsbyid")] //This is an Attribute routing
 
         //public Student getstudentbyid(int id)
@@ -109,6 +140,8 @@ namespace College_App.Controllers
             collegeRepository.students.Add(studentnew);
             return Ok(Model);
         }
+
+
         [HttpGet("{Name:Alpha}", Name = "getstudentsbyname")]
         public ActionResult<Student> getstudentsbyname(string Name)
         {

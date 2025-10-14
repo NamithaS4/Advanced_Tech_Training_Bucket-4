@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\validators\\datecheckattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\validators\\datecheckattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\mylogger\\imylogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:mylogger\\imylogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\collegerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\collegerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\controllers\\collegeapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:controllers\\collegeapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\model\\validators\\datecheckattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:model\\validators\\datecheckattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "IMyLogger.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\MyLogger\\IMyLogger.cs",
+              "RelativeDocumentMoniker": "MyLogger\\IMyLogger.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\MyLogger\\IMyLogger.cs",
+              "RelativeToolTip": "MyLogger\\IMyLogger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T09:56:31.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "DateCheckAttribute.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Model\\Validators\\DateCheckAttribute.cs",
               "RelativeDocumentMoniker": "Model\\Validators\\DateCheckAttribute.cs",
@@ -46,38 +63,37 @@
               "RelativeToolTip": "Model\\Validators\\DateCheckAttribute.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAQwDIAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-13T09:27:35.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-13T09:27:35.76Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "studentDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Model\\studentDTO.cs",
               "RelativeDocumentMoniker": "Model\\studentDTO.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Model\\studentDTO.cs",
               "RelativeToolTip": "Model\\studentDTO.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAwAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-13T04:28:05.764Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "CollegeApp.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Controllers\\CollegeApp.cs",
               "RelativeDocumentMoniker": "Controllers\\CollegeApp.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Controllers\\CollegeApp.cs",
               "RelativeToolTip": "Controllers\\CollegeApp.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAQwB0AAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAwBgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T09:57:39.845Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "collegeRepository.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Model\\collegeRepository.cs",
               "RelativeDocumentMoniker": "Model\\collegeRepository.cs",
@@ -90,7 +106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Student.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Model\\Student.cs",
               "RelativeDocumentMoniker": "Model\\Student.cs",
@@ -103,13 +119,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAApwCAAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T09:41:59.252Z",
               "EditorCaption": ""

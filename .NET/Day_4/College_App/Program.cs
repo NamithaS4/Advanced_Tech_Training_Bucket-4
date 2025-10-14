@@ -1,15 +1,20 @@
 
+using College_App.MyLogger;
+
 namespace College_App
 {
+    
     public class Program
     {
         public static void Main(string[] args)
         {
+
+            builder.Services.AddScoped<IMylogger, LogtoDB>();
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

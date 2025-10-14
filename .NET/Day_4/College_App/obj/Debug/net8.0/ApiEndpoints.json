@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "College_App.Controllers.CollegeApp",
+    "Method": "updateStudent",
+    "RelativePath": "api/CollegeApp",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Model",
+        "Type": "College_App.Model.studentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "College_App.Controllers.CollegeApp",
     "Method": "getstudentbyidaction",
     "RelativePath": "api/CollegeApp/{id}",
     "HttpMethod": "GET",
