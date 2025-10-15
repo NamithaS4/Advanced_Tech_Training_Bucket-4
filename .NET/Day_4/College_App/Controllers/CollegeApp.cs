@@ -1,4 +1,6 @@
-﻿using College_App.Model;
+﻿using College_App.Data;
+using College_App.Model;
+using College_App.MyLogger;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -8,8 +10,19 @@ namespace College_App.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class CollegeApp : ControllerBase
     {
+        private readonly IMyLogger _mylogger;
+        private readonly CollegeDBContext _dbcontext;
+
+        public CollegeApp(IMyLogger Mylogger, CollegeDBContext dbcontext)
+        {
+            _mylogger = Mylogger;
+            _dbcontext = dbcontext;
+        }
+
+/*
         //[HttpGet]
         ////Route("All")]
         //public IEnumerable<Student> getstudents()
@@ -19,14 +32,14 @@ namespace College_App.Controllers
         [HttpPatch]
         [Route("{id:int}/UpdatePartial")]
 
-        public ActionResult UpdateStudentPartial(int id, [FromBody] JsonPatchDocument<studentDTO> patchDocument)
-        {
-            if(patchDocument == null || id <= 0)
-            {
-                return BadRequest();
-            }
-            var exsistingStudent = collegeRepository.students.Where(s => s.studentId == id);
-        }
+        //public ActionResult UpdateStudentPartial(int id, [FromBody] JsonPatchDocument<studentDTO> patchDocument)
+        //{
+        //    if(patchDocument == null || id <= 0)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var exsistingStudent = collegeRepository.students.Where(s => s.studentId == id);
+        //}
         [HttpGet]
         [Route("All")]
         public ActionResult<IEnumerable<studentDTO>> getstudents()
@@ -158,6 +171,6 @@ namespace College_App.Controllers
                 return NotFound($"Not found {Name}");
             }
             return Ok(student);
-        }
+        }*/
     }
 }

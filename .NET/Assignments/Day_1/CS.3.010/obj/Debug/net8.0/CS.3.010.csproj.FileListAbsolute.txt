@@ -1,0 +1,15 @@
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\bin\Debug\net8.0\CS.3.010.exe
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\bin\Debug\net8.0\CS.3.010.deps.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\bin\Debug\net8.0\CS.3.010.runtimeconfig.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\bin\Debug\net8.0\CS.3.010.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\bin\Debug\net8.0\CS.3.010.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.AssemblyInfo.cs
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.sourcelink.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\refint\CS.3.010.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\CS.3.010.genruntimeconfig.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Assignments\Day_1\CS.3.010\obj\Debug\net8.0\ref\CS.3.010.dll

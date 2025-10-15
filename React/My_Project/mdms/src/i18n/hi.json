@@ -5,7 +5,8 @@
   "Update password": "पासवर्ड अपडेट करें",
   "email": "ईमेल",
   "password": "पासवर्ड",
-  "remember me": "मुझे याद रखें",
-  "login": "लॉगिन",
-  "forgot password": "पासवर्ड भूल गए"
+  "Remember Me": "मुझे याद रखें",
+  "Login": "लॉगिन",
+  "Login Form": "लॉगिन फ़ॉर्म",
+  "Forgot Password": "पासवर्ड भूल गए"
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import UtilityLayout from '../../components/layout/Sidebar/UtilityLayout';
+import UtilityLayout from '../../components/layout/UtilityLayout';
 
 export default function InternalServerError() {
   return (

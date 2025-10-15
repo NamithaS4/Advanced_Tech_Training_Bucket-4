@@ -5,7 +5,8 @@
   "Update password": "Mettre à jour le mot de passe",
   "email": "e-mail",
   "password": "mot de passe",
-  "remember me": "se souvenir de moi",
-  "login": "connexion",
-  "forgot password": "mot de passe oublié"
+  "Remember Me": "se souvenir de moi",
+  "Login": "connexion",
+  "Login Form": "formulaire de connexion",
+  "Forgot Password": "mot de passe oublié"
 }

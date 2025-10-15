@@ -1,5 +1,8 @@
 
+using College_App.Data;
 using College_App.MyLogger;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace College_App
 {
@@ -8,11 +11,16 @@ namespace College_App
     {
         public static void Main(string[] args)
         {
-
-            builder.Services.AddScoped<IMylogger, LogtoDB>();
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<CollegeDBContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDB"));
+            });
+            //builder.Services.AddScoped<IMylogger, LogtoDB>();
+            //var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IMyLogger, LogToFile>();
 
             builder.Services.AddControllers().AddNewtonsoftJson();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
