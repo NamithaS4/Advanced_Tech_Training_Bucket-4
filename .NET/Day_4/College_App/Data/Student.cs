@@ -18,11 +18,5 @@ namespace College_App.Data
         public int age { get; set; }
         
         public string email { get; set; }
-    
-        public string password { get; set; }
-        
-        public string confirmPassword { get; set; }
-
-        public DateTime Admission { get; set; } = DateTime.Now;
     }
 }

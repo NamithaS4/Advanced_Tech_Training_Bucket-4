@@ -1,1 +1,9 @@
-{}
+{
+   "products" : [
+  { "id": 1, "name": "Product A", "sales": 45 },
+  { "id": 2, "name": "Product B", "sales": 30 },
+  { "id": 3, "name": "Product C", "sales": 25 },
+  { "id": 4, "name": "Product D", "sales": 10 },
+  { "id": 5, "name": "Product E", "sales": 15 }
+]
+}

@@ -16,8 +16,6 @@ namespace College_App
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDB"));
             });
-            //builder.Services.AddScoped<IMylogger, LogtoDB>();
-            //var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddScoped<IMyLogger, LogToFile>();

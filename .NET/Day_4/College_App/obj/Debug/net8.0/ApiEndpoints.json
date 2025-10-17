@@ -1,77 +1,7 @@
 [
   {
     "ContainingType": "College_App.Controllers.CollegeApp",
-    "Method": "updateStudent",
-    "RelativePath": "api/CollegeApp",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Model",
-        "Type": "College_App.Model.studentDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "College_App.Controllers.CollegeApp",
-    "Method": "getstudentbyidaction",
-    "RelativePath": "api/CollegeApp/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "College_App.Model.studentDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "getstudentsbyid"
-  },
-  {
-    "ContainingType": "College_App.Controllers.CollegeApp",
-    "Method": "getstudentsbyname",
-    "RelativePath": "api/CollegeApp/{Name}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Name",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "College_App.Model.Student",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "getstudentsbyname"
-  },
-  {
-    "ContainingType": "College_App.Controllers.CollegeApp",
-    "Method": "getstudents",
+    "Method": "getcourses",
     "RelativePath": "api/CollegeApp/All",
     "HttpMethod": "GET",
     "IsController": true,
@@ -79,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[College_App.Model.studentDTO, College_App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[College_App.Data.course, College_App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -91,21 +21,21 @@
   },
   {
     "ContainingType": "College_App.Controllers.CollegeApp",
-    "Method": "CreateStudent",
-    "RelativePath": "api/CollegeApp/Create",
+    "Method": "CreateCourse",
+    "RelativePath": "api/CollegeApp/CreateCourse",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Model",
-        "Type": "College_App.Model.studentDTO",
+        "Type": "College_App.Data.course",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "College_App.Model.studentDTO",
+        "Type": "College_App.Data.course",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -114,5 +44,15 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "College_App.Controllers.Logme",
+    "Method": "index",
+    "RelativePath": "api/Logme",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
