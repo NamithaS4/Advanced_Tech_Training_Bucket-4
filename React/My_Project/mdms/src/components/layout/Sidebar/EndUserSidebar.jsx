@@ -15,7 +15,9 @@ export default function EndUserSidebar() {
   return (
     <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 min-h-screen p-4 hidden md:block">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-white">MDMS</h2>
+        <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+          MDMS
+        </h2>
       </div>
       <nav className="flex flex-col gap-2">
         {items.map((it) => (

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Bell, User } from 'lucide-react';
+import { Bell, User, LogOut } from 'lucide-react';
 import darkModeIcon from '../../../assets/icons/darkmode.svg';
 import lightModeIcon from '../../../assets/icons/lightmode.svg';
-import logo from '../../../assets/images/logo.png';
+import useAuth from '../../../hooks/useAuth';
 
 export default function Header() {
   const { t, i18n } = useTranslation();
   const [darkMode, setDarkMode] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const isAuthPage =
     location.pathname === '/login' ||
@@ -30,18 +33,36 @@ export default function Header() {
     i18n.changeLanguage(e.target.value);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/', { replace: true });
+  };
+
   return (
     <header className="w-full flex justify-between items-center px-6 py-4 bg-gray-300 text-black dark:bg-gray-800 dark:text-white border-b border-gray-400">
-      <h1 className="text-xl font-bold">MDMS</h1>
+      <div className="flex items-center gap-3">
+        <h1 className="text-xl font-bold">MDMS</h1>
+      </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 relative">
         {!isAuthPage && (
-            <button
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
-              aria-label="Notifications"
-            >
-              <Bell size={18} />
-            </button>
+          <button
+            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+            aria-label="Notifications"
+          >
+            <Bell size={18} />
+          </button>
         )}
 
         <button
@@ -73,13 +94,47 @@ export default function Header() {
         </select>
 
         {!isAuthPage && (
+          <div className="relative" ref={dropdownRef}>
+            {/* Profile button */}
             <button
-              onClick={() => navigate('/profile')}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition relative"
               aria-label="Profile"
             >
               <User size={18} />
             </button>
+
+            {/* Dropdown */}
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50">
+                <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {user?.name || 'User'}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {user?.email || ''}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    navigate('/enduser/profile');
+                    setDropdownOpen(false);
+                  }}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                >
+                  <User size={16} /> Profile
+                </button>
+
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                >
+                  <LogOut size={16} /> Logout
+                </button>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </header>

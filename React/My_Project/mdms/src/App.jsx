@@ -1,5 +1,10 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import NotFound from './pages/Utility/NotFound';
@@ -21,6 +26,7 @@ import Logs from './pages/EndUser/Logs';
 
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import { authService } from './services/authService';
+import BillDetails from './pages/EndUser/BillDetails';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -97,7 +103,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/enduser/bill/:receiptId"
+          element={
+            <ProtectedRoute>
+              <BillDetails />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

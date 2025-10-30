@@ -51,8 +51,7 @@
               "RelativeToolTip": "Data\\course.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:15:16.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-15T09:15:16.782Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Data\\CollegeDBContext.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T06:28:09.888Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-15T06:28:09.888Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "Controllers\\CollegeApp.cs",
               "ViewState": "AgIAAKUAAAAAAAAAAAAYwKsAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T09:57:39.845Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T09:57:39.845Z"
             }
           ]
         }

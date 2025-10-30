@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentDatabase.Models;
 using System.Runtime.CompilerServices;
 
@@ -20,9 +22,17 @@ namespace StudentDatabase.Controllers
         }
 
         [HttpGet(Name = "GetStudent")]
-        public IEnumerable<Student> Get()
+        public async Task<ActionResult<IEnumerable<Student>>> getstudents()
         {
-            return _dbcontext.Student;
+            var student = await _dbcontext.Students.ToListAsync();
+
+            var students = _dbcontext.Students.Select(s => new Student()
+            {
+                StudentId = s.StudentId,
+                Name = s.Name,
+                Email = s.Email,
+            }).ToListAsync();
+            return Ok(student);
         }
     }
 }

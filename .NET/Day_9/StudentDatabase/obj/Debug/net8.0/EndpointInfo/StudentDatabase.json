@@ -10,7 +10,7 @@
         "tags": [
           "WeatherForecast"
         ],
-        "operationId": "GetWeatherForecast",
+        "operationId": "GetStudent",
         "responses": {
           "200": {
             "description": "OK",
@@ -19,7 +19,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/Student"
                   }
                 }
               },
@@ -27,7 +27,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/Student"
                   }
                 }
               },
@@ -35,7 +35,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/Student"
                   }
                 }
               }
@@ -47,23 +47,22 @@
   },
   "components": {
     "schemas": {
-      "WeatherForecast": {
+      "Student": {
         "type": "object",
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "temperatureC": {
+          "studentId": {
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
+          "name": {
+            "type": "string",
+            "nullable": true
           },
-          "summary": {
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
             "type": "string",
             "nullable": true
           }

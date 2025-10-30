@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\controllers\\collegeapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:controllers\\collegeapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\data\\collegedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:data\\collegedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\data\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:data\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\data\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:data\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\data\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:data\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\controllers\\collegeapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:controllers\\collegeapp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\day_4\\college_app\\data\\collegedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CABDF2E5-9049-478A-AB88-4D12AA0C22CF}|College_App.csproj|solutionrelative:data\\collegedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Student.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Data\\Student.cs",
               "RelativeDocumentMoniker": "Data\\Student.cs",
@@ -43,7 +43,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "course.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Data\\course.cs",
               "RelativeDocumentMoniker": "Data\\course.cs",
@@ -51,12 +51,11 @@
               "RelativeToolTip": "Data\\course.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:15:16.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-15T09:15:16.782Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CollegeDBContext.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Data\\CollegeDBContext.cs",
               "RelativeDocumentMoniker": "Data\\CollegeDBContext.cs",
@@ -64,21 +63,19 @@
               "RelativeToolTip": "Data\\CollegeDBContext.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T06:28:09.888Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-15T06:28:09.888Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "CollegeApp.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Controllers\\CollegeApp.cs",
               "RelativeDocumentMoniker": "Controllers\\CollegeApp.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Day_4\\College_App\\Controllers\\CollegeApp.cs",
               "RelativeToolTip": "Controllers\\CollegeApp.cs",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAYwKsAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAKUAAAAAAAAAAAAYwKsAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T09:57:39.845Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-09T09:57:39.845Z"
             }
           ]
         }
