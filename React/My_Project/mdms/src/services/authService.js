@@ -7,7 +7,7 @@ const DEFAULT_USER = {
   email: 'enduser@mdms.com',
   password: 'mdms123',
   role: 'enduser',
-  zone: 'Mumbai South',
+  zone: 'Bangalore South',
 };
 
 export const authService = {
@@ -26,20 +26,44 @@ export const authService = {
    */
   login({ email, password, rememberMe }) {
     this.init();
-    const user = JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_USER;
 
-    if (email === user.email && password === user.password) {
+    const users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const user = Array.isArray(users)
+      ? users.find((u) => u.email === email && u.password === password)
+      : null;
+
+    if (user) {
       const storage = rememberMe ? localStorage : sessionStorage;
       storage.setItem(TOKEN_KEY, 'mock-token-12345');
       storage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+
+      const logs = JSON.parse(localStorage.getItem('userLogs')) || [];
+      logs.unshift({
+        timestamp: new Date().toLocaleString(),
+        user: user.name,
+        email: user.email,
+        zone: user.zone || '-',
+        status: 'Login Successful',
+      });
+      localStorage.setItem('userLogs', JSON.stringify(logs));
+
       return { success: true, user };
     }
+
+    const logs = JSON.parse(localStorage.getItem('userLogs')) || [];
+    logs.unshift({
+      timestamp: new Date().toLocaleString(),
+      user: 'Unknown',
+      email,
+      zone: '-',
+      status: 'Login Failed',
+    });
+    localStorage.setItem('userLogs', JSON.stringify(logs));
 
     return { success: false, message: 'Invalid credentials' };
   },
 
   logout() {
-    // Clear from both storages to ensure complete logout
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(CURRENT_USER_KEY);
     sessionStorage.removeItem(TOKEN_KEY);
@@ -59,29 +83,50 @@ export const authService = {
   },
 
   updateProfile({ name, email, password }) {
-    const user = JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_USER;
+    const users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const current = this.getCurrentUser();
+    if (!current) return null;
 
-    const updated = {
-      ...user,
-      name: name ?? user.name,
-      email: email ?? user.email,
-      password: password ?? user.password,
-    };
+    const updatedUsers = users.map((u) =>
+      u.email === current.email
+        ? {
+            ...u,
+            name: name ?? u.name,
+            email: email ?? u.email,
+            password: password ?? u.password,
+          }
+        : u
+    );
 
-    // Always keep master user info in localStorage
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUsers));
 
-    // If logged in, update current user in both storages
-    if (localStorage.getItem(CURRENT_USER_KEY)) {
-      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updated));
-    }
-    if (sessionStorage.getItem(CURRENT_USER_KEY)) {
-      sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updated));
-    }
+    const updatedUser = updatedUsers.find((u) => u.email === current.email);
 
-    return updated;
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
+    sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
+
+    return updatedUser;
+  },
+
+  resetPassword(email, newPassword) {
+    const users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const updatedUsers = users.map((u) =>
+      u.email === email ? { ...u, password: newPassword } : u
+    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUsers));
+
+    const logs = JSON.parse(localStorage.getItem('userLogs')) || [];
+    logs.unshift({
+      timestamp: new Date().toLocaleString(),
+      user: email,
+      email,
+      zone: '-',
+      status: 'Password Reset',
+    });
+    localStorage.setItem('userLogs', JSON.stringify(logs));
+
+    return true;
   },
 };
 
-// Initialize default user on module load
 authService.init();

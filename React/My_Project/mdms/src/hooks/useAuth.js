@@ -3,7 +3,9 @@ import { authService } from '../services/authService';
 
 export default function useAuth() {
   const [user, setUser] = useState(() => authService.getCurrentUser() || null);
-  const [isAuthenticated, setIsAuthenticated] = useState(() => authService.isAuthenticated());
+  const [isAuthenticated, setIsAuthenticated] = useState(() =>
+    authService.isAuthenticated()
+  );
 
   useEffect(() => {
     setUser(authService.getCurrentUser() || null);

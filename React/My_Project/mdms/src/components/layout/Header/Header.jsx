@@ -5,6 +5,7 @@ import { Bell, User, LogOut } from 'lucide-react';
 import darkModeIcon from '../../../assets/icons/darkmode.svg';
 import lightModeIcon from '../../../assets/icons/lightmode.svg';
 import useAuth from '../../../hooks/useAuth';
+import { authService } from '../../../services/authService';
 
 export default function Header() {
   const { t, i18n } = useTranslation();
@@ -14,6 +15,7 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const currentUser = authService.getCurrentUser();
 
   const isAuthPage =
     location.pathname === '/login' ||
@@ -29,11 +31,46 @@ export default function Header() {
     }
   };
 
+  const handleNotificationClick = () => {
+    if (!currentUser) return navigate('/');
+
+    switch (currentUser.role) {
+      case 'enduser':
+        navigate('/enduser/alerts');
+        break;
+      case 'zone':
+        navigate('/zone/settings');
+        break;
+      case 'enterprise':
+        navigate('/enterprise/dashboard');
+        break;
+      default:
+        navigate('/');
+    }
+  };
+
+  const handleProfileClick = () => {
+    if (!currentUser) return navigate('/');
+
+    switch (currentUser.role) {
+      case 'enduser':
+        navigate('/enduser/profile');
+        break;
+      case 'zone':
+        navigate('/zone/settings');
+        break;
+      case 'enterprise':
+        navigate('/enterprise/settings');
+        break;
+      default:
+        navigate('/');
+    }
+  };
+
   const changeLanguage = (e) => {
     i18n.changeLanguage(e.target.value);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -45,6 +82,7 @@ export default function Header() {
   }, []);
 
   const handleLogout = () => {
+    window.dispatchEvent(new Event('logout'));
     logout();
     navigate('/', { replace: true });
   };
@@ -58,6 +96,7 @@ export default function Header() {
       <div className="flex items-center gap-4 relative">
         {!isAuthPage && (
           <button
+            onClick={handleNotificationClick}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
             aria-label="Notifications"
           >
@@ -95,7 +134,6 @@ export default function Header() {
 
         {!isAuthPage && (
           <div className="relative" ref={dropdownRef}>
-            {/* Profile button */}
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition relative"
@@ -104,7 +142,6 @@ export default function Header() {
               <User size={18} />
             </button>
 
-            {/* Dropdown */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50">
                 <div className="p-3 border-b border-gray-200 dark:border-gray-700">
@@ -117,18 +154,15 @@ export default function Header() {
                 </div>
 
                 <button
-                  onClick={() => {
-                    navigate('/enduser/profile');
-                    setDropdownOpen(false);
-                  }}
-                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                  onClick={handleProfileClick}
+                  className="w-full bg-white flex items-center gap-2 px-4 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                 >
                   <User size={16} /> Profile
                 </button>
 
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                  className="w-full flex bg-white items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                 >
                   <LogOut size={16} /> Logout
                 </button>

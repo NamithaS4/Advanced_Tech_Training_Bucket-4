@@ -2,32 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/layout/Header/Header';
 import { useTranslation } from 'react-i18next';
-import useAuth from '../../hooks/useAuth';
+import { authService } from '../../services/authService';
 
 export default function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  // Redirect if already authenticated (localStorage or sessionStorage)
   useEffect(() => {
-    const isLoggedIn =
-      localStorage.getItem('mdms_token') ||
-      sessionStorage.getItem('mdms_token');
-    if (isLoggedIn) {
-      navigate('/enduser/dashboard', { replace: true });
+    if (authService.isAuthenticated()) {
+      const user = authService.getCurrentUser();
+      if (user?.role === 'enterprise')
+        navigate('/enterprise/dashboard', { replace: true });
+      else if (user?.role === 'zone')
+        navigate('/zone/dashboard', { replace: true });
+      else navigate('/enduser/dashboard', { replace: true });
     }
   }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const res = login({ email, password, rememberMe });
+    const res = authService.login({ email, password, rememberMe });
     if (res.success) {
-      navigate('/enduser/dashboard', { replace: true });
+      const role = res.user.role;
+      if (role === 'enterprise')
+        navigate('/enterprise/dashboard', { replace: true });
+      else if (role === 'zone') navigate('/zone/dashboard', { replace: true });
+      else navigate('/enduser/dashboard', { replace: true });
     } else {
       alert('Invalid credentials');
     }

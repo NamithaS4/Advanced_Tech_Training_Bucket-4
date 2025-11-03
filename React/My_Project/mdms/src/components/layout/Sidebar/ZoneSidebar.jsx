@@ -2,15 +2,14 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const items = [
-  { to: '/enduser/dashboard', label: 'Dashboard' },
-  { to: '/enduser/bills-payments', label: 'Bills & Payments' },
-  { to: '/enduser/meter-data', label: 'Meter Data' },
-  { to: '/enduser/alerts', label: 'Alerts & Notifications' },
-  { to: '/enduser/profile', label: 'Profile & Settings' },
-  { to: '/enduser/logs', label: 'Logs' },
+  { to: '/zone/dashboard', label: 'Dashboard' },
+  { to: '/zone/meter-management', label: 'Meter management' },
+  { to: '/zone/user-management', label: 'User management' },
+  { to: '/zone/reports', label: 'Reports & Analytics' },
+  { to: '/zone/settings', label: 'Setting & Notifications' },
 ];
 
-export default function EndUserSidebar() {
+export default function ZoneSidebar() {
   return (
     <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 min-h-screen p-4 hidden md:block">
       <nav className="flex flex-col gap-2">

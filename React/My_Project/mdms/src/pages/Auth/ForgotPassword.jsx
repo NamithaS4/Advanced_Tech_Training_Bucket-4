@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/layout/Header/Header';
 import { useTranslation } from 'react-i18next';
-import { authService } from '../../services/authService';
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
@@ -12,11 +11,18 @@ export default function ForgotPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email) {
-      alert('Please enter your email address.');
+    const users = JSON.parse(localStorage.getItem('mdms_auth_user')) || [];
+    const foundUser = users.find((u) => u.email === email);
+
+    if (!foundUser) {
+      alert('Email not found. Please check and try again.');
       return;
     }
-    sessionStorage.setItem('reset_email', email);
+
+    sessionStorage.setItem(
+      'reset_user',
+      JSON.stringify({ email: foundUser.email, role: foundUser.role })
+    );
     navigate('/reset-password');
   };
 

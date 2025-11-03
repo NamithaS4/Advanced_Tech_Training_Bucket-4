@@ -2,8 +2,8 @@ export const endUserDataService = {
   getUserData() {
     return {
       userId: 1,
-      name: 'Namii',
-      zone: 'Mumbai South',
+      name: 'Namitha',
+      zone: 'Bangalore South',
       consumption: [
         { date: '2025-10-01', kwh: 320 },
         { date: '2025-10-05', kwh: 410 },
@@ -259,9 +259,8 @@ export const endUserDataService = {
           date: '24 October 2025',
           time: '06:15 PM',
           content:
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-            "It has been the industry's standard dummy text ever since the 1500s, " +
-            'surviving not only five centuries but also the leap into electronic typesetting.',
+            'Your meter reading for this month has been updated. ' +
+            'Please check you meter data for updates. ',
         },
         {
           id: 2,
