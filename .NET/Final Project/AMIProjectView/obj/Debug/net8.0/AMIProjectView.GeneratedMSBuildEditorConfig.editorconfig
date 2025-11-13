@@ -1,0 +1,157 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AMIProjectView
+build_property.RootNamespace = AMIProjectView
+build_property.ProjectDir = C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Final Project\AMIProjectView\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\Final Project\AMIProjectView
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Bills/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsbHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumer/Bills.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJcQmlsbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumer/Consumption.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJcQ29uc3VtcHRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumer/Meters.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtZXJcTWV0ZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumption/Daily.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtcHRpb25cRGFpbHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Consumption/Monthly.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtcHRpb25cTW9udGhseS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Meter/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWV0ZXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Meter/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWV0ZXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Meter/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWV0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Meter/Upload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWV0ZXJcVXBsb2FkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/OrgUnit/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnVW5pdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Shared/_DashboardLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9EYXNoYm9hcmRMYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/TariffSlabs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZmU2xhYnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/TariffSlabs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZmU2xhYnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Tariff/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZmXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Tariff/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZmXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/TodRules/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kUnVsZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/TodRules/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kUnVsZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/TodRules/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kUnVsZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Users/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Users/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Advanced_Tech_Training_Bucket-4/.NET/Final Project/AMIProjectView/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ys7c3i4zi5

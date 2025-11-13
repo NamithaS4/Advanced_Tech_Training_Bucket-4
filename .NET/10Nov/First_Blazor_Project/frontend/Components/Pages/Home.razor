@@ -1,0 +1,209 @@
+﻿@page "/"
+@inject HttpClient client
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+@using frontend.Model
+
+<PageTitle>Home</PageTitle>
+
+<h1>Students List</h1>
+
+<button class="btn btn-primary mt-2" @onclick="ShowAddForm">Add Student</button>
+
+<div class="row">
+    <div class="col-md-12 card mt-3 p-3">
+
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Birthday</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (student != null && student.Any())
+                {
+                    @foreach (var entry in student.Select((item, i) => new { Index = i + 1, Item = item }))
+                    {
+                        <tr>
+                            <td>@entry.Index</td>
+                            <td>@entry.Item.Name</td>
+                            <td>@entry.Item.Age</td>
+                            <td>
+                                @(entry.Item.Birthday != null ?
+                                                        (entry.Item.Birthday is DateTime dt ? dt.ToString("yyyy-MM-dd") : entry.Item.Birthday.ToString())
+                                                        : "")
+                    </td>
+                    <td>
+                        <button class="btn btn-success btn-sm" @onclick="() => Edit(entry.Item)">Edit</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => Delete(entry.Item.Id)">Delete</button>
+                    </td>
+                </tr>
+                                }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No Students Found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Popup Form -->
+@if (showForm)
+{
+    <div class="card p-3 mt-4 shadow" style="max-width:600px;">
+        <h4>@(editing ? "Edit Student" : "Add Student")</h4>
+
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="formModel.Name" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Age</label>
+            <input type="number" class="form-control" @bind="formModel.Age" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Birthday</label>
+            <!-- bind to the nullable DateTime? birthdayValue -->
+            <input type="date" class="form-control" @bind="birthdayValue" />
+        </div>
+
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" @onclick="Save" disabled="@isSaving">
+                @(isSaving ? "Saving..." : "Save")
+            </button>
+            <button class="btn btn-secondary" @onclick="CloseForm" disabled="@isSaving">Cancel</button>
+        </div>
+    </div>
+}
+
+@code {
+
+    private List<Student> student = new();
+    private bool showForm = false;
+    private bool editing = false;
+    private Student formModel = new();
+    private bool isSaving = false;
+
+    // nullable date bound to the <input type="date">
+    private DateTime? birthdayValue = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Get();
+    }
+
+    private async Task Get()
+    {
+        student = await client.GetFromJsonAsync<List<Student>>("student/Get");
+    }
+
+    private void ShowAddForm()
+    {
+        formModel = new Student();
+        birthdayValue = null;
+        editing = false;
+        showForm = true;
+    }
+
+    private void Edit(Student s)
+    {
+        formModel = new Student
+        {
+            Id = s.Id,
+            Name = s.Name,
+            Age = s.Age,
+            Birthday = s.Birthday
+        };
+
+        // copy the birthday into birthdayValue safely
+        if (s.Birthday is DateTime dt)
+            birthdayValue = dt;
+        else birthdayValue = null;
+
+        editing = true;
+        showForm = true;
+    }
+
+    private async Task Save()
+    {
+        if (isSaving)
+            return;
+        isSaving = true;
+
+        // copy birthdayValue back to formModel.Birthday safely
+        // handle both nullable and non-nullable Student.Birthday scenarios
+        try
+        {
+            var prop = typeof(Student).GetProperty("Birthday");
+            if (prop != null)
+            {
+                if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))
+                {
+                    // if Student.Birthday is DateTime (non-nullable) and birthdayValue is null, set to DateTime.MinValue
+                    if (prop.PropertyType == typeof(DateTime))
+                        prop.SetValue(formModel, (object)(birthdayValue ?? DateTime.MinValue));
+                    else
+                        prop.SetValue(formModel, birthdayValue);
+                }
+            }
+        }
+        catch
+        {
+            // if reflection fails, attempt direct assignment (works if property is DateTime?)
+            try
+            {
+                formModel.Birthday = birthdayValue;
+            }
+            catch { }
+        }
+
+        try
+        {
+            if (editing)
+            {
+                await client.PutAsJsonAsync($"employee/Update/{formModel.Id}", formModel);
+            }
+            else
+            {
+                await client.PostAsJsonAsync("employee/Create", formModel);
+            }
+
+            showForm = false;
+            await Get();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Save error: {ex.Message}");
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private async Task Delete(int id)
+    {
+        bool confirmDelete = await JS.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmDelete)
+        {
+            await client.DeleteAsync($"employee/Delete/{id}");
+            await Get();
+        }
+    }
+
+    private void CloseForm()
+    {
+        showForm = false;
+    }
+}

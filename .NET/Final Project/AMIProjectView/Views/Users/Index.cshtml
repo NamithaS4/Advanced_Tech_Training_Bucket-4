@@ -1,0 +1,89 @@
+﻿@model List<AMIProjectView.Models.UserVm>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Users";
+}
+<div class="card p-4">
+    <div class="d-flex align-items-center mb-3">
+        <h4 class="mb-0"><i class="bi bi-people"></i> Users</h4>
+
+        <a asp-action="Create" class="btn btn-success ms-auto">
+            <i class="bi bi-person-plus"></i> Add User
+        </a>
+    </div>
+
+    @if (TempData["err"] != null)
+    {
+        <div class="alert alert-danger">@TempData["err"]</div>
+    }
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["msg"]</div>
+    }
+
+    <div class="table-responsive mt-2">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Display Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Last Login</th>
+                    <th>Active</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="8" class="text-muted text-center">No users found.</td></tr>
+                }
+                else
+                {
+                    foreach (var u in Model)
+                    {
+                        <tr>
+                            <td>@u.UserId</td>
+                            <td>@u.Username</td>
+                            <td>@u.DisplayName</td>
+                            <td>@u.Email</td>
+                            <td>@u.Phone</td>
+                            <td>
+                                @if (u.LastLogin.HasValue)
+                                {
+                                    var ist = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                                    var utc = DateTime.SpecifyKind(u.LastLogin.Value, DateTimeKind.Utc);
+                                    var local = TimeZoneInfo.ConvertTimeFromUtc(utc, ist);
+                                    @local.ToString("dd-MM-yyyy, h:mm tt")
+                                }
+                                else
+                                {
+                                    @("-")
+                                }
+                            </td>
+                            <td>
+                                @if (u.IsActive)
+                                {
+                                    <span class="badge bg-success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">No</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@u.UserId" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></a>
+                                <form asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('Delete this user?');">
+                                    <input type="hidden" name="id" value="@u.UserId" />
+                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@model List<AMIProjectView.Models.DailyConsumptionVm>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Daily Consumption";
+    var page = ViewBag.Page as int? ?? 1;
+    var pageSize = ViewBag.PageSize as int? ?? 20;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+}
+
+<div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0"><i class="bi bi-calendar-day"></i> Daily Consumption</h4>
+    </div>
+
+    <form class="row g-2 mb-3" method="get" asp-action="Daily">
+        <div class="col-md-3">
+            <input name="meterId" class="form-control" placeholder="Meter ID" value="@@Request.Query["meterId"]" />
+        </div>
+        <div class="col-md-3">
+            <input name="from" type="date" class="form-control" value="@@(Request.Query["from"])" />
+        </div>
+        <div class="col-md-3">
+            <input name="to" type="date" class="form-control" value="@@(Request.Query["to"])" />
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary">Filter</button>
+            <a asp-action="Daily" class="btn btn-secondary ms-2">Reset</a>
+        </div>
+    </form>
+
+    @if (TempData["err"] != null)
+    {
+        <div class="alert alert-danger">@TempData["err"]</div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Meter</th>
+                    <th>Date</th>
+                    <th>Consumption (kWh)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.MeterId</td>
+                        <td>@r.ConsumptionDate.ToString("yyyy-MM-dd")</td>
+                        <td>@r.ConsumptionkWh</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation" class="mt-2">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(page == 1 ? "disabled" : "")">
+                <a class="page-link" href="@@Url.Action("Daily", new { page = page - 1, pageSize, meterId = Request.Query["meterId"], from = Request.Query["from"], to = Request.Query["to"] })">Previous</a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
+                    <a class="page-link" href="@@Url.Action("Daily", new { page = i, pageSize, meterId = Request.Query["meterId"], from = Request.Query["from"], to = Request.Query["to"] })">@i</a>
+                </li>
+            }
+            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@@Url.Action("Daily", new { page = page + 1, pageSize, meterId = Request.Query["meterId"], from = Request.Query["from"], to = Request.Query["to"] })">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

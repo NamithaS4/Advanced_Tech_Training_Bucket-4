@@ -1,0 +1,74 @@
+﻿@model AMIProjectView.Models.UserVm
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Add User";
+}
+<div class="card p-4" style="max-width:720px; margin:0 auto;">
+    <h4 class="mb-3"><i class="bi bi-person-plus"></i> Add User</h4>
+
+    @if (TempData["err"] != null)
+    {
+        <div class="alert alert-danger">@TempData["err"]</div>
+    }
+
+    <div asp-validation-summary="All" class="alert alert-danger" style="display:@(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+
+    <!-- Turn off autofill and use hidden dummy fields to discourage browsers -->
+    <form asp-action="Create" method="post" class="row g-3" autocomplete="off">
+        @Html.AntiForgeryToken()
+
+        <!-- Hidden dummy inputs to frustrate browser autofill -->
+        <input type="text" style="display:none" name="fake-username" autocomplete="username" />
+        <input type="password" style="display:none" name="fake-password" autocomplete="new-password" />
+
+        <div class="col-md-6">
+            <label class="form-label">Username</label>
+            <input asp-for="Username" class="form-control" required autocomplete="off" value="" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Display Name</label>
+            <input asp-for="DisplayName" class="form-control" autocomplete="off" value="" />
+            <span asp-validation-for="DisplayName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input asp-for="Email" type="email" class="form-control" autocomplete="off" value="" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Phone</label>
+            <input asp-for="Phone" class="form-control" autocomplete="off" value="" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <!-- Use new-password to discourage filling with saved login password -->
+            <input asp-for="Password" type="password" class="form-control" required autocomplete="new-password" value="" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Status</label>
+            <select asp-for="Status" class="form-select" required>
+                <option value="">-- Select Status --</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-success">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

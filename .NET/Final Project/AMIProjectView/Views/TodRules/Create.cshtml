@@ -1,0 +1,55 @@
+﻿@model AMIProjectView.Models.TodRuleVm
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Add TOD Rule";
+}
+
+<div class="card p-4" style="max-width:920px; margin:0 auto;">
+    <h4 class="mb-3">Add TOD Rule</h4>
+
+    <form asp-action="Create" method="post" class="row g-3">
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Start Time</label>
+            <input asp-for="StartTime" type="time" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">End Time</label>
+            <input asp-for="EndTime" type="time" class="form-control" />
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Peak Type</label>
+            <select asp-for="PeakType" class="form-select">
+                <option value="">-- select --</option>
+                <option>Peak</option>
+                <option>Offpeak</option>
+                <option>Shoulder</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Multiplier</label>
+            <input asp-for="Multiplier" step="0.01" class="form-control" />
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-success">Add</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

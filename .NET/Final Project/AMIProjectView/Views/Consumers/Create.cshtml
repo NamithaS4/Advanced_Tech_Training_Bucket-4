@@ -1,0 +1,80 @@
+﻿@model AMIProjectView.Models.ConsumerVm
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Add Consumer";
+}
+
+<div class="card p-4" style="max-width:920px; margin: 0 auto;">
+    <h4 class="mb-3">Add Consumer</h4>
+
+    @if (TempData["err"] is string err && !string.IsNullOrWhiteSpace(err))
+    {
+        <div class="alert alert-danger">@Html.Raw(err)</div>
+    }
+    @if (TempData["msg"] is string msg && !string.IsNullOrWhiteSpace(msg))
+    {
+        <div class="alert alert-success">@msg</div>
+    }
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger mb-2" })
+
+    <form asp-action="Create" method="post" class="row g-3" autocomplete="off">
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Phone</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <label class="form-label">Address</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-md-6">
+            <label class="form-label">Username (optional)</label>
+            <input asp-for="Username" class="form-control" autocomplete="off" />
+            <small class="text-muted">If you supply a username/password, a login will be created for this consumer.</small>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Password (optional)</label>
+            <input asp-for="Password" type="password" class="form-control" autocomplete="new-password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">Add</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

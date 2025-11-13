@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Bills";
+    var consumerId = ViewBag.ConsumerId ?? "";
+}
+<div class="card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0"><i class="bi bi-receipt"></i> Bills</h4>
+        <div class="d-flex gap-2">
+            <input id="filterMeter" class="form-control form-control-sm" placeholder="Meter serial" style="max-width:160px;">
+            <select id="filterStatus" class="form-select form-select-sm" style="max-width:140px;">
+                <option value="">All status</option>
+                <option value="Pending">Pending</option>
+                <option value="Paid">Paid</option>
+            </select>
+            <input id="filterFrom" type="date" class="form-control form-control-sm" />
+            <input id="filterTo" type="date" class="form-control form-control-sm" />
+            <button id="load" class="btn btn-primary btn-sm">Load</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="billsTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Meter</th>
+                    <th>Month</th>
+                    <th>kWh</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Generated At</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <nav aria-label="bills paging" class="mt-2">
+        <ul id="billsPager" class="pagination justify-content-center"></ul>
+    </nav>
+</div>
+
+@section Scripts {
+    <script>
+        (function(){
+            const consumerId = '@consumerId';
+            const pageSize = 10;
+            let bills = [], page = 1;
+
+            const tableBody = document.querySelector('#billsTable tbody');
+            const pager = document.getElementById('billsPager');
+            const filterMeter = document.getElementById('filterMeter');
+            const filterStatus = document.getElementById('filterStatus');
+            const filterFrom = document.getElementById('filterFrom');
+            const filterTo = document.getElementById('filterTo');
+            const loadBtn = document.getElementById('load');
+
+            function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+            function fmtDate(d){ if(!d) return ''; try { return new Date(d).toLocaleDateString(); } catch { return d; } }
+            function fmtMonth(d){ if(!d) return ''; try { const dt = new Date(d); return dt.toLocaleString(undefined, { year:'numeric', month:'short' }); } catch { return d; } }
+
+            async function load() {
+                const q = [];
+                if (consumerId) q.push(`consumerId=${encodeURIComponent(consumerId)}`);
+                if (filterMeter.value.trim()) q.push(`meterId=${encodeURIComponent(filterMeter.value.trim())}`);
+                if (filterStatus.value) q.push(`status=${encodeURIComponent(filterStatus.value)}`);
+                if (filterFrom.value) q.push(`from=${filterFrom.value}`);
+                if (filterTo.value) q.push(`to=${filterTo.value}`);
+                const url = '/api/bills' + (q.length ? '?' + q.join('&') : '');
+                try {
+                    const resp = await fetch(url);
+                    if (!resp.ok) { tableBody.innerHTML = `<tr><td colspan="8" class="text-danger">Server error: ${resp.status}</td></tr>`; pager.innerHTML=''; return; }
+                    bills = await resp.json();
+                    page = 1;
+                    render();
+                } catch (e) {
+                    console.error(e);
+                    tableBody.innerHTML = `<tr><td colspan="8" class="text-danger">Failed to load bills.</td></tr>`;
+                    pager.innerHTML = '';
+                }
+            }
+
+            function render() {
+                tableBody.innerHTML = '';
+                if (!bills || bills.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">No bills found.</td></tr>';
+                    pager.innerHTML = ''; return;
+                }
+                const totalPages = Math.max(1, Math.ceil(bills.length / pageSize));
+                if (page > totalPages) page = totalPages;
+                const slice = bills.slice((page-1)*pageSize, page*pageSize);
+                for (const b of slice) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${escapeHtml(String(b.billId||b.billID||''))}</td>
+                                    <td>${escapeHtml(b.meterId||b.meterID||'')}</td>
+                                    <td>${fmtMonth(b.monthStartDate||b.month)}</td>
+                                    <td>${Number(b.monthlyConsumptionkWh||b.consumptionkWh||0).toFixed(2)}</td>
+                                    <td>${Number(b.amount||0).toFixed(2)}</td>
+                                    <td>${escapeHtml(b.status||'')}</td>
+                                    <td>${fmtDate(b.generatedAt||b.generated)}</td>
+                                    <td class="text-end">
+                                        <a class="btn btn-sm btn-outline-primary" href="/Bills/Details?id=${encodeURIComponent(b.billId||b.billID||'')}">View</a>
+                                        ${( (b.status||'').toLowerCase() === 'pending') ? `<a class="btn btn-sm btn-success ms-1" href="/Bills/Pay?id=${encodeURIComponent(b.billId||b.billID||'')}">Pay</a>` : ''}
+                                    </td>`;
+                    tableBody.appendChild(tr);
+                }
+                // pager
+                pager.innerHTML = '';
+                function mk(i, text, disabled, active){
+                    const li = document.createElement('li');
+                    li.className = 'page-item ' + (active ? 'active' : '') + (disabled ? ' disabled' : '');
+                    const a = document.createElement('a'); a.className='page-link'; a.href='#'; a.textContent = text;
+                    a.onclick = (e)=>{ e.preventDefault(); if (!disabled) { page=i; render(); } };
+                    li.appendChild(a); return li;
+                }
+                pager.appendChild(mk(Math.max(1,page-1), 'Previous', page===1, false));
+                for (let i=1;i<=Math.max(1, Math.ceil(bills.length/pageSize)); i++) pager.appendChild(mk(i, i, false, i===page));
+                pager.appendChild(mk(Math.min(Math.max(1,Math.ceil(bills.length/pageSize)), page+1), 'Next', page===Math.ceil(bills.length/pageSize), false));
+            }
+
+            loadBtn.addEventListener('click', load);
+
+            // initial load
+            load();
+        })();
+    </script>
+}

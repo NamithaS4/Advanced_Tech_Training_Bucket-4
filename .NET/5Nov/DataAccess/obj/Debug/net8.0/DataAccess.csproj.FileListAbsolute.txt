@@ -1,0 +1,12 @@
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\bin\Debug\net8.0\DataAccess.deps.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\bin\Debug\net8.0\DataAccess.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\bin\Debug\net8.0\DataAccess.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfo.cs
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.sourcelink.json
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\DataAccess.pdb
+C:\Users\user\Desktop\Advanced_Tech_Training_Bucket-4\.NET\5Nov\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll

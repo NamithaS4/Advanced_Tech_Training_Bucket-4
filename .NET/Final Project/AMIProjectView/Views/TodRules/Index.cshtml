@@ -1,0 +1,53 @@
+﻿@model List<AMIProjectView.Models.TodRuleVm>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "TOD Rules";
+}
+
+<div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0"><i class="bi bi-clock-history"></i> TOD Rules</h4>
+        <a asp-action="Create" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> Add</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Rule ID</th>
+                    <th>Name</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Peak Type</th>
+                    <th>Multiplier</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Created By</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.TodRuleId</td>
+                        <td>@r.Name</td>
+                        <td>@r.StartTime.ToString(@"hh\:mm")</td>
+                        <td>@r.EndTime.ToString(@"hh\:mm")</td>
+                        <td>@r.PeakType</td>
+                        <td>@r.Multiplier</td>
+                        <td>@r.Status</td>
+                        <td>@r.CreatedAt?.ToString("dd-MM-yyyy HH:mm")</td>
+                        <td>@r.CreatedBy</td>
+                        <td class="text-end">
+                            <a asp-action="Edit" asp-route-id="@r.TodRuleId" class="btn btn-primary btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@r.TodRuleId" method="post" class="d-inline" onsubmit="return confirm('Delete this rule?');">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

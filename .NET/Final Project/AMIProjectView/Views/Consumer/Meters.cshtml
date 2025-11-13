@@ -1,0 +1,126 @@
+﻿@model List<AMIProjectView.Models.MeterViewModel>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "My Meters";
+}
+
+<div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0"><i class="bi bi-hdd-network"></i> My Meters</h4>
+
+        <div class="input-group" style="max-width:420px;">
+            <input id="meterSearch" class="form-control" placeholder="Search serial..." />
+            <button type="button" class="btn btn-outline-secondary" id="clearSearchBtn">Clear</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="metersTable" class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 18rem;">Serial</th>
+                    <th>Manufacturer</th>
+                    <th>Category</th>
+                    <th>IP Address</th>
+                    <th>ICCID</th>
+                    <th>IMSI</th>
+                    <th>Firmware</th>
+                    <th>Install Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="10" class="text-center text-muted">No meters found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var m in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(_ => m.MeterSerialNo)</td>
+                            <td>@Html.DisplayFor(_ => m.Manufacturer)</td>
+                            <td>@Html.DisplayFor(_ => m.Category)</td>
+                            <td>@Html.DisplayFor(_ => m.Ipaddress)</td>
+                            <td>@Html.DisplayFor(_ => m.Iccid)</td>
+                            <td>@Html.DisplayFor(_ => m.Imsi)</td>
+                            <td>@Html.DisplayFor(_ => m.Firmware)</td>
+                            <td>@(m.InstallDate == default ? "" : m.InstallDate.ToString("dd-MM-yyyy"))</td>
+                            <td>
+                                @if (string.Equals(m.Status, "Active", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@m.Status</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-primary" asp-controller="Meter" asp-action="Details" asp-route-serial="@m.MeterSerialNo">Details</a>
+                                <a class="btn btn-sm btn-outline-secondary" asp-controller="Meter" asp-action="Readings" asp-route-serial="@m.MeterSerialNo">Readings</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+ 
+    <nav aria-label="Meters paging" class="mt-2">
+        <ul id="metersPager" class="pagination justify-content-center">
+            @* If controller set ViewBag.TotalPages & ViewBag.Page we can render server pager links *@
+            @{
+                var currentPage = (int?)(ViewBag.Page) ?? 1;
+                var totalPages = (int?)(ViewBag.TotalPages) ?? 1;
+            }
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", "Consumer", new { page = currentPage - 1 })">Previous</a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", "Consumer", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", "Consumer", new { page = currentPage + 1 })">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const input = document.getElementById('meterSearch');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const tbody = document.querySelector('#metersTable tbody');
+
+            function applyFilter() {
+                const q = (input.value || '').trim().toLowerCase();
+                const rows = tbody.querySelectorAll('tr');
+
+                // if "No meters found." row exists, just ignore filtering
+                if (rows.length === 1 && rows[0].querySelector('td[colspan="10"]')) return;
+
+                rows.forEach(r => {
+                    const serialCell = r.cells[0];
+                    if (!serialCell) return;
+                    const serial = (serialCell.textContent || '').trim().toLowerCase();
+                    r.style.display = serial.indexOf(q) >= 0 ? '' : 'none';
+                });
+            }
+
+            input && input.addEventListener('input', applyFilter);
+            clearBtn && clearBtn.addEventListener('click', function () {
+                input.value = '';
+                applyFilter();
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,135 @@
+﻿@model AMIProjectView.Models.DashboardViewModel
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="card p-3 mb-3">
+    <h3 class="mb-3">Welcome 👋</h3>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="text-muted">Total Meters</small>
+                        <h4>@Model.TotalMeters</h4>
+                    </div>
+                    <div class="align-self-center"><i class="bi bi-speedometer2 fs-2 text-muted"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="text-muted">Active Consumers</small>
+                        <h4>@Model.ActiveConsumers</h4>
+                    </div>
+                    <div class="align-self-center"><i class="bi bi-people fs-2 text-muted"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="text-muted">Tariff Plans</small>
+                        <h4>@Model.TariffPlans</h4>
+                    </div>
+                    <div class="align-self-center"><i class="bi bi-card-list fs-2 text-muted"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="text-muted">Total Consumers</small>
+                        <h4>@Model.TotalConsumers</h4>
+                    </div>
+                    <div class="align-self-center"><i class="bi bi-person-lines-fill fs-2 text-muted"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3 g-3">
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5 class="mb-3">Recent Consumers</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.RecentConsumers?.Any() != true)
+                            {
+                                <tr><td colspan="3" class="text-muted">No recent consumers</td></tr>
+                            }
+                            else
+                            {
+                                foreach (var c in Model.RecentConsumers)
+                                {
+                                    <tr>
+                                        <td>@c.Name</td>
+                                        <td>@c.Email</td>
+                                        <td>@c.CreatedAt?.ToString("dd-MM-yyyy")</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5 class="mb-3">Recent Users</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Display Name</th>
+                                <th>Last Login</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.RecentUsers?.Any() != true)
+                            {
+                                <tr><td colspan="3" class="text-muted">No recent users</td></tr>
+                            }
+                            else
+                            {
+                                foreach (var u in Model.RecentUsers)
+                                {
+                                    <tr>
+                                        <td>@u.Username</td>
+                                        <td>@u.DisplayName</td>
+                                        <td>@(u.LastLogin?.ToString("dd-MM-yyyy HH:mm") ?? "")</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["err"] != null)
+{
+    <div class="alert alert-warning">@TempData["err"]</div>
+}

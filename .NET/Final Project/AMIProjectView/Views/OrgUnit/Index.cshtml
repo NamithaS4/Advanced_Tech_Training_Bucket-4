@@ -1,0 +1,411 @@
+﻿@model List<AMIProjectView.Controllers.OrgUnitVm>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Org Unit Hierarchy";
+
+    var safeModel = Model ?? new List<AMIProjectView.Controllers.OrgUnitVm>();
+    var zones = safeModel.Select(m => m.Zone).Where(z => !string.IsNullOrWhiteSpace(z)).Distinct().OrderBy(z => z).ToList();
+    var modelJson = System.Text.Json.JsonSerializer.Serialize(safeModel);
+}
+
+<div class="card p-4">
+    <div class="d-flex align-items-center mb-3">
+        <h3 class="mb-0"><i class="bi bi-buildings"></i> Org Unit Hierarchy</h3>
+        <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="bi bi-plus-lg"></i> Add Org Unit
+        </button>
+    </div>
+
+    @if (TempData["ok"] != null)
+    {
+        <div class="alert alert-success">@TempData["ok"]</div>
+    }
+    @if (TempData["err"] != null)
+    {
+        <div class="alert alert-danger">@TempData["err"]</div>
+    }
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Zone</label>
+            <select id="zone" class="form-select">
+                <option value="">-- Select Zone --</option>
+                @foreach (var z in zones)
+                {
+                    <option>@z</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Substation</label>
+            <select id="sub" class="form-select" disabled>
+                <option value="">-- Select Substation --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Feeder</label>
+            <select id="feeder" class="form-select" disabled>
+                <option value="">-- Select Feeder --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">DTR</label>
+            <select id="dtr" class="form-select" disabled>
+                <option value="">-- Select DTR --</option>
+            </select>
+        </div>
+
+        <div class="col-12">
+            <label class="form-label">Select DTR Directly</label>
+            <select id="dtrDirect" class="form-select">
+                <option value="">-- Select DTR --</option>
+                @foreach (var d in safeModel.Select(m => m.Dtr).Where(d => !string.IsNullOrWhiteSpace(d)).Distinct().OrderBy(d => d))
+                {
+                    <option>@d</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-12">
+            <div class="mt-3">
+                <h6><i class="bi bi-link-45deg"></i> Selected Hierarchy:</h6>
+                <div id="sel" class="text-muted">None selected</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add modal (all selects) -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="addForm" asp-action="Add" method="post" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Org Unit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div id="modalError" class="alert alert-danger d-none"></div>
+
+                <div class="mb-2">
+                    <label class="form-label">Zone</label>
+                    <select name="Zone" id="zoneModal" class="form-select" required>
+                        <option value="">-- Select Zone --</option>
+                        <option>North</option>
+                        <option>South</option>
+                        <option>East</option>
+                        <option>West</option>
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Substation (State)</label>
+                    <select name="Substation" id="subModal" class="form-select" required>
+                        <option value="">-- Select Substation (State) --</option>
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Feeder (City)</label>
+                    <select name="Feeder" id="feederModal" class="form-select" required>
+                        <option value="">-- Select Feeder (City) --</option>
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">DTR</label>
+                    <input name="Dtr" id="dtrTextModal" class="form-control" placeholder="Enter DTR" required />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="saveBtn" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            // safe model loaded from server
+            const data = @Html.Raw(modelJson);
+
+            const get = (o, prop) => o?.[prop] ?? o?.[prop.charAt(0).toLowerCase() + prop.slice(1)];
+
+            // page selects
+            const zone = document.getElementById('zone');
+            const sub = document.getElementById('sub');
+            const feeder = document.getElementById('feeder');
+            const dtr = document.getElementById('dtr');
+            const dtrDirect = document.getElementById('dtrDirect');
+            const sel = document.getElementById('sel');
+
+            // modal elements
+            const zoneModal = document.getElementById('zoneModal');
+            const subModal = document.getElementById('subModal');
+            const feederModal = document.getElementById('feederModal');
+            const dtrTextModal = document.getElementById('dtrTextModal');
+            const modalError = document.getElementById('modalError');
+            const addForm = document.getElementById('addForm');
+
+            // Build page zone options from data (existing server data)
+            (function ensureZones() {
+                const zones = [...new Set((data || []).map(x => get(x, 'Zone')).filter(Boolean))].sort();
+                if (zone.options.length <= 1 && zones.length) {
+                    zones.forEach(z => zone.add(new Option(z, z)));
+                }
+            })();
+
+            function resetSelect(el, placeholder) {
+                el.innerHTML = `<option value="">${placeholder}</option>`;
+                el.disabled = true;
+            }
+
+            function fillSub() {
+                resetSelect(sub, '-- Select Substation --');
+                resetSelect(feeder, '-- Select Feeder --');
+                resetSelect(dtr, '-- Select DTR --');
+
+                const z = zone.value;
+                if (!z) { showSel(); return; }
+
+                const subs = [...new Set(data
+                    .filter(x => (get(x, 'Zone') || '') === z)
+                    .map(x => get(x, 'Substation'))
+                    .filter(Boolean))].sort();
+
+                subs.forEach(s => sub.add(new Option(s, s)));
+                sub.disabled = subs.length === 0;
+                showSel();
+            }
+
+            function fillFeeder() {
+                resetSelect(feeder, '-- Select Feeder --');
+                resetSelect(dtr, '-- Select DTR --');
+
+                const z = zone.value, s = sub.value;
+                if (!z || !s) { showSel(); return; }
+
+                const feeders = [...new Set(data
+                    .filter(x => (get(x, 'Zone') || '') === z && (get(x, 'Substation') || '') === s)
+                    .map(x => get(x, 'Feeder'))
+                    .filter(Boolean))].sort();
+
+                feeders.forEach(f => feeder.add(new Option(f, f)));
+                feeder.disabled = feeders.length === 0;
+                showSel();
+            }
+
+            function fillDtr() {
+                resetSelect(dtr, '-- Select DTR --');
+
+                const z = zone.value, s = sub.value, f = feeder.value;
+                if (!z || !s || !f) { showSel(); return; }
+
+                const dtrs = [...new Set(data
+                    .filter(x => (get(x, 'Zone') || '') === z && (get(x, 'Substation') || '') === s && (get(x, 'Feeder') || '') === f)
+                    .map(x => get(x, 'Dtr'))
+                    .filter(Boolean))].sort();
+
+                dtrs.forEach(d => dtr.add(new Option(d, d)));
+                dtr.disabled = dtrs.length === 0;
+                showSel();
+            }
+
+            function showSel() {
+                const parts = [zone.value, sub.value, feeder.value, dtr.value].filter(Boolean);
+                sel.textContent = parts.length ? parts.join('  ›  ') : 'None selected';
+            }
+
+            // When selecting DTR directly — show ALL hierarchy entries that match the chosen DTR
+            dtrDirect.addEventListener('change', function () {
+                const dd = dtrDirect.value;
+                if (!dd) {
+                    // clear selection
+                    zone.value = '';
+                    resetSelect(sub, '-- Select Substation --');
+                    resetSelect(feeder, '-- Select Feeder --');
+                    resetSelect(dtr, '-- Select DTR --');
+                    showSel();
+                    return;
+                }
+
+                // find all rows whose Dtr equals dd (case-sensitive match like server data)
+                const matches = (data || []).filter(x => (get(x, 'Dtr') || '') === dd);
+
+                if (!matches || matches.length === 0) {
+                    sel.textContent = 'No matching hierarchy found for selected DTR.';
+                    return;
+                }
+
+                // If only one, do the old behavior (auto-select)
+                if (matches.length === 1) {
+                    const row = matches[0];
+                    zone.value = get(row, 'Zone') || '';
+                    fillSub();
+                    sub.value = get(row, 'Substation') || '';
+                    fillFeeder();
+                    feeder.value = get(row, 'Feeder') || '';
+                    fillDtr();
+                    dtr.value = get(row, 'Dtr') || '';
+                    showSel();
+                    return;
+                }
+
+                // If multiple, show them all in the Selected Hierarchy area
+                const lines = matches.map(r => {
+                    const z = get(r, 'Zone') || '';
+                    const s = get(r, 'Substation') || '';
+                    const f = get(r, 'Feeder') || '';
+                    const d = get(r, 'Dtr') || '';
+                    return `${z} › ${s} › ${f} › ${d}`;
+                });
+
+                // display as multiple lines
+                sel.innerHTML = lines.map(l => `<div>${escapeHtml(l)}</div>`).join('');
+            });
+
+            // utilities
+            function escapeHtml(s) {
+                return s ? s.replace(/[&<>"']/g, function (m) {
+                    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+                }) : '';
+            }
+
+            // wire events
+            zone.addEventListener('change', fillSub);
+            sub.addEventListener('change', fillFeeder);
+            feeder.addEventListener('change', fillDtr);
+            dtr.addEventListener('change', showSel);
+
+            // initial
+            resetSelect(sub, '-- Select Substation --');
+            resetSelect(feeder, '-- Select Feeder --');
+            resetSelect(dtr, '-- Select DTR --');
+            showSel();
+
+            // --- Modal behavior: zone -> states -> cities (plain selects) ---
+            const zoneStates = {
+                "North": [
+                    "Jammu & Kashmir","Himachal Pradesh","Punjab","Haryana","Rajasthan","Uttar Pradesh","Uttarakhand","Delhi"
+                ],
+                "South": [
+                    "Tamil Nadu","Kerala","Karnataka","Andhra Pradesh","Telangana"
+                ],
+                "East": [
+                    "West Bengal","Odisha","Bihar","Jharkhand"
+                ],
+                "West": [
+                    "Gujarat","Maharashtra","Goa"
+                ]
+            };
+
+            const stateCities = {
+                "Jammu & Kashmir": ["Srinagar","Jammu","Anantnag"],
+                "Himachal Pradesh": ["Shimla","Dharamshala","Solan"],
+                "Punjab": ["Chandigarh","Ludhiana","Amritsar","Jalandhar"],
+                "Haryana": ["Gurugram","Faridabad","Hisar","Panipat"],
+                "Rajasthan": ["Jaipur","Udaipur","Jodhpur","Ajmer"],
+                "Uttar Pradesh": ["Lucknow","Kanpur","Noida","Varanasi"],
+                "Uttarakhand": ["Dehradun","Haridwar","Nainital"],
+                "Delhi": ["New Delhi","North Delhi","South Delhi"],
+                "Tamil Nadu": ["Chennai","Coimbatore","Madurai","Tiruchirappalli"],
+                "Kerala": ["Thiruvananthapuram","Kochi","Kozhikode"],
+                "Karnataka": ["Bengaluru","Mysuru","Mangalore"],
+                "Andhra Pradesh": ["Visakhapatnam","Vijayawada","Guntur"],
+                "Telangana": ["Hyderabad","Warangal","Nizamabad"],
+                "West Bengal": ["Kolkata","Howrah","Siliguri"],
+                "Odisha": ["Bhubaneswar","Cuttack","Rourkela"],
+                "Bihar": ["Patna","Gaya","Bhagalpur"],
+                "Jharkhand": ["Ranchi","Jamshedpur","Dhanbad"],
+                "Gujarat": ["Ahmedabad","Surat","Vadodara"],
+                "Maharashtra": ["Mumbai","Pune","Nagpur","Nashik"],
+                "Goa": ["Panaji","Margao"]
+            };
+
+            function resetModalSelect(el, placeholder) {
+                el.innerHTML = `<option value="">${placeholder}</option>`;
+            }
+
+            function populateSubstationsForZone(zoneVal) {
+                resetModalSelect(subModal, '-- Select Substation (State) --');
+                resetModalSelect(feederModal, '-- Select Feeder (City) --');
+
+                if (!zoneVal || !zoneStates[zoneVal]) {
+                    subModal.disabled = true;
+                    feederModal.disabled = true;
+                    return;
+                }
+
+                const states = zoneStates[zoneVal].slice().sort();
+                states.forEach(s => subModal.add(new Option(s, s)));
+                subModal.disabled = states.length === 0;
+            }
+
+            function populateFeedersForState(stateVal) {
+                resetModalSelect(feederModal, '-- Select Feeder (City) --');
+                if (!stateVal) { feederModal.disabled = true; return; }
+
+                const cities = (stateCities[stateVal] || []).slice().sort();
+                cities.forEach(c => feederModal.add(new Option(c, c)));
+                feederModal.disabled = cities.length === 0;
+            }
+
+            zoneModal.addEventListener('change', (e) => populateSubstationsForZone(e.target.value));
+            subModal.addEventListener('change', (e) => populateFeedersForState(e.target.value));
+
+            // When modal opens — reset and hide errors
+            const addModalEl = document.getElementById('addModal');
+            addModalEl.addEventListener('show.bs.modal', function () {
+                zoneModal.selectedIndex = 0;
+                resetModalSelect(subModal, '-- Select Substation (State) --'); subModal.disabled = true;
+                resetModalSelect(feederModal, '-- Select Feeder (City) --'); feederModal.disabled = true;
+                dtrTextModal.value = '';
+                modalError.classList.add('d-none');
+                modalError.textContent = '';
+            });
+
+            // Client-side duplicate check on submit (prevents unnecessary API call)
+            addForm.addEventListener('submit', function (ev) {
+                ev.preventDefault();
+
+                modalError.classList.add('d-none');
+                modalError.textContent = '';
+
+                const zoneVal = (zoneModal.value || '').trim();
+                const subVal = (subModal.value || '').trim();
+                const feederVal = (feederModal.value || '').trim();
+                const dtrVal = (dtrTextModal.value || '').trim();
+
+                if (!zoneVal || !subVal || !feederVal || !dtrVal) {
+                    modalError.classList.remove('d-none');
+                    modalError.textContent = 'All fields are required.';
+                    return;
+                }
+
+                // normalize and check duplicates in `data`
+                const duplicate = (data || []).some(r => {
+                    const rz = (get(r, 'Zone') || '').trim().toLowerCase();
+                    const rs = (get(r, 'Substation') || '').trim().toLowerCase();
+                    const rf = (get(r, 'Feeder') || '').trim().toLowerCase();
+                    const rd = (get(r, 'Dtr') || '').trim().toLowerCase();
+                    return rz === zoneVal.toLowerCase() && rs === subVal.toLowerCase() && rf === feederVal.toLowerCase() && rd === dtrVal.toLowerCase();
+                });
+
+                if (duplicate) {
+                    modalError.classList.remove('d-none');
+                    modalError.textContent = `DTR already exists for ${zoneVal} › ${subVal} › ${feederVal} › ${dtrVal}`;
+                    return;
+                }
+
+                // not duplicate: submit the form (post)
+                // Remove event.preventDefault and submit using normal navigation so TempData works
+                addForm.removeEventListener('submit', arguments.callee);
+                addForm.submit();
+            });
+
+        })();
+    </script>
+}

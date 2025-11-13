@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\views\\course\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:views\\course\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -11,16 +19,16 @@
       "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\assignments\\week_project\\collegeappmvc\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D9B6C60-CC11-4730-98E0-85A58FEBE849}|CollegeAppMVC.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,20 +50,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABQAAAAAAAAAAAAiwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-31T07:02:01.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-31T06:05:32.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Course\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Course\\Index.cshtml",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Course\\Index.cshtml",
               "RelativeToolTip": "Views\\Course\\Index.cshtml",
-              "ViewState": "AgIAAPEAAAAAAAAAAAAiwAYBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAiwG0AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-30T06:33:01.747Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "CourseController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Controllers\\CourseController.cs",
               "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
@@ -63,44 +97,43 @@
               "RelativeToolTip": "Controllers\\CourseController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T06:32:32.966Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T06:32:32.966Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Student\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Student\\Index.cshtml",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Student\\Index.cshtml",
               "RelativeToolTip": "Views\\Student\\Index.cshtml",
-              "ViewState": "AgIAAB0BAAAAAAAAAAAIwDYBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAIwIMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-28T09:41:32.132Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Auth\\Login.cshtml",
               "RelativeDocumentMoniker": "Views\\Auth\\Login.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Auth\\Login.cshtml",
-              "RelativeToolTip": "Views\\Auth\\Login.cshtml",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAIwIAAAAANAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Views\\Auth\\Login.cshtml*",
+              "RelativeToolTip": "Views\\Auth\\Login.cshtml*",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAiwMkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-28T09:40:53.229Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Assignments\\Week_Project\\CollegeAppMVC\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAIwCQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T09:42:40.974Z",
               "EditorCaption": ""

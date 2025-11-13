@@ -1,0 +1,189 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\web_server\\controllers\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|solutionrelative:web_server\\controllers\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\web_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|solutionrelative:web_server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\frontend\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\frontend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|solutionrelative:frontend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\frontend\\frontend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|solutionrelative:frontend\\frontend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\web_server\\web_server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|solutionrelative:web_server\\web_server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\web_server\\models\\blazortutorialcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|solutionrelative:web_server\\models\\blazortutorialcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\frontend\\model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7D3F9E1-DE2A-494E-A75D-61BA27ACE583}|frontend\\frontend.csproj|solutionrelative:frontend\\model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\10nov\\first_blazor_project\\web_server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B77689C8-BA22-4A32-B622-8A36396066AE}|web_server\\web_server.csproj|solutionrelative:web_server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frontend",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\frontend.csproj",
+              "RelativeDocumentMoniker": "frontend\\frontend.csproj",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\frontend.csproj",
+              "RelativeToolTip": "frontend\\frontend.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-12T06:55:03.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\Model\\Student.cs",
+              "RelativeDocumentMoniker": "frontend\\Model\\Student.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\Model\\Student.cs",
+              "RelativeToolTip": "frontend\\Model\\Student.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T09:24:03.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "frontend\\Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAGsAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T09:22:37.052Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\Program.cs",
+              "RelativeDocumentMoniker": "frontend\\Program.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\frontend\\Program.cs",
+              "RelativeToolTip": "frontend\\Program.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAQwA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T09:20:52.685Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\Program.cs",
+              "RelativeDocumentMoniker": "web_server\\Program.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\Program.cs",
+              "RelativeToolTip": "web_server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T09:04:06.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BlazorTutorialContext.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\Models\\BlazorTutorialContext.cs",
+              "RelativeDocumentMoniker": "web_server\\Models\\BlazorTutorialContext.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\Models\\BlazorTutorialContext.cs",
+              "RelativeToolTip": "web_server\\Models\\BlazorTutorialContext.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T08:56:29.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "student.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\Controllers\\student.cs",
+              "RelativeDocumentMoniker": "web_server\\Controllers\\student.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\Controllers\\student.cs*",
+              "RelativeToolTip": "web_server\\Controllers\\student.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T08:49:41.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "web_server.csproj",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\web_server.csproj",
+              "RelativeDocumentMoniker": "web_server\\web_server.csproj",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\web_server.csproj",
+              "RelativeToolTip": "web_server\\web_server.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-10T08:51:12.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\appsettings.json",
+              "RelativeDocumentMoniker": "web_server\\appsettings.json",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\10Nov\\First_Blazor_Project\\web_server\\appsettings.json",
+              "RelativeToolTip": "web_server\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-10T09:00:55.218Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

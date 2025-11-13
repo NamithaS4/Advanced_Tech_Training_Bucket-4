@@ -1,0 +1,171 @@
+﻿@model List<AMIProjectView.Models.BillVm>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Bills";
+    int page = ViewBag.Page as int? ?? 1;
+    int pageSize = ViewBag.PageSize as int? ?? 10;
+    int totalPages = ViewBag.TotalPages as int? ?? 1;
+    var total = ViewBag.Total as int? ?? 0;
+
+    // server-provided filters (optional)
+    string statusFilter = ViewBag.StatusFilter as string ?? "";
+    string meterFilter = ViewBag.MeterFilter as string ?? "";
+    // from/to replaced by monthFilter (format yyyy-MM) if controller provides it
+    string monthFilter = ViewBag.MonthFilter as string ?? "";
+}
+
+<div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0"><i class="bi bi-file-invoice-dollar"></i> Bills</h4>
+    </div>
+
+    @if (TempData["err"] != null)
+    {
+        <div class="alert alert-danger">@Html.Raw(TempData["err"])</div>
+    }
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@Html.Raw(TempData["msg"])</div>
+    }
+
+    <!-- Filters (live) -->
+    <form method="get" class="row g-2 mb-3" onsubmit="return false;">
+        <div class="col-md-2">
+            <label class="form-label">Status</label>
+            <select id="filterStatus" name="status" class="form-select">
+                <option value="">All</option>
+                <option value="Pending" @@(statusFilter == "Pending" ? "selected" : "")>Pending</option>
+                <option value="Paid" @@(statusFilter == "Paid" ? "selected" : "")>Paid</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Meter ID</label>
+            <input id="filterMeter" name="meterId" value="@meterFilter" class="form-control" placeholder="Meter id or part" />
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Month</label>
+            <!-- HTML month control: value format yyyy-MM -->
+            <input id="filterMonth" name="month" type="month" value="@monthFilter" class="form-control" />
+        </div>
+
+        <div class="col-md-5 d-flex align-items-end">
+            <!-- keep Reset link to clear server-side filters and reload -->
+            <a asp-action="Index" class="btn btn-secondary">Reset</a>
+            <div class="ms-auto text-muted ps-3" id="billsTotal">Total: @total</div>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table id="billsTable" class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Meter ID</th>
+                    <th>Month</th>
+                    <th>Consumption (kWh)</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Generated at</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="8" class="text-muted">No bills found.</td></tr>
+                }
+                else
+                {
+                    foreach (var b in Model)
+                    {
+                        // data-month attribute uses "yyyy-MM" so filtering works against MonthStartDate only
+                        var monthAttr = b.MonthStartDate.ToString("yyyy-MM");
+                        <tr data-meter="@b.MeterID" data-status="@b.Status" data-month="@monthAttr">
+                            <td>@b.BillId</td>
+                            <td>@b.MeterID</td>
+                            <td>@b.MonthStartDate.ToString("yyyy-MM")</td>
+                            <td>@b.MonthlyConsumptionkWh</td>
+                            <td>@b.Category</td>
+                            <td>@b.Amount.ToString("F2")</td>
+                            <td>@b.Status</td>
+                            <td>@b.GeneratedAt.ToString("dd-MM-yyyy HH:mm")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation" class="mt-2">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(page == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = page-1, pageSize, status = statusFilter, meterId = meterFilter, month = monthFilter })">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize, status = statusFilter, meterId = meterFilter, month = monthFilter })">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = page+1, pageSize, status = statusFilter, meterId = meterFilter, month = monthFilter })">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            // controls
+            const filterMeter = document.getElementById('filterMeter');
+            const filterStatus = document.getElementById('filterStatus');
+            const filterMonth = document.getElementById('filterMonth'); // yyyy-MM
+            const rows = Array.from(document.querySelectorAll('#billsTable tbody tr')).filter(r => r.cells.length > 1);
+            const totalEl = document.getElementById('billsTotal');
+
+            function applyFilters() {
+                const meterVal = (filterMeter.value || '').trim().toLowerCase();
+                const statusVal = (filterStatus.value || '').trim();
+                const monthVal = (filterMonth.value || '').trim(); // yyyy-MM or empty
+
+                let visibleCount = 0;
+                rows.forEach(r => {
+                    const meter = (r.getAttribute('data-meter') || '').toLowerCase();
+                    const status = (r.getAttribute('data-status') || '');
+                    const month = (r.getAttribute('data-month') || ''); // yyyy-MM
+
+                    // meter: substring match
+                    const meterOk = !meterVal || meter.includes(meterVal);
+
+                    // status: exact match (empty = all)
+                    const statusOk = !statusVal || status === statusVal;
+
+                    // month: exact match on yyyy-MM (empty = all)
+                    const monthOk = !monthVal || month === monthVal;
+
+                    const show = meterOk && statusOk && monthOk;
+                    r.style.display = show ? '' : 'none';
+                    if (show) visibleCount++;
+                });
+
+                // update Total display for visible rows on this page
+                if (totalEl) {
+                    totalEl.innerText = 'Total: ' + visibleCount;
+                }
+            }
+
+            // live filtering
+            filterMeter.addEventListener('input', applyFilters);
+            filterStatus.addEventListener('change', applyFilters);
+            filterMonth.addEventListener('change', applyFilters);
+
+            // initial apply to honor server values
+            applyFilters();
+        })();
+    </script>
+}

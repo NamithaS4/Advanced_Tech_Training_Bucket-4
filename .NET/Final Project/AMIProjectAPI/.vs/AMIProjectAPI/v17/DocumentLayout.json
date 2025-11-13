@@ -1,0 +1,100 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectapi\\controllers\\secured\\consumerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|solutionrelative:controllers\\secured\\consumerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectapi\\models\\consumercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|solutionrelative:models\\consumercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectapi\\models\\consumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|solutionrelative:models\\consumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectapi\\models\\consumerupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F2152B1-4558-46C0-AD7B-1F7D780AC596}|AMIProjectAPI.csproj|solutionrelative:models\\consumerupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ConsumerUpdateDto.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Models\\ConsumerUpdateDto.cs",
+              "RelativeDocumentMoniker": "Models\\ConsumerUpdateDto.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Models\\ConsumerUpdateDto.cs",
+              "RelativeToolTip": "Models\\ConsumerUpdateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T09:29:57.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Consumer.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Models\\Consumer.cs",
+              "RelativeDocumentMoniker": "Models\\Consumer.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Models\\Consumer.cs",
+              "RelativeToolTip": "Models\\Consumer.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAADwvxIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T09:29:43.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConsumerCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Models\\ConsumerCreateDto.cs",
+              "RelativeDocumentMoniker": "Models\\ConsumerCreateDto.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Models\\ConsumerCreateDto.cs",
+              "RelativeToolTip": "Models\\ConsumerCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T09:29:28.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConsumersController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Controllers\\Secured\\ConsumersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Secured\\ConsumersController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectAPI\\Controllers\\Secured\\ConsumersController.cs",
+              "RelativeToolTip": "Controllers\\Secured\\ConsumersController.cs",
+              "ViewState": "AgIAACABAAAAAAAAAADwvycBAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T09:29:04.459Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

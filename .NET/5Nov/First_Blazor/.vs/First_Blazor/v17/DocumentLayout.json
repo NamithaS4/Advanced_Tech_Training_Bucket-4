@@ -1,0 +1,152 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\first_blazor\\components\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|solutionrelative:components\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\first_blazor\\components\\pages\\indexbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|solutionrelative:components\\pages\\indexbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\first_blazor\\components\\pages\\first.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|solutionrelative:components\\pages\\first.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\first_blazor\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|solutionrelative:components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\first_blazor\\components\\pages\\counterbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|solutionrelative:components\\pages\\counterbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D8A28D24-182D-427E-9973-3597649B1904}|..\\DataAccess\\DataAccess.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\dataaccess\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\5nov\\first_blazor\\components\\pages\\firstbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{789503ED-4156-4C3C-A003-B0141F139225}|First_Blazor.csproj|solutionrelative:components\\pages\\firstbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IndexBase.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\IndexBase.cs",
+              "RelativeDocumentMoniker": "Components\\Pages\\IndexBase.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\IndexBase.cs",
+              "RelativeToolTip": "Components\\Pages\\IndexBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T09:06:32.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\Index.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Index.razor",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\Index.razor",
+              "RelativeToolTip": "Components\\Pages\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-06T09:06:15.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FirstBase.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\FirstBase.cs",
+              "RelativeDocumentMoniker": "Components\\Pages\\FirstBase.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\FirstBase.cs",
+              "RelativeToolTip": "Components\\Pages\\FirstBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T06:38:21.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\DataAccess\\Employee.cs",
+              "RelativeDocumentMoniker": "..\\DataAccess\\Employee.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\DataAccess\\Employee.cs",
+              "RelativeToolTip": "..\\DataAccess\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T06:32:26.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "First.razor",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\First.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\First.razor",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\First.razor",
+              "RelativeToolTip": "Components\\Pages\\First.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-06T06:28:54.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Counter.razor",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\Counter.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Counter.razor",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\Counter.razor",
+              "RelativeToolTip": "Components\\Pages\\Counter.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-06T06:21:17.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CounterBase.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\CounterBase.cs",
+              "RelativeDocumentMoniker": "Components\\Pages\\CounterBase.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\5Nov\\First_Blazor\\Components\\Pages\\CounterBase.cs",
+              "RelativeToolTip": "Components\\Pages\\CounterBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T06:21:09.53Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

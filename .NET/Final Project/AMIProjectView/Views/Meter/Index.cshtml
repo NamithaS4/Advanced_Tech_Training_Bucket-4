@@ -1,0 +1,215 @@
+﻿@model List<AMIProjectView.Models.MeterViewModel>
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Meter";
+    var total = (ViewBag.Total ?? 0);
+    var page = (ViewBag.Page ?? 1);
+    var pageSize = (ViewBag.PageSize ?? 10);
+    int totalPages = Math.Max(1, (int)Math.Ceiling(((int)total) / (double)pageSize));
+}
+
+<style>
+    #meterPageRoot {
+        --content-max-width: 1200px;
+        padding: 12px;
+    }
+
+        #meterPageRoot .card {
+            width: 100%;
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Make the table more compact and wrap text */
+        #meterPageRoot table {
+            table-layout: auto; /* allow flexible widths */
+            width: 100%;
+            word-wrap: break-word;
+            white-space: normal; /* let content wrap */
+            font-size: 0.92rem;
+        }
+
+        #meterPageRoot th,
+        #meterPageRoot td {
+            vertical-align: middle;
+            padding: 0.4rem 0.6rem;
+            word-break: break-word;
+        }
+
+            /* Prevent large strings (ICCID, IMSI, etc.) from stretching the table */
+            #meterPageRoot td:nth-child(5),
+            #meterPageRoot td:nth-child(6) {
+                max-width: 160px;
+                overflow-wrap: anywhere;
+                text-overflow: ellipsis;
+            }
+
+            /* Keep actions fixed width */
+            #meterPageRoot td.text-end {
+                white-space: nowrap;
+            }
+
+        /* Adjust controls layout on small screens */
+        #meterPageRoot .d-flex.flex-wrap {
+            gap: .5rem;
+        }
+
+    /* Keep things readable on small screens */
+    @@media (max-width: 991.98px) {
+        #meterPageRoot {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+            #meterPageRoot .card {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            #meterPageRoot table {
+                font-size: 0.85rem;
+            }
+    }
+</style>
+
+
+<div id="meterPageRoot">
+    <div class="card p-3">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+            <input id="filterSerial" class="form-control" style="max-width:260px" placeholder="Enter Serial No" />
+            <select id="filterStatus" class="form-select" style="max-width:200px">
+                <option value="">-- All Status --</option>
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Decommissioned</option>
+            </select>
+            <select id="filterCategory" class="form-select" style="max-width:260px">
+                <option value="">-- All Categories --</option>
+                <option>Residential Tariff</option>
+                <option>Commercial Tariff</option>
+                <option>Factory Tariff</option>
+            </select>
+            <input id="filterDate" type="date" class="form-control" style="max-width:200px" />
+            <div class="ms-auto d-flex gap-2">
+                <a asp-action="Create" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> Add</a>
+                <a asp-action="Upload" class="btn btn-outline-secondary btn-sm"><i class="bi bi-upload"></i> Upload</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="metersTable" class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Meter Serial No</th>
+                        <th>Consumer ID</th>
+                        <th>Org Unit ID</th>
+                        <th>IP Address</th>
+                        <th>ICCID</th>
+                        <th>IMSI</th>
+                        <th>Manufacturer</th>
+                        <th>Firmware</th>
+                        <th>Category</th>
+                        <th>Install Date</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr><td colspan="12" class="text-center text-muted">No meters to display</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var m in Model)
+                        {
+                            <tr data-date="@(m.InstallDate == default ? "" : m.InstallDate.ToString("yyyy-MM-dd"))">
+                                <td>@m.MeterSerialNo</td>
+                                <td>@m.ConsumerId</td>
+                                <td>@m.OrgUnitId</td>
+                                <td>@m.Ipaddress</td>
+                                <td>@m.Iccid</td>
+                                <td>@m.Imsi</td>
+                                <td>@m.Manufacturer</td>
+                                <td>@m.Firmware</td>
+                                <td>@m.Category</td>
+                                <td>@(m.InstallDate == default ? "" : m.InstallDate.ToString("yyyy-MM-dd"))</td>
+                                <td>@m.Status</td>
+                                <td class="text-end">
+                                    <a asp-action="Edit" asp-route-serial="@m.MeterSerialNo" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> </a>
+                                    <form asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('Decommission this meter?');">
+                                        <input type="hidden" name="serial" value="@m.MeterSerialNo" />
+                                        <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- pager -->
+        <div class="d-flex justify-content-center mt-2">
+            <nav aria-label="Meter paging">
+                <ul class="pagination pagination-sm">
+                    <li class="page-item @(page <= 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(page - 1)" asp-route-pageSize="@pageSize">Previous</a>
+                    </li>
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == page ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-pageSize="@pageSize">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(page >= totalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(page + 1)" asp-route-pageSize="@pageSize">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            // only client-side filtering for rows already rendered by server paging
+            const rows = Array.from(document.querySelectorAll('#metersTable tbody tr'));
+            const filterSerial = document.getElementById('filterSerial');
+            const filterCategory = document.getElementById('filterCategory');
+            const filterStatus = document.getElementById('filterStatus');
+            const filterDate = document.getElementById('filterDate');
+
+            function applyFilters() {
+                const serial = (filterSerial.value || "").trim().toLowerCase();
+                const cat = filterCategory.value;
+                const status = filterStatus.value;
+                const date = filterDate.value; // yyyy-MM-dd
+
+                rows.forEach(r => {
+                    // placeholder row (no data) should remain visible if it's the only row
+                    if (r.cells.length < 2) return;
+
+                    const sOk = !serial || (r.cells[0].innerText || '').toLowerCase().includes(serial);
+                    const cOk = !cat || (r.cells[8].innerText || '') === cat;
+                    const stOk = !status || (r.cells[10].innerText || '') === status;
+                    const dOk = !date || (r.getAttribute('data-date') === date || (r.cells[9].innerText || '') === date);
+
+                    r.style.display = (sOk && cOk && stOk && dOk) ? '' : 'none';
+                });
+            }
+
+            filterSerial.addEventListener('input', applyFilters);
+            filterCategory.addEventListener('change', applyFilters);
+            filterStatus.addEventListener('change', applyFilters);
+            filterDate.addEventListener('change', applyFilters);
+
+            // initial filter (no-op)
+            applyFilters();
+        })();
+    </script>
+}
