@@ -8,7 +8,6 @@ namespace AMIProjectView.Models
         public int ConsumerId { get; set; }
         public int OrgUnitId { get; set; }
 
-        // <-- THIS property name
         [JsonPropertyName("Ipaddress")]
         public string IpAddress { get; set; } = "";
 

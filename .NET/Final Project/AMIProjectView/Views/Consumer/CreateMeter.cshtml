@@ -1,0 +1,93 @@
+﻿@model AMIProjectView.Models.MeterEditViewModel
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Add Meter";
+}
+<div class="card p-4" style="max-width:1000px; margin:0 auto;">
+    <h4 class="mb-3">Add Meter</h4>
+
+    @if (TempData["err"] is string err && !string.IsNullOrWhiteSpace(err))
+    {
+        <div class="alert alert-danger">@Html.Raw(err)</div>
+    }
+    @if (TempData["msg"] is string msg && !string.IsNullOrWhiteSpace(msg))
+    {
+        <div class="alert alert-success">@msg</div>
+    }
+
+    <div asp-validation-summary="All" class="alert alert-danger" role="alert" style="display:@(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+
+    <form asp-action="CreateMeter" method="post" class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label">Serial</label>
+            <input asp-for="MeterSerialNo" class="form-control" />
+            <span asp-validation-for="MeterSerialNo" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">OrgUnitId</label>
+            <input asp-for="OrgUnitId" class="form-control" />
+            <span asp-validation-for="OrgUnitId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">IP</label>
+            <input asp-for="IpAddress" class="form-control" />
+            <span asp-validation-for="IpAddress" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">ICCID</label>
+            <input asp-for="ICCID" class="form-control" />
+            <span asp-validation-for="ICCID" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">IMSI</label>
+            <input asp-for="IMSI" class="form-control" />
+            <span asp-validation-for="IMSI" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Manufacturer</label>
+            <input asp-for="Manufacturer" class="form-control" />
+            <span asp-validation-for="Manufacturer" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Firmware</label>
+            <input asp-for="Firmware" class="form-control" />
+            <span asp-validation-for="Firmware" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Category</label>
+            <select asp-for="Category" class="form-select">
+                <option value="Residential Tariff">Residential Tariff</option>
+                <option value="Commercial Tariff">Commercial Tariff</option>
+                <option value="Factory Tariff">Factory Tariff</option>
+            </select>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Install Date</label>
+            <input asp-for="InstallDate" type="date" class="form-control" />
+            <span asp-validation-for="InstallDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Decommissioned">Decommissioned</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-success">Save</button>
+            <a asp-action="Meters" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

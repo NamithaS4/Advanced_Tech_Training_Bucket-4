@@ -131,7 +131,7 @@ namespace AMIProjectView.Controllers
                 // fallback: get all (non-paged) and do local filtering
                 var all = await client.GetFromJsonAsync<List<BillVm>>("api/bills", jsonOptions) ?? new List<BillVm>();
 
-                // If consumer -> call meters endpoint and filter by meter serial numbers (as original code)
+                // If consumer -> call meters endpoint and filter by meter serial numbers
                 if (consumerId.HasValue)
                 {
                     var meters = await client.GetFromJsonAsync<List<MeterViewModel>>($"api/meters?consumerId={consumerId.Value}", jsonOptions) ?? new List<MeterViewModel>();
@@ -175,6 +175,76 @@ namespace AMIProjectView.Controllers
                 TempData["err"] = "Unable to load bills: " + ex.Message;
                 return View(new List<BillVm>());
             }
+        }
+
+        // GET: /Bills/Details/{id}
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var client = _httpClientFactory.CreateClient("api");
+            AddBearer(client);
+
+            try
+            {
+                var resp = await client.GetAsync($"api/bills/{id}");
+                if (resp.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    TempData["err"] = "Bill not found.";
+                    return RedirectToAction(nameof(Index));
+                }
+                if (resp.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    TempData["err"] = "Not authorized to view this bill.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                resp.EnsureSuccessStatusCode();
+                var bill = await resp.Content.ReadFromJsonAsync<BillVm>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (bill == null)
+                {
+                    TempData["err"] = "Unable to read bill.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(bill);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed loading bill details");
+                TempData["err"] = "Unable to load bill: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        // POST: /Bills/PayBill
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PayBill(int id)
+        {
+            var client = _httpClientFactory.CreateClient("api");
+            AddBearer(client);
+            try
+            {
+                var resp = await client.PostAsync($"api/bills/pay/{id}", null);
+                if (resp.IsSuccessStatusCode || resp.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    TempData["msg"] = "Payment successful. Bill marked as Paid.";
+                }
+                else
+                {
+                    // try to extract error
+                    var body = await resp.Content.ReadAsStringAsync();
+                    TempData["err"] = $"Payment failed: {(int)resp.StatusCode} {resp.ReasonPhrase}. {body}";
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Payment failed for bill {Id}", id);
+                TempData["err"] = "Payment failed: " + ex.Message;
+            }
+
+            // Redirect back to Index or referring page
+            return RedirectToAction(nameof(Index));
         }
 
         private int? TryGetConsumerIdFromClaims()

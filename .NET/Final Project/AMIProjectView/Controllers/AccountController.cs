@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Newtonsoft.Json.Linq;
 using System.Net;
+using System.Text.Json;
+using System.Net.Http.Headers;
 
 namespace AMIProjectView.Controllers
 {
@@ -33,13 +35,14 @@ namespace AMIProjectView.Controllers
 
             var client = _httpClientFactory.CreateClient("api");
 
-            HttpResponseMessage resp = null;
+            HttpResponseMessage respUser;
+            HttpResponseMessage respConsumer = null;
             string finalLoginType = string.Empty;
 
             // --- 1) Attempt login-user ---
             try
             {
-                resp = await client.PostAsJsonAsync("api/auth/login-user", model);
+                respUser = await client.PostAsJsonAsync("api/auth/login-user", model);
             }
             catch (Exception ex)
             {
@@ -48,94 +51,158 @@ namespace AMIProjectView.Controllers
                 return View(model);
             }
 
-            // If user login succeeded, mark and continue
-            if (resp.IsSuccessStatusCode)
+            // Read user response body safely
+            string userRespBody = string.Empty;
+            try { userRespBody = await respUser.Content.ReadAsStringAsync(); } catch { userRespBody = string.Empty; }
+
+            // If user login succeeded, treat as user and continue
+            if (respUser.IsSuccessStatusCode)
             {
                 finalLoginType = "user";
+                respConsumer = null;
             }
             else
             {
-                // Read body of user response (if any)
-                string userRespBody = string.Empty;
-                try { userRespBody = await resp.Content.ReadAsStringAsync(); } catch { userRespBody = string.Empty; }
+                // Try to extract a meaningful API error (supporting { error: "..."} or { message: "..." } or plain text)
+                var userError = ExtractApiError(userRespBody);
 
-                // Extract the error (if present)
-                string userError = ExtractApiError(userRespBody);
-
-                // If API returned a clear inactive/verification/other informative message, stop and show it
-                // We stop when the message is NOT the generic "Invalid username or password".
+                // If userError is specific (not the generic invalid credentials) show and stop
                 if (!string.IsNullOrWhiteSpace(userError) &&
                     !userError.Equals("Invalid username or password", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Preserve the specific API error (like "User is inactive")
                     ModelState.AddModelError("", userError);
                     _logger.LogWarning("Login-user returned specific error for {User}: {Error}", model.Username, userError);
                     return View(model);
                 }
 
-                // If the user error is generic invalid creds (or empty), only then attempt consumer login
-                if (resp.StatusCode == HttpStatusCode.Unauthorized || resp.StatusCode == HttpStatusCode.BadRequest)
+                // Attempt consumer login
+                try
                 {
-                    try
-                    {
-                        resp = await client.PostAsJsonAsync("api/auth/login-consumer", model);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "API login-consumer connectivity error.");
-                        ModelState.AddModelError("", "Unable to contact authentication server.");
-                        return View(model);
-                    }
+                    respConsumer = await client.PostAsJsonAsync("api/auth/login-consumer", model);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "API login-consumer connectivity error.");
+                    ModelState.AddModelError("", "Unable to contact authentication server.");
+                    return View(model);
+                }
+
+                // Read consumer response body safely
+                string consumerRespBody = string.Empty;
+                try { consumerRespBody = await respConsumer.Content.ReadAsStringAsync(); } catch { consumerRespBody = string.Empty; }
+
+                if (respConsumer.IsSuccessStatusCode)
+                {
+                    finalLoginType = "consumer";
                 }
                 else
                 {
-                    // For any other unexpected status code, show the API message (if any) or the reason phrase
-                    var display = !string.IsNullOrWhiteSpace(userError) ? userError : $"{resp.ReasonPhrase}";
-                    ModelState.AddModelError("", display);
-                    _logger.LogWarning("Login-user failed with unexpected status {Status} and message {Msg}", resp.StatusCode, userRespBody);
+                    // Extract specific error and show it if present
+                    var consumerError = ExtractApiError(consumerRespBody);
+                    if (!string.IsNullOrWhiteSpace(consumerError))
+                    {
+                        ModelState.AddModelError("", consumerError);
+                        _logger.LogWarning("login-consumer returned error for {User}: {Error}", model.Username, consumerError);
+                        return View(model);
+                    }
+
+                    // Fallback: show consumer body or user body or generic message
+                    var fallback = !string.IsNullOrWhiteSpace(consumerRespBody) ? consumerRespBody
+                                  : (!string.IsNullOrWhiteSpace(userRespBody) ? userRespBody : "Invalid username or password");
+                    ModelState.AddModelError("", $"Login failed: {fallback}");
+                    _logger.LogWarning("Both login attempts failed for {User}. UserStatus: {UserStatus}, ConsumerStatus: {ConsStatus}. UserBody: {UserBody}, ConsBody: {ConsBody}",
+                        model.Username, respUser.StatusCode, respConsumer.StatusCode, userRespBody, consumerRespBody);
                     return View(model);
                 }
             }
 
-            // --- After the above, resp now refers to either the successful user response OR the consumer response attempt ---
-            if (finalLoginType == string.Empty && !resp.IsSuccessStatusCode)
+            // Choose the successful response
+            HttpResponseMessage successResp = finalLoginType == "user" ? respUser : respConsumer;
+
+            if (successResp == null || !successResp.IsSuccessStatusCode)
             {
-                // We tried consumer (because user returned generic invalid creds) but consumer also failed.
-                // Read consumer body and surface specific errors if present.
-                string consumerBody = string.Empty;
-                try { consumerBody = await resp.Content.ReadAsStringAsync(); } catch { consumerBody = string.Empty; }
-
-                string consumerError = ExtractApiError(consumerBody);
-
-                // If consumer returned a specific message (like inactive / not verified), show that.
-                if (!string.IsNullOrWhiteSpace(consumerError))
-                {
-                    ModelState.AddModelError("", consumerError);
-                    _logger.LogWarning("login-consumer returned error for {User}: {Error}", model.Username, consumerError);
-                    return View(model);
-                }
-
-                // Fallback: show reason phrase + raw body
-                var fallback = !string.IsNullOrWhiteSpace(consumerBody) ? consumerBody : resp.ReasonPhrase;
-                ModelState.AddModelError("", $"Login failed: {fallback}");
-                _logger.LogWarning("Both login attempts failed for {User}. Status: {Status}. Body: {Body}", model.Username, resp.StatusCode, consumerBody);
+                ModelState.AddModelError("", "Login failed: unexpected error.");
+                _logger.LogError("Login flow reached unexpected state for user {User}. finalLoginType={Type}", model.Username, finalLoginType);
                 return View(model);
             }
 
-            // If got here and finalLoginType is still empty but resp is success -> consumer succeeded
-            if (finalLoginType == string.Empty && resp.IsSuccessStatusCode)
+            // Parse login response into LoginResponse
+            LoginResponse? loginResp = null;
+            try
             {
-                finalLoginType = "consumer";
+                var body = await successResp.Content.ReadAsStringAsync();
+                if (!string.IsNullOrWhiteSpace(body))
+                {
+                    loginResp = JsonSerializer.Deserialize<LoginResponse>(body, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to parse login response for {User}", model.Username);
             }
 
-            // --- Success: read login response and sign in ---
-            var loginResp = await resp.Content.ReadFromJsonAsync<LoginResponse>();
             if (loginResp == null || string.IsNullOrWhiteSpace(loginResp.Token))
             {
                 ModelState.AddModelError("", "Login failed: no token returned.");
+                _logger.LogWarning("Login succeeded but no token returned for {User}. Response: {Resp}", model.Username, successResp);
                 return View(model);
             }
 
+            // --- Defensive check for consumer: ensure the consumer is actually allowed to use consumer-scoped APIs ---
+            if (finalLoginType == "consumer")
+            {
+                // create a temporary client and attach the token, then call a consumer-scoped endpoint.
+                try
+                {
+                    var temp = _httpClientFactory.CreateClient("api");
+                    temp.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginResp.Token);
+
+                    // call a consumer-scoped read endpoint that should return 200 for active consumers
+                    // (we use /api/consumers/me/meters because it's safe and requires the token to be valid + consumer active)
+                    var verifyResp = await temp.GetAsync("api/consumers/me/meters");
+
+                    if (verifyResp.StatusCode == HttpStatusCode.Unauthorized || verifyResp.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        // Try to extract error body for a friendly message
+                        string verifyBody = string.Empty;
+                        try { verifyBody = await verifyResp.Content.ReadAsStringAsync(); } catch { verifyBody = string.Empty; }
+
+                        var msg = ExtractApiError(verifyBody);
+                        if (string.IsNullOrWhiteSpace(msg))
+                        {
+                            // fallback messages
+                            msg = verifyResp.StatusCode == HttpStatusCode.Forbidden ? "Consumer is inactive or not authorized." : "Not authenticated (token rejected).";
+                        }
+
+                        ModelState.AddModelError("", msg);
+                        _logger.LogWarning("Consumer login token rejected during verification for {User}: {Status} {Body}", model.Username, verifyResp.StatusCode, verifyBody);
+                        return View(model);
+                    }
+
+                    // If verifyResp is not success but not 401/403, still treat as error
+                    if (!verifyResp.IsSuccessStatusCode)
+                    {
+                        string text = string.Empty;
+                        try { text = await verifyResp.Content.ReadAsStringAsync(); } catch { text = string.Empty; }
+                        var msg = ExtractApiError(text);
+                        if (string.IsNullOrWhiteSpace(msg)) msg = $"Unable to verify consumer account ({(int)verifyResp.StatusCode}).";
+                        ModelState.AddModelError("", msg);
+                        _logger.LogWarning("Consumer verification call failed for {User}: {Status} {Body}", model.Username, verifyResp.StatusCode, text);
+                        return View(model);
+                    }
+
+                    // success -> continue
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Error verifying consumer after token issuance for {User}", model.Username);
+                    // conservative approach: don't allow login if verification fails due to connectivity
+                    ModelState.AddModelError("", "Unable to verify consumer account. Please try again later.");
+                    return View(model);
+                }
+            }
+
+            // Save token in session and sign-in user
             HttpContext.Session.SetString("ApiToken", loginResp.Token);
 
             var claims = new List<Claim>
@@ -161,25 +228,34 @@ namespace AMIProjectView.Controllers
                 : RedirectToAction("Index", "Home");
         }
 
-        // Helper: extract "error" string from API JSON. If not JSON or no error property, returns empty string.
-        private string ExtractApiError(string json)
+        // Helper: extract "error" or "message" string from API JSON or plain text.
+        private string ExtractApiError(string body)
         {
-            if (string.IsNullOrWhiteSpace(json))
-                return string.Empty;
+            if (string.IsNullOrWhiteSpace(body))
+                return "";
 
+            // Try JSON first
             try
             {
-                var obj = JObject.Parse(json);
-                if (obj["error"] != null)
-                    return obj["error"]!.ToString();
+                var jobj = JObject.Parse(body);
+                if (jobj["error"] != null)
+                    return jobj["error"]!.ToString();
+                if (jobj["message"] != null)
+                    return jobj["message"]!.ToString();
             }
             catch
             {
-                // not JSON - ignore
+                // Not JSON -> treat body itself as the error
             }
 
-            return string.Empty;
+            // NEW: if API returned plain text like "Consumer is inactive"
+            var trimmed = body.Trim();
+            if (!string.IsNullOrWhiteSpace(trimmed))
+                return trimmed;
+
+            return "";
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,129 +1,210 @@
-﻿@{
+﻿@model List<AMIProjectView.Models.BillVm>
+@{
     Layout = "_DashboardLayout";
     ViewData["Title"] = "Bills";
-    var consumerId = ViewBag.ConsumerId ?? "";
+
+    int page = ViewBag.Page as int? ?? 1;
+    int pageSize = ViewBag.PageSize as int? ?? 10;
+    int totalPages = ViewBag.TotalPages as int? ?? 1;
+    var total = ViewBag.Total as int? ?? 0;
+
+    // server-provided filters (optional) - used only to initialise controls
+    string statusFilter = ViewBag.StatusFilter as string ?? "";
+    string meterFilter = ViewBag.MeterFilter as string ?? "";
+    string fromFilter = ViewBag.FromFilter as string ?? "";
+    string toFilter = ViewBag.ToFilter as string ?? "";
 }
-<div class="card p-4">
+
+<div class="card p-3">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0"><i class="bi bi-receipt"></i> Bills</h4>
-        <div class="d-flex gap-2">
-            <input id="filterMeter" class="form-control form-control-sm" placeholder="Meter serial" style="max-width:160px;">
-            <select id="filterStatus" class="form-select form-select-sm" style="max-width:140px;">
-                <option value="">All status</option>
-                <option value="Pending">Pending</option>
-                <option value="Paid">Paid</option>
+        <h4 class="mb-0"><i class="bi bi-file-invoice-dollar"></i> Bills</h4>
+    </div>
+
+    @if (TempData["err"] != null)
+    {
+        <div class="alert alert-danger">@Html.Raw(TempData["err"])</div>
+    }
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@Html.Raw(TempData["msg"])</div>
+    }
+
+    <!-- Filters (live: no Load / Reset) -->
+    <div class="row g-2 mb-3">
+        <div class="col-md-2">
+            <label class="form-label">Status</label>
+            <select id="filterStatus" class="form-select">
+                <option value="">All</option>
+                <option value="Pending" @@(statusFilter= ="Pending" ? "selected" : "" )>Pending</option>
+                <option value="Paid" @@(statusFilter= ="Paid" ? "selected" : "" )>Paid</option>
             </select>
-            <input id="filterFrom" type="date" class="form-control form-control-sm" />
-            <input id="filterTo" type="date" class="form-control form-control-sm" />
-            <button id="load" class="btn btn-primary btn-sm">Load</button>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Meter ID</label>
+            <input id="filterMeter" class="form-control" value="@meterFilter" placeholder="Meter id or part" />
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">From</label>
+            <input id="filterFrom" type="date" class="form-control" value="@fromFilter" />
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">To</label>
+            <input id="filterTo" type="date" class="form-control" value="@toFilter" />
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+            <a class="btn btn-secondary me-2" href="@Url.Action("Bills", "Consumer")">Reset</a>
+            <div class="ms-auto text-muted ps-3" id="billsTotal">Total: @total</div>
         </div>
     </div>
 
     <div class="table-responsive">
-        <table id="billsTable" class="table table-hover">
+        <table id="billsTable" class="table table-hover align-middle">
             <thead>
                 <tr>
                     <th>Bill ID</th>
-                    <th>Meter</th>
+                    <th>Meter ID</th>
                     <th>Month</th>
-                    <th>kWh</th>
+                    <th>Consumption (kWh)</th>
+                    <th>Category</th>
                     <th>Amount</th>
                     <th>Status</th>
-                    <th>Generated At</th>
+                    <th>Generated at</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr><td colspan="9" class="text-muted">No bills found.</td></tr>
+                }
+                else
+                {
+                    foreach (var b in Model)
+                    {
+                        // data-month uses yyyy-MM for quick month-based checks, data-generated uses yyyy-MM-dd for date comparisons
+                        var monthAttr = b.MonthStartDate.ToString("yyyy-MM");
+                        var generatedIso = b.GeneratedAt.ToString("yyyy-MM-dd");
+                        <tr data-meter="@b.MeterID" data-status="@b.Status" data-month="@monthAttr" data-generated="@generatedIso">
+                            <td>@b.BillId</td>
+                            <td>@b.MeterID</td>
+                            <td>@b.MonthStartDate.ToString("yyyy-MM")</td>
+                            <td>@b.MonthlyConsumptionkWh</td>
+                            <td>@b.Category</td>
+                            <td>@b.Amount.ToString("F2")</td>
+                            <td>@b.Status</td>
+                            <td>@b.GeneratedAt.ToString("dd-MM-yyyy HH:mm")</td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-outline-primary" asp-controller="Bills" asp-action="Details" asp-route-id="@b.BillId">View</a>
+
+                                @* Show Pay now only to Consumer principals *@
+                                @if (string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase)
+                                                        && User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer"))
+                                {
+                                    <form asp-controller="Bills" asp-action="PayBill" method="post" class="d-inline ms-1" onsubmit="return confirm('Pay bill @b.BillId for amount @b.Amount.ToString("F2") ?');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@b.BillId" />
+                                        <button class="btn btn-sm btn-success">Pay now</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
         </table>
     </div>
 
-    <nav aria-label="bills paging" class="mt-2">
-        <ul id="billsPager" class="pagination justify-content-center"></ul>
+    <nav aria-label="Page navigation" class="mt-2">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(page == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Bills", "Consumer", new { page = page - 1, pageSize, status = statusFilter, meterId = meterFilter, from = fromFilter, to = toFilter })">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Bills", "Consumer", new { page = i, pageSize, status = statusFilter, meterId = meterFilter, from = fromFilter, to = toFilter })">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Bills", "Consumer", new { page = page + 1, pageSize, status = statusFilter, meterId = meterFilter, from = fromFilter, to = toFilter })">Next</a>
+            </li>
+        </ul>
     </nav>
 </div>
 
 @section Scripts {
     <script>
-        (function(){
-            const consumerId = '@consumerId';
-            const pageSize = 10;
-            let bills = [], page = 1;
-
-            const tableBody = document.querySelector('#billsTable tbody');
-            const pager = document.getElementById('billsPager');
+        (function () {
+            // Grab controls
+            const rows = Array.from(document.querySelectorAll('#billsTable tbody tr')).filter(r => r.cells.length > 1);
             const filterMeter = document.getElementById('filterMeter');
             const filterStatus = document.getElementById('filterStatus');
             const filterFrom = document.getElementById('filterFrom');
             const filterTo = document.getElementById('filterTo');
-            const loadBtn = document.getElementById('load');
+            const totalEl = document.getElementById('billsTotal');
 
-            function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-            function fmtDate(d){ if(!d) return ''; try { return new Date(d).toLocaleDateString(); } catch { return d; } }
-            function fmtMonth(d){ if(!d) return ''; try { const dt = new Date(d); return dt.toLocaleString(undefined, { year:'numeric', month:'short' }); } catch { return d; } }
-
-            async function load() {
-                const q = [];
-                if (consumerId) q.push(`consumerId=${encodeURIComponent(consumerId)}`);
-                if (filterMeter.value.trim()) q.push(`meterId=${encodeURIComponent(filterMeter.value.trim())}`);
-                if (filterStatus.value) q.push(`status=${encodeURIComponent(filterStatus.value)}`);
-                if (filterFrom.value) q.push(`from=${filterFrom.value}`);
-                if (filterTo.value) q.push(`to=${filterTo.value}`);
-                const url = '/api/bills' + (q.length ? '?' + q.join('&') : '');
-                try {
-                    const resp = await fetch(url);
-                    if (!resp.ok) { tableBody.innerHTML = `<tr><td colspan="8" class="text-danger">Server error: ${resp.status}</td></tr>`; pager.innerHTML=''; return; }
-                    bills = await resp.json();
-                    page = 1;
-                    render();
-                } catch (e) {
-                    console.error(e);
-                    tableBody.innerHTML = `<tr><td colspan="8" class="text-danger">Failed to load bills.</td></tr>`;
-                    pager.innerHTML = '';
-                }
+            // Helper to parse yyyy-MM-dd to Date (local)
+            function parseIsoDate(s) {
+                if (!s) return null;
+                // s is expected format yyyy-MM-dd (no time)
+                const parts = s.split('-');
+                if (parts.length !== 3) return null;
+                const y = parseInt(parts[0], 10);
+                const m = parseInt(parts[1], 10) - 1;
+                const d = parseInt(parts[2], 10);
+                return new Date(y, m, d);
             }
 
-            function render() {
-                tableBody.innerHTML = '';
-                if (!bills || bills.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">No bills found.</td></tr>';
-                    pager.innerHTML = ''; return;
-                }
-                const totalPages = Math.max(1, Math.ceil(bills.length / pageSize));
-                if (page > totalPages) page = totalPages;
-                const slice = bills.slice((page-1)*pageSize, page*pageSize);
-                for (const b of slice) {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${escapeHtml(String(b.billId||b.billID||''))}</td>
-                                    <td>${escapeHtml(b.meterId||b.meterID||'')}</td>
-                                    <td>${fmtMonth(b.monthStartDate||b.month)}</td>
-                                    <td>${Number(b.monthlyConsumptionkWh||b.consumptionkWh||0).toFixed(2)}</td>
-                                    <td>${Number(b.amount||0).toFixed(2)}</td>
-                                    <td>${escapeHtml(b.status||'')}</td>
-                                    <td>${fmtDate(b.generatedAt||b.generated)}</td>
-                                    <td class="text-end">
-                                        <a class="btn btn-sm btn-outline-primary" href="/Bills/Details?id=${encodeURIComponent(b.billId||b.billID||'')}">View</a>
-                                        ${( (b.status||'').toLowerCase() === 'pending') ? `<a class="btn btn-sm btn-success ms-1" href="/Bills/Pay?id=${encodeURIComponent(b.billId||b.billID||'')}">Pay</a>` : ''}
-                                    </td>`;
-                    tableBody.appendChild(tr);
-                }
-                // pager
-                pager.innerHTML = '';
-                function mk(i, text, disabled, active){
-                    const li = document.createElement('li');
-                    li.className = 'page-item ' + (active ? 'active' : '') + (disabled ? ' disabled' : '');
-                    const a = document.createElement('a'); a.className='page-link'; a.href='#'; a.textContent = text;
-                    a.onclick = (e)=>{ e.preventDefault(); if (!disabled) { page=i; render(); } };
-                    li.appendChild(a); return li;
-                }
-                pager.appendChild(mk(Math.max(1,page-1), 'Previous', page===1, false));
-                for (let i=1;i<=Math.max(1, Math.ceil(bills.length/pageSize)); i++) pager.appendChild(mk(i, i, false, i===page));
-                pager.appendChild(mk(Math.min(Math.max(1,Math.ceil(bills.length/pageSize)), page+1), 'Next', page===Math.ceil(bills.length/pageSize), false));
+            function applyFilters() {
+                const meterQ = (filterMeter.value || '').trim().toLowerCase();
+                const statusQ = (filterStatus.value || '').trim();
+                const fromQ = filterFrom.value;
+                const toQ = filterTo.value;
+
+                const fromDate = fromQ ? parseIsoDate(fromQ) : null;
+                const toDate = toQ ? parseIsoDate(toQ) : null;
+
+                let visible = 0;
+                rows.forEach(r => {
+                    const meter = (r.getAttribute('data-meter') || '').toLowerCase();
+                    const status = (r.getAttribute('data-status') || '');
+                    const generated = r.getAttribute('data-generated') || ''; // yyyy-MM-dd
+
+                    const generatedDate = generated ? parseIsoDate(generated) : null;
+
+                    const meterOk = !meterQ || (meter.indexOf(meterQ) >= 0);
+                    const statusOk = !statusQ || status === statusQ;
+
+                    let dateOk = true;
+                    if (fromDate && generatedDate) {
+                        dateOk = generatedDate >= fromDate;
+                    }
+                    if (toDate && generatedDate) {
+                        dateOk = dateOk && (generatedDate <= toDate);
+                    }
+
+                    const show = meterOk && statusOk && dateOk;
+                    r.style.display = show ? '' : 'none';
+                    if (show) visible++;
+                });
+
+                if (totalEl) totalEl.innerText = 'Total: ' + visible;
             }
 
-            loadBtn.addEventListener('click', load);
+            // Attach events for live filtering
+            filterMeter && filterMeter.addEventListener('input', applyFilters);
+            filterStatus && filterStatus.addEventListener('change', applyFilters);
+            filterFrom && filterFrom.addEventListener('change', applyFilters);
+            filterTo && filterTo.addEventListener('change', applyFilters);
 
-            // initial load
-            load();
+            // initial apply (in case server provided initial filters)
+            applyFilters();
         })();
     </script>
 }

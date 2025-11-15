@@ -1,0 +1,46 @@
+﻿@model AMIProjectView.Models.BillVm
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Bill Details";
+    var isConsumer = User.Claims.Any(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+}
+
+<div class="card p-4" style="max-width:900px;margin:0 auto;">
+    <h4 class="mb-3">Bill #@Model.BillId</h4>
+
+    <dl class="row">
+        <dt class="col-sm-3">Meter ID</dt>
+        <dd class="col-sm-9">@Model.MeterID</dd>
+
+        <dt class="col-sm-3">Month</dt>
+        <dd class="col-sm-9">@Model.MonthStartDate.ToString("yyyy-MM")</dd>
+
+        <dt class="col-sm-3">Consumption (kWh)</dt>
+        <dd class="col-sm-9">@Model.MonthlyConsumptionkWh</dd>
+
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">@Model.Category</dd>
+
+        <dt class="col-sm-3">Amount</dt>
+        <dd class="col-sm-9">@Model.Amount.ToString("F2")</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Generated at</dt>
+        <dd class="col-sm-9">@Model.GeneratedAt.ToString("dd-MM-yyyy HH:mm")</dd>
+    </dl>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+        @if (isConsumer && string.Equals(Model.Status, "Pending", StringComparison.OrdinalIgnoreCase))
+        {
+            <form asp-action="PayBill" method="post" class="d-inline ms-2" onsubmit="return confirm('Pay bill @Model.BillId for amount @Model.Amount.ToString("F2") ?');">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.BillId" />
+                <button class="btn btn-success">Pay now</button>
+            </form>
+        }
+    </div>
+</div>

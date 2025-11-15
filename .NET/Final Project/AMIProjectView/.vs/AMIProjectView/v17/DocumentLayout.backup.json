@@ -3,72 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\consumercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\consumercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\consumerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\consumerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\consumervm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\consumervm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\consumerpagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\consumerpagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumers\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumers\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumers\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumers\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\consumeradminviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\consumeradminviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\users\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\users\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\services\\tokendelegatinghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:services\\tokendelegatinghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumers\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumers\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -94,223 +46,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Consumers\\Index.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Index.cshtml",
-              "RelativeToolTip": "Views\\Consumers\\Index.cshtml",
-              "ViewState": "AgIAACIAAAAAAAAAAAAnwDEAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T09:28:29.386Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Consumers\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Edit.cshtml",
-              "RelativeToolTip": "Views\\Consumers\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T09:28:08.781Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Consumers\\Create.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Create.cshtml*",
-              "RelativeToolTip": "Views\\Consumers\\Create.cshtml*",
-              "ViewState": "AgIAACEAAAAAAAAAAAAnwC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T09:27:55.139Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ConsumerVm.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\ConsumerVm.cs",
-              "RelativeDocumentMoniker": "Models\\ConsumerVm.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\ConsumerVm.cs*",
-              "RelativeToolTip": "Models\\ConsumerVm.cs*",
-              "ViewState": "AgIAAAQAAAAAAAAAAAA0wAsAAAAuAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ConsumersController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ConsumersController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumersController.cs",
+              "RelativeToolTip": "Controllers\\ConsumersController.cs",
+              "ViewState": "AgIAAG0BAAAAAAAAAAAowHkBAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T09:27:30.583Z",
+              "WhenOpened": "2025-11-15T18:18:43.211Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ConsumerPageVm.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\ConsumerPageVm.cs",
-              "RelativeDocumentMoniker": "Models\\ConsumerPageVm.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\ConsumerPageVm.cs*",
-              "RelativeToolTip": "Models\\ConsumerPageVm.cs*",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAowBQAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T09:27:10.719Z",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Consumers\\Create.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Create.cshtml",
+              "RelativeToolTip": "Views\\Consumers\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-15T18:18:05.638Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ConsumersController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ConsumersController.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumersController.cs*",
-              "RelativeToolTip": "Controllers\\ConsumersController.cs*",
-              "ViewState": "AgIAABoBAAAAAAAAAAAnwB4BAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T09:26:48.623Z",
+              "DocumentIndex": 4,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Consumers\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Consumers\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-15T18:17:20.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Consumers\\Index.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Index.cshtml",
+              "RelativeToolTip": "Views\\Consumers\\Index.cshtml",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-15T18:17:19.104Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ConsumerController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumerController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ConsumerController.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumerController.cs",
-              "RelativeToolTip": "Controllers\\ConsumerController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAgwDMAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T09:25:46.455Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ConsumerAdminViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumerAdminViewModel.cs",
-              "RelativeDocumentMoniker": "Controllers\\ConsumerAdminViewModel.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumerAdminViewModel.cs",
-              "RelativeToolTip": "Controllers\\ConsumerAdminViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T09:25:06.215Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Users\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Users\\Create.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Users\\Create.cshtml",
-              "RelativeToolTip": "Views\\Users\\Create.cshtml",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwEoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T08:59:27.279Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Users\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Users\\Index.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Users\\Index.cshtml",
-              "RelativeToolTip": "Views\\Users\\Index.cshtml",
-              "ViewState": "AgIAADwAAAAAAAAAAAAYwFkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T08:56:45.298Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAIA6wCEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:15:19.164Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAkwEwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:28:09.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Account\\Login.cshtml",
-              "RelativeToolTip": "Views\\Account\\Login.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAnwBEAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T07:27:43.75Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "LoginResponse.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\LoginResponse.cs",
-              "RelativeDocumentMoniker": "Models\\LoginResponse.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\LoginResponse.cs",
-              "RelativeToolTip": "Models\\LoginResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:27:28.551Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "LoginRequest.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\LoginRequest.cs",
-              "RelativeDocumentMoniker": "Models\\LoginRequest.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\LoginRequest.cs",
-              "RelativeToolTip": "Models\\LoginRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:27:16.658Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\AccountController.cs",
               "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AgIAAH8AAAAAAAAAAAAnwI4AAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAJwAAAAAAAAAAAD4v6oAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:26:48.162Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "TokenDelegatingHandler.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Services\\TokenDelegatingHandler.cs",
-              "RelativeDocumentMoniker": "Services\\TokenDelegatingHandler.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Services\\TokenDelegatingHandler.cs",
-              "RelativeToolTip": "Services\\TokenDelegatingHandler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T08:47:16.515Z",
+              "WhenOpened": "2025-11-15T18:02:43.019Z",
               "EditorCaption": ""
             }
           ]

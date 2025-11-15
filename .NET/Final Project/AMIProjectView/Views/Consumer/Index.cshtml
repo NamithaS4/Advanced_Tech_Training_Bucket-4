@@ -2,148 +2,166 @@
 @{
     Layout = "_DashboardLayout";
     ViewData["Title"] = "My Home";
-    var pageSize = 10;
+    var meters = Model ?? new List<AMIProjectView.Models.MeterViewModel>();
+    var pendingCount = ViewBag.PendingBillsCount as int? ?? 0;
+    var pendingBills = ViewBag.PendingBills as List<AMIProjectView.Models.BillVm> ?? new List<AMIProjectView.Models.BillVm>();
+    var thisMonthKwh = ViewBag.ThisMonthKwh as decimal? ?? 0m;
+    var recentConsumption = ViewBag.RecentConsumption as List<AMIProjectView.Models.MonthlyConsumptionVm> ?? new List<AMIProjectView.Models.MonthlyConsumptionVm>();
 }
-<div class="row g-3">
-    <div class="col-12">
-        <div class="card p-4">
-            <h3 class="mb-1">Welcome 👋</h3>
-            <p class="text-muted mb-0">Your meters and quick links are below.</p>
-        </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card p-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-muted">My Meters</div>
-                    <div class="fs-3 fw-bold">@((Model?.Count ?? 0))</div>
-                </div>
-                <i class="bi bi-speedometer fs-1 text-secondary"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card p-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-muted">Pending Bills</div>
-                    <div id="pendingBills" class="fs-3 fw-bold">—</div>
-                </div>
-                <i class="bi bi-receipt fs-1 text-secondary"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card p-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="text-muted">This Month kWh</div>
-                    <div id="thisMonthKwh" class="fs-3 fw-bold">—</div>
-                </div>
-                <i class="bi bi-lightning-charge fs-1 text-secondary"></i>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-3 mb-4">
+                <h2 class="mb-0">Welcome 👋</h2>
+                <p class="text-muted mb-0">Your meters and quick links are below.</p>
             </div>
         </div>
     </div>
 
-    <div class="col-12">
-        <div class="card p-3">
-            <div class="d-flex align-items-center mb-2">
-                <h5 class="mb-0">My Meters</h5>
-                <div class="ms-auto">
-                    <input id="q" class="form-control" placeholder="Search serial..." style="max-width:260px;">
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">My Meters</small>
+                        <div class="h3 mb-0">@meters.Count</div>
+                    </div>
+                    <div class="text-muted" style="font-size:32px;">
+                        <i class="bi bi-hdd"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a class="btn btn-sm btn-outline-primary" href="@Url.Action("Meters", "Consumer")">View my meters</a>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table id="tbl" class="table table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th>Serial</th>
-                            <th>Manufacturer</th>
-                            <th>Category</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+        </div>
 
-            <nav aria-label="Meter paging" class="mt-2">
-                <ul id="tblPager" class="pagination justify-content-center"></ul>
-            </nav>
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Pending Bills</small>
+                        <div class="h3 mb-0">@pendingCount</div>
+                    </div>
+                    <div class="text-muted" style="font-size:32px;">
+                        <i class="bi bi-receipt"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a class="btn btn-sm btn-outline-primary" href="@Url.Action("Index", "Bills", new { status = "Pending" })">View bills</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">This Month kWh</small>
+                        <div class="h3 mb-0">@thisMonthKwh.ToString("0.##")</div>
+                    </div>
+                    <div class="text-muted" style="font-size:32px;">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a class="btn btn-sm btn-outline-primary" href="@Url.Action("Consumption", "Consumer")">View consumption</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent items -->
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Recent Pending Bills</h5>
+                    <a href="@Url.Action("Index", "Bills", new { status = "Pending" })">See all</a>
+                </div>
+
+                @if (pendingBills.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Meter</th>
+                                    <th>Month</th>
+                                    <th class="text-end">Amount</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var b in pendingBills)
+                                {
+                                    <tr>
+                                        <td>@b.MeterID</td>
+                                        <td>@b.MonthStartDate.ToString("yyyy-MM")</td>
+                                        <td class="text-end">@b.Amount.ToString("0.00")</td>
+                                        <td class="text-end">
+                                            <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Details", "Bills", new { id = b.BillId })">View</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-muted">No pending bills.</div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Recent Monthly Consumption</h5>
+                    <a href="@Url.Action("Consumption", "Consumer")">See all</a>
+                </div>
+
+                @if (recentConsumption.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Meter</th>
+                                    <th>Month</th>
+                                    <th class="text-end">kWh</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in recentConsumption)
+                                {
+                                    <tr>
+                                        <td>@r.MeterId</td>
+                                        <td>@r.MonthStartDate.ToString("yyyy-MM")</td>
+                                        <td class="text-end">@r.ConsumptionkWh.ToString("0.##")</td>
+                                        <td class="text-end">
+                                            <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Consumption", "Consumer")">View</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-muted">No consumption data for this month.</div>
+                }
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        (function(){
-            const data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model ?? new List<AMIProjectView.Models.MeterViewModel>()));
-            const pageSize = @pageSize;
-            let page = 1;
-            const tbody = document.querySelector('#tbl tbody');
-            const pager = document.getElementById('tblPager');
-            const q = document.getElementById('q');
-
-            function render() {
-                tbody.innerHTML = '';
-                const filtered = (data || []).filter(m => (m.meterSerialNo || '').toLowerCase().includes((q.value||'').trim().toLowerCase()));
-                if (!filtered.length) {
-                    tbody.innerHTML = '<tr><td colspan="3" class="text-center text-muted">No meters found.</td></tr>';
-                    pager.innerHTML = '';
-                    return;
-                }
-                const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-                if (page > totalPages) page = totalPages;
-                const start = (page - 1) * pageSize;
-                for (const m of filtered.slice(start, start + pageSize)) {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${escapeHtml(m.meterSerialNo||'')}</td><td>${escapeHtml(m.manufacturer||'')}</td><td>${escapeHtml(m.category||'')}</td>`;
-                    tbody.appendChild(tr);
-                }
-
-                // pager
-                pager.innerHTML = '';
-                function make(i, text, disabled, active) {
-                    const li = document.createElement('li');
-                    li.className = 'page-item ' + (active ? 'active' : '') + (disabled ? ' disabled' : '');
-                    const a = document.createElement('a');
-                    a.className = 'page-link';
-                    a.href = '#';
-                    a.textContent = text;
-                    a.onclick = (e)=>{ e.preventDefault(); if (!disabled) { page = i; render(); } };
-                    li.appendChild(a);
-                    return li;
-                }
-                pager.appendChild(make(Math.max(1,page-1), 'Previous', page===1));
-                for (let i=1;i<=totalPages;i++) pager.appendChild(make(i,i,false,i===page));
-                pager.appendChild(make(Math.min(totalPages,page+1), 'Next', page===totalPages));
-            }
-
-            q.addEventListener('input', ()=>{ page = 1; render(); });
-
-            // fetch quick stats (pending bills, this month kWh) - optional: replace endpoints
-            (async function fetchStats(){
-                try {
-                    const consumerId = '@(ViewBag.ConsumerId ?? "")';
-                    const qs = consumerId ? `?consumerId=${encodeURIComponent(consumerId)}` : '';
-                    // pending bills
-                    const bills = await fetch('/api/bills' + qs).then(r => r.ok ? r.json() : []);
-                    const pending = (bills || []).filter(b => (b.status||'').toLowerCase() === 'pending').length;
-                    document.getElementById('pendingBills').textContent = pending;
-                    // this month Kwh: attempt to get monthly for current month
-                    const now = new Date();
-                    const thisMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-                    const monthly = await fetch('/api/consumption/monthly' + (qs ? qs + '&' : '?') + `from=${thisMonth}&to=${thisMonth}`).then(r => r.ok ? r.json() : []);
-                    const totalKwh = (monthly || []).reduce((s,x) => s + (Number(x.monthlyConsumptionkWh||0)), 0);
-                    document.getElementById('thisMonthKwh').textContent = totalKwh.toFixed(2);
-                } catch(e){
-                    console.debug('stats fetch failed', e);
-                }
-            })();
-
-            function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-            render();
-        })();
+        // (optional) small script to add client-side interactivity later
     </script>
 }

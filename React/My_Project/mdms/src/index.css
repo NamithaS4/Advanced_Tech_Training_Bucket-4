@@ -3,71 +3,180 @@
 @tailwind components;
 @tailwind utilities;
 
+/* -------------------------
+   DESIGN TOKENS (CSS vars)
+   Change these once to re-theme the app
+   ------------------------- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Palette */
+  --bg: #0f1724;          /* page bg */
+  --surface: #0b1220;     /* panels / header / sidebar */
+  --muted: #94a3b8;       /* secondary text */
+  --text: #e6eef8;        /* primary text */
+  --primary: #4f46e5;     /* brand (indigo) */
+  --primary-600: #3730a3;
+  --accent: #06b6d4;      /* teal accent */
+  --danger: #ef4444;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Spacing & radius */
+  --radius: 10px;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* Typography */
+  --font-sans: "CustomFont", Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --base-size: 16px;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color-scheme: dark;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Load your custom font (replace file if currently empty) */
+@font-face {
+  font-family: "CustomFont";
+  /* If your font file is actually empty, replace it with a valid .woff2 in assets/fonts/custom-font.woff2 */
+  src: url('/src/assets/fonts/custom-font.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
+/* Light-theme fallback (respects user's preference) */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --bg: #f7fafc;
+    --surface: #ffffff;
+    --muted: #6b7280;
+    --text: #0f1724;
+    --primary: #4f46e5;
+    --accent: #06b6d4;
+    color-scheme: light;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+/* -------------------------
+   Base App styles
+   ------------------------- */
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg), rgba(0,0,0,0.02));
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--base-size);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+}
+
+/* Utility surfaces */
+.app-surface {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: var(--text);
+  margin: 0 0 0.5rem 0;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* Buttons (modern) */
+button {
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  transform-origin: center;
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 6px 18px rgba(79,70,229,0.12);
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(79,70,229,0.18);
+}
+button.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid rgba(79,70,229,0.12);
+  box-shadow: none;
+}
+
+/* Inputs */
+input, select, textarea {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.6);
+}
+
+/* Sidebar & header helpers (generic) */
+.app-header {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.app-sidebar {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  width: 260px;
+  padding: 1rem;
+  color: var(--muted);
+  min-height: 100vh;
+}
+.app-sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--muted);
+}
+.app-sidebar .nav-item:hover {
+  background: rgba(79,70,229,0.06);
+  color: var(--primary);
+}
+.app-sidebar .nav-item.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Icon helper */
+.icon {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+/* small responsive niceties */
+@media (max-width: 900px) {
+  .app-sidebar { display: none; } /* keep functionality same; hide on small */
+  .app-header { padding: 10px; }
 }

@@ -94,6 +94,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AMIProjectAPI.Controllers.Secured.BillsController",
+    "Method": "Pay",
+    "RelativePath": "api/Bills/pay/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AMIProjectAPI.Controllers.Secured.ConsumersController",
     "Method": "GetAll",
     "RelativePath": "api/Consumers",
@@ -222,6 +238,59 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AMIProjectAPI.Controllers.Secured.ConsumersController",
+    "Method": "CreateMeterForMe",
+    "RelativePath": "api/Consumers/me/meters",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "AMIProjectAPI.Models.Dtos.MeterCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AMIProjectAPI.Controllers.Secured.ConsumersController",
+    "Method": "UpdateMeterForMe",
+    "RelativePath": "api/Consumers/me/meters/{serial}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serial",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "AMIProjectAPI.Models.Dtos.MeterUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AMIProjectAPI.Controllers.Secured.ConsumersController",
+    "Method": "DecommissionMeterForMe",
+    "RelativePath": "api/Consumers/me/meters/{serial}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serial",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

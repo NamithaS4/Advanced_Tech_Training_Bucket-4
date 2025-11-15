@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "_DashboardLayout";
     ViewData["Title"] = "Consumption";
-    // optional consumer id provided by controller
     var consumerId = ViewBag.ConsumerId ?? "";
 }
 <div class="card p-4">
@@ -22,7 +21,7 @@
             <div class="row g-2 align-items-end mb-2">
                 <div class="col-md-3">
                     <label class="form-label">Meter</label>
-                    <input id="dailyMeter" class="form-control" placeholder="Meter serial (optional)" />
+                    <input id="dailyMeter" class="form-control" placeholder="Meter serial" />
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">From</label>
@@ -79,8 +78,11 @@
 @section Scripts {
     <script>
         (function(){
-            const consumerId = '@consumerId';
             const pageSize = 10;
+
+            // MVC proxy endpoints (ConsumerController)
+            const dailyBase = '@Url.Action("DailyJson", "Consumer")';
+            const monthlyBase = '@Url.Action("MonthlyJson", "Consumer")';
 
             // DAILY
             const dailyTable = document.querySelector('#dailyTable tbody');
@@ -104,41 +106,53 @@
             function fmtMonth(d){ if(!d) return ''; const dt = new Date(d); return dt.toLocaleString(undefined, { year:'numeric', month:'short' }); }
             function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"']/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+            // DAILY FETCH
             async function fetchDaily() {
                 const q = [];
-                if (consumerId) q.push(`consumerId=${encodeURIComponent(consumerId)}`);
                 if (dailyMeter.value.trim()) q.push(`meterId=${encodeURIComponent(dailyMeter.value.trim())}`);
                 if (dailyFrom.value) q.push(`from=${dailyFrom.value}`);
                 if (dailyTo.value) q.push(`to=${dailyTo.value}`);
-                const url = '/api/consumption/daily' + (q.length ? '?' + q.join('&') : '');
+
+                const url = dailyBase + (q.length ? '?' + q.join('&') : '');
+
                 try {
-                    const resp = await fetch(url);
-                    if (!resp.ok) { dailyData = []; showDailyError(await resp.text()); return; }
+                    const resp = await fetch(url, { credentials: 'same-origin' });
+                    if (!resp.ok) {
+                        const text = await resp.text();
+                        dailyData = [];
+                        showDailyError(text || `HTTP ${(resp.status)}`);
+                        return;
+                    }
                     dailyData = await resp.json();
                     dailyPage = 1;
                     renderDaily();
                 } catch (e) {
-                    console.error(e);
                     dailyData = [];
                     showDailyError('Failed to load data.');
                 }
             }
 
+            // MONTHLY FETCH
             async function fetchMonthly() {
                 const q = [];
-                if (consumerId) q.push(`consumerId=${encodeURIComponent(consumerId)}`);
                 if (monthlyMeter.value.trim()) q.push(`meterId=${encodeURIComponent(monthlyMeter.value.trim())}`);
                 if (monthlyFrom.value) q.push(`from=${monthlyFrom.value}`);
                 if (monthlyTo.value) q.push(`to=${monthlyTo.value}`);
-                const url = '/api/consumption/monthly' + (q.length ? '?' + q.join('&') : '');
+
+                const url = monthlyBase + (q.length ? '?' + q.join('&') : '');
+
                 try {
-                    const resp = await fetch(url);
-                    if (!resp.ok) { monthlyData = []; showMonthlyError(await resp.text()); return; }
+                    const resp = await fetch(url, { credentials: 'same-origin' });
+                    if (!resp.ok) {
+                        const text = await resp.text();
+                        monthlyData = [];
+                        showMonthlyError(text || `HTTP ${(resp.status)}`);
+                        return;
+                    }
                     monthlyData = await resp.json();
                     monthlyPage = 1;
                     renderMonthly();
                 } catch (e) {
-                    console.error(e);
                     monthlyData = [];
                     showMonthlyError('Failed to load data.');
                 }
@@ -159,17 +173,18 @@
                     dailyTable.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No daily consumption.</td></tr>';
                     dailyPager.innerHTML = ''; return;
                 }
-                const totalPages = Math.max(1, Math.ceil(dailyData.length / pageSize));
-                if (dailyPage > totalPages) dailyPage = totalPages;
                 const slice = dailyData.slice((dailyPage-1)*pageSize, dailyPage*pageSize);
+
                 slice.forEach(r => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${escapeHtml(r.meterId||r.meterID||'')}</td>
-                                    <td>${fmtDate(r.consumptionDate || r.date || r.day)}</td>
-                                    <td>${Number(r.consumptionkWh||r.kwh||0).toFixed(2)}</td>
-                                    <td class="text-end"><a class="btn btn-sm btn-outline-secondary" href="/Meter/Details?serial=${encodeURIComponent(r.meterId||r.meterID||'')}">Details</a></td>`;
+                    tr.innerHTML = `
+                        <td>${escapeHtml(r.meterId)}</td>
+                        <td>${fmtDate(r.consumptionDate)}</td>
+                        <td>${Number(r.consumptionkWh).toFixed(2)}</td>
+                        <td class="text-end"><a class="btn btn-sm btn-outline-secondary" href="/Consumer/MeterDetails?serial=${encodeURIComponent(r.meterId)}">Details</a></td>`;
                     dailyTable.appendChild(tr);
                 });
+
                 renderPager(dailyPager, dailyData.length, dailyPage, (p)=>{ dailyPage=p; renderDaily(); });
             }
 
@@ -179,48 +194,45 @@
                     monthlyTable.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No monthly consumption.</td></tr>';
                     monthlyPager.innerHTML = ''; return;
                 }
-                const totalPages = Math.max(1, Math.ceil(monthlyData.length / pageSize));
-                if (monthlyPage > totalPages) monthlyPage = totalPages;
                 const slice = monthlyData.slice((monthlyPage-1)*pageSize, monthlyPage*pageSize);
+
                 slice.forEach(r => {
                     const tr = document.createElement('tr');
-                    // month field may be MonthStartDate or monthStartDate or month
-                    const monthVal = r.monthStartDate || r.monthStart || r.month;
-                    tr.innerHTML = `<td>${escapeHtml(r.meterId||r.meterID||'')}</td>
-                                    <td>${fmtMonth(monthVal)}</td>
-                                    <td>${Number(r.monthlyConsumptionkWh||r.consumptionkWh||0).toFixed(2)}</td>
-                                    <td class="text-end"><a class="btn btn-sm btn-outline-secondary" href="/Meter/Details?serial=${encodeURIComponent(r.meterId||r.meterID||'')}">Details</a></td>`;
+                    tr.innerHTML = `
+                        <td>${escapeHtml(r.meterId)}</td>
+                        <td>${fmtMonth(r.monthStartDate)}</td>
+                        <td>${Number(r.consumptionkWh).toFixed(2)}</td>
+                        <td class="text-end"><a class="btn btn-sm btn-outline-secondary" href="/Consumer/MeterDetails?serial=${encodeURIComponent(r.meterId)}">Details</a></td>`;
                     monthlyTable.appendChild(tr);
                 });
+
                 renderPager(monthlyPager, monthlyData.length, monthlyPage, (p)=>{ monthlyPage=p; renderMonthly(); });
             }
 
-            function renderPager(container, totalItems, currentPage, onPage) {
-                container.innerHTML = '';
-                const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-                function add(i, text, disabled, active) {
+            function renderPager(el, total, page, onPage){
+                el.innerHTML = '';
+                const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                function add(i, text, disabled, active){
                     const li = document.createElement('li');
-                    li.className = 'page-item ' + (active ? 'active' : '') + (disabled ? ' disabled' : '');
+                    li.className = 'page-item ' + (active?'active':'') + (disabled?' disabled':'');
                     const a = document.createElement('a');
                     a.className = 'page-link';
                     a.href = '#';
                     a.textContent = text;
-                    a.onclick = (e)=>{ e.preventDefault(); if(!disabled) onPage(i); };
+                    a.onclick = e => { e.preventDefault(); if(!disabled) onPage(i); };
                     li.appendChild(a);
-                    container.appendChild(li);
+                    el.appendChild(li);
                 }
-                add(Math.max(1,currentPage-1),'Previous', currentPage===1, false);
-                for (let i=1;i<=totalPages;i++) add(i, i, false, i===currentPage);
-                add(Math.min(totalPages,currentPage+1),'Next', currentPage===totalPages, false);
+                add(page-1, 'Previous', page===1, false);
+                for(let i=1;i<=totalPages;i++) add(i, i, false, i===page);
+                add(page+1, 'Next', page===totalPages, false);
             }
 
             dailyLoad.addEventListener('click', fetchDaily);
             monthlyLoad.addEventListener('click', fetchMonthly);
 
-            // load defaults (first time)
             fetchDaily();
             fetchMonthly();
-
         })();
     </script>
 }

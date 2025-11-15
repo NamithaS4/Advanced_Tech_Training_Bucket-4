@@ -2,16 +2,17 @@
 @{
     Layout = "_DashboardLayout";
     ViewData["Title"] = "Bills";
+
     int page = ViewBag.Page as int? ?? 1;
     int pageSize = ViewBag.PageSize as int? ?? 10;
     int totalPages = ViewBag.TotalPages as int? ?? 1;
     var total = ViewBag.Total as int? ?? 0;
 
-    // server-provided filters (optional)
+    // server-provided filters (optional) - used only to initialise controls
     string statusFilter = ViewBag.StatusFilter as string ?? "";
     string meterFilter = ViewBag.MeterFilter as string ?? "";
-    // from/to replaced by monthFilter (format yyyy-MM) if controller provides it
-    string monthFilter = ViewBag.MonthFilter as string ?? "";
+    string fromFilter = ViewBag.FromFilter as string ?? "";
+    string toFilter = ViewBag.ToFilter as string ?? "";
 }
 
 <div class="card p-3">
@@ -28,34 +29,37 @@
         <div class="alert alert-success">@Html.Raw(TempData["msg"])</div>
     }
 
-    <!-- Filters (live) -->
-    <form method="get" class="row g-2 mb-3" onsubmit="return false;">
+    <!-- Filters (live: no Load button) -->
+    <div class="row g-2 mb-3">
         <div class="col-md-2">
             <label class="form-label">Status</label>
-            <select id="filterStatus" name="status" class="form-select">
+            <select id="filterStatus" class="form-select">
                 <option value="">All</option>
-                <option value="Pending" @@(statusFilter == "Pending" ? "selected" : "")>Pending</option>
-                <option value="Paid" @@(statusFilter == "Paid" ? "selected" : "")>Paid</option>
+                <option value="Pending" @@(statusFilter= ="Pending" ? "selected" : "" )>Pending</option>
+                <option value="Paid" @@(statusFilter= ="Paid" ? "selected" : "" )>Paid</option>
             </select>
         </div>
 
         <div class="col-md-3">
             <label class="form-label">Meter ID</label>
-            <input id="filterMeter" name="meterId" value="@meterFilter" class="form-control" placeholder="Meter id or part" />
+            <input id="filterMeter" class="form-control" value="@meterFilter" placeholder="Meter id or part" />
         </div>
 
         <div class="col-md-2">
-            <label class="form-label">Month</label>
-            <!-- HTML month control: value format yyyy-MM -->
-            <input id="filterMonth" name="month" type="month" value="@monthFilter" class="form-control" />
+            <label class="form-label">From</label>
+            <input id="filterFrom" type="date" class="form-control" value="@fromFilter" />
         </div>
 
-        <div class="col-md-5 d-flex align-items-end">
-            <!-- keep Reset link to clear server-side filters and reload -->
-            <a asp-action="Index" class="btn btn-secondary">Reset</a>
+        <div class="col-md-2">
+            <label class="form-label">To</label>
+            <input id="filterTo" type="date" class="form-control" value="@toFilter" />
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+            <a class="btn btn-secondary me-2" href="@Url.Action("Bills", "Consumer")">Reset</a>
             <div class="ms-auto text-muted ps-3" id="billsTotal">Total: @total</div>
         </div>
-    </form>
+    </div>
 
     <div class="table-responsive">
         <table id="billsTable" class="table table-hover align-middle">
@@ -69,20 +73,22 @@
                     <th>Amount</th>
                     <th>Status</th>
                     <th>Generated at</th>
+                    <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @if (!Model.Any())
+                @if (Model == null || !Model.Any())
                 {
-                    <tr><td colspan="8" class="text-muted">No bills found.</td></tr>
+                    <tr><td colspan="9" class="text-muted">No bills found.</td></tr>
                 }
                 else
                 {
                     foreach (var b in Model)
                     {
-                        // data-month attribute uses "yyyy-MM" so filtering works against MonthStartDate only
+                        // data-month uses yyyy-MM for quick month checks; data-generated uses yyyy-MM-dd for date comparisons
                         var monthAttr = b.MonthStartDate.ToString("yyyy-MM");
-                        <tr data-meter="@b.MeterID" data-status="@b.Status" data-month="@monthAttr">
+                        var generatedIso = b.GeneratedAt.ToString("yyyy-MM-dd");
+                        <tr data-meter="@b.MeterID" data-status="@b.Status" data-month="@monthAttr" data-generated="@generatedIso">
                             <td>@b.BillId</td>
                             <td>@b.MeterID</td>
                             <td>@b.MonthStartDate.ToString("yyyy-MM")</td>
@@ -91,6 +97,20 @@
                             <td>@b.Amount.ToString("F2")</td>
                             <td>@b.Status</td>
                             <td>@b.GeneratedAt.ToString("dd-MM-yyyy HH:mm")</td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-outline-primary" asp-controller="Bills" asp-action="Details" asp-route-id="@b.BillId">View</a>
+
+                                @* Render Pay now only for Consumer principals and only when bill is Pending *@
+                                @if (string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase)
+                                                        && User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer"))
+                                {
+                                    <form asp-controller="Bills" asp-action="PayBill" method="post" class="d-inline ms-1" onsubmit="return confirm('Pay bill @b.BillId for amount @b.Amount.ToString("F2") ?');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@b.BillId" />
+                                        <button class="btn btn-sm btn-success">Pay now</button>
+                                    </form>
+                                }
+                            </td>
                         </tr>
                     }
                 }
@@ -101,18 +121,18 @@
     <nav aria-label="Page navigation" class="mt-2">
         <ul class="pagination justify-content-center">
             <li class="page-item @(page == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = page-1, pageSize, status = statusFilter, meterId = meterFilter, month = monthFilter })">Previous</a>
+                <a class="page-link" href="@Url.Action("Bills", "Consumer", new { page = page - 1, pageSize, status = statusFilter, meterId = meterFilter, from = fromFilter, to = toFilter })">Previous</a>
             </li>
 
             @for (int i = 1; i <= totalPages; i++)
             {
                 <li class="page-item @(i == page ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize, status = statusFilter, meterId = meterFilter, month = monthFilter })">@i</a>
+                    <a class="page-link" href="@Url.Action("Bills", "Consumer", new { page = i, pageSize, status = statusFilter, meterId = meterFilter, from = fromFilter, to = toFilter })">@i</a>
                 </li>
             }
 
             <li class="page-item @(page == totalPages ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = page+1, pageSize, status = statusFilter, meterId = meterFilter, month = monthFilter })">Next</a>
+                <a class="page-link" href="@Url.Action("Bills", "Consumer", new { page = page + 1, pageSize, status = statusFilter, meterId = meterFilter, from = fromFilter, to = toFilter })">Next</a>
             </li>
         </ul>
     </nav>
@@ -121,50 +141,63 @@
 @section Scripts {
     <script>
         (function () {
-            // controls
+            // Controls and rows
+            const rows = Array.from(document.querySelectorAll('#billsTable tbody tr')).filter(r => r.cells.length > 1);
             const filterMeter = document.getElementById('filterMeter');
             const filterStatus = document.getElementById('filterStatus');
-            const filterMonth = document.getElementById('filterMonth'); // yyyy-MM
-            const rows = Array.from(document.querySelectorAll('#billsTable tbody tr')).filter(r => r.cells.length > 1);
+            const filterFrom = document.getElementById('filterFrom');
+            const filterTo = document.getElementById('filterTo');
             const totalEl = document.getElementById('billsTotal');
 
-            function applyFilters() {
-                const meterVal = (filterMeter.value || '').trim().toLowerCase();
-                const statusVal = (filterStatus.value || '').trim();
-                const monthVal = (filterMonth.value || '').trim(); // yyyy-MM or empty
+            // parse yyyy-MM-dd into Date object (local midnight)
+            function parseIsoDate(s) {
+                if (!s) return null;
+                const parts = s.split('-');
+                if (parts.length !== 3) return null;
+                const y = parseInt(parts[0], 10);
+                const m = parseInt(parts[1], 10) - 1;
+                const d = parseInt(parts[2], 10);
+                return new Date(y, m, d);
+            }
 
-                let visibleCount = 0;
+            function applyFilters() {
+                const meterQ = (filterMeter.value || '').trim().toLowerCase();
+                const statusQ = (filterStatus.value || '').trim();
+                const fromQ = filterFrom.value;
+                const toQ = filterTo.value;
+
+                const fromDate = fromQ ? parseIsoDate(fromQ) : null;
+                const toDate = toQ ? parseIsoDate(toQ) : null;
+
+                let visible = 0;
                 rows.forEach(r => {
                     const meter = (r.getAttribute('data-meter') || '').toLowerCase();
                     const status = (r.getAttribute('data-status') || '');
-                    const month = (r.getAttribute('data-month') || ''); // yyyy-MM
+                    const generated = r.getAttribute('data-generated') || ''; // yyyy-MM-dd
+                    const generatedDate = generated ? parseIsoDate(generated) : null;
 
-                    // meter: substring match
-                    const meterOk = !meterVal || meter.includes(meterVal);
+                    const meterOk = !meterQ || (meter.indexOf(meterQ) >= 0);
+                    const statusOk = !statusQ || status === statusQ;
 
-                    // status: exact match (empty = all)
-                    const statusOk = !statusVal || status === statusVal;
+                    let dateOk = true;
+                    if (fromDate && generatedDate) dateOk = generatedDate >= fromDate;
+                    if (toDate && generatedDate) dateOk = dateOk && (generatedDate <= toDate);
 
-                    // month: exact match on yyyy-MM (empty = all)
-                    const monthOk = !monthVal || month === monthVal;
-
-                    const show = meterOk && statusOk && monthOk;
+                    const show = meterOk && statusOk && dateOk;
                     r.style.display = show ? '' : 'none';
-                    if (show) visibleCount++;
+                    if (show) visible++;
                 });
 
-                // update Total display for visible rows on this page
-                if (totalEl) {
-                    totalEl.innerText = 'Total: ' + visibleCount;
-                }
+                if (totalEl) totalEl.innerText = 'Total: ' + visible;
             }
 
-            // live filtering
-            filterMeter.addEventListener('input', applyFilters);
-            filterStatus.addEventListener('change', applyFilters);
-            filterMonth.addEventListener('change', applyFilters);
+            // Attach live events
+            filterMeter && filterMeter.addEventListener('input', applyFilters);
+            filterStatus && filterStatus.addEventListener('change', applyFilters);
+            filterFrom && filterFrom.addEventListener('change', applyFilters);
+            filterTo && filterTo.addEventListener('change', applyFilters);
 
-            // initial apply to honor server values
+            // initial apply to reflect server-provided control values
             applyFilters();
         })();
     </script>

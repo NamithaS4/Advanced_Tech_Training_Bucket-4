@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AMIProjectAPI.Controllers.Secured
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Policy = "UserPolicy")]
+    [Authorize] // allow both admin/user and consumer authenticated principals
     public class ConsumptionController : ControllerBase
     {
         private readonly AmiprojectContext _ctx;
@@ -19,6 +20,24 @@ namespace AMIProjectAPI.Controllers.Secured
             _logger = logger;
         }
 
+        /// <summary>
+        /// Attempt to resolve consumer id from incoming principal's claims.
+        /// Returns null if not resolvable.
+        /// </summary>
+        private int? ResolveConsumerIdFromClaims()
+        {
+            // try common claim names
+            var claim = User.Claims.FirstOrDefault(c =>
+                string.Equals(c.Type, "ConsumerId", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(c.Type, "consumerid", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(c.Type, ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase));
+
+            if (claim != null && int.TryParse(claim.Value, out var cid) && cid > 0)
+                return cid;
+
+            return null;
+        }
+
         // GET api/consumption/daily?consumerId=&meterId=&from=yyyy-MM-dd&to=yyyy-MM-dd&page=&pageSize=
         [HttpGet("daily")]
         public async Task<IActionResult> GetDaily([FromQuery] int? consumerId, [FromQuery] string? meterId,
@@ -27,12 +46,28 @@ namespace AMIProjectAPI.Controllers.Secured
         {
             try
             {
+                // If caller is a consumer (UserType == Consumer) and no explicit consumerId was provided,
+                // restrict results to the consumer resolved from claims.
+                var isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+                if (isConsumer && !consumerId.HasValue)
+                {
+                    var cid = ResolveConsumerIdFromClaims();
+                    if (cid.HasValue)
+                        consumerId = cid.Value;
+                    else
+                    {
+                        // If consumer claim missing/invalid, forbid
+                        _logger.LogWarning("Consumer identity missing or invalid for caller");
+                        return Forbid("Consumer identity missing or invalid.");
+                    }
+                }
+
                 // base query
                 var q = _ctx.DailyConsumptions
                            .AsNoTracking()
                            .AsQueryable();
 
-                // If consumerId provided, restrict to that consumer's meters
+                // If consumerId provided (either explicitly or resolved from claims), restrict to that consumer's meters
                 if (consumerId.HasValue)
                 {
                     var meterIds = await _ctx.Meters
@@ -89,6 +124,21 @@ namespace AMIProjectAPI.Controllers.Secured
         {
             try
             {
+                // If caller is a consumer (UserType == Consumer) and no explicit consumerId was provided,
+                // restrict results to the consumer resolved from claims.
+                var isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+                if (isConsumer && !consumerId.HasValue)
+                {
+                    var cid = ResolveConsumerIdFromClaims();
+                    if (cid.HasValue)
+                        consumerId = cid.Value;
+                    else
+                    {
+                        _logger.LogWarning("Consumer identity missing or invalid for caller");
+                        return Forbid("Consumer identity missing or invalid.");
+                    }
+                }
+
                 var q = _ctx.MonthlyConsumptions
                            .AsNoTracking()
                            .AsQueryable();

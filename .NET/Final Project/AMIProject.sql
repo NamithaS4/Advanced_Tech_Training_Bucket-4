@@ -401,4 +401,3 @@ DROP TABLE DailyConsumption
 DROP TABLE MonthlyConsumption
 DROP TABLE Bill
 DROP TABLE ConsumerLogin
-

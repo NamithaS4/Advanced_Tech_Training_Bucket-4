@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AMIProjectAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44770e3f1814bea16c61a0c3bcadee965766cdd1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a34add17349ee76bb1fa398014f44ec17834d5c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("AMIProjectAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AMIProjectAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

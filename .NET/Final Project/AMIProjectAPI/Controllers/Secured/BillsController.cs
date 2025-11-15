@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AMIProjectAPI.Controllers.Secured
 {
@@ -40,10 +41,9 @@ namespace AMIProjectAPI.Controllers.Secured
                     .Include(b => b.Meter)
                     .AsQueryable();
 
-                // If caller supplied consumerId explicitly (MVC does in some cases) use it; otherwise check claims
+                // If caller supplied consumerId explicitly use it; otherwise check claims
                 if (consumerId.HasValue)
                 {
-                    // keep only bills whose meter belongs to that consumerId
                     q = q.Where(b => b.Meter != null && b.Meter.ConsumerId == consumerId.Value);
                 }
                 else
@@ -67,6 +67,8 @@ namespace AMIProjectAPI.Controllers.Secured
                 if (!string.IsNullOrWhiteSpace(status))
                     q = q.Where(b => b.Status == status);
 
+                // The MVC Index uses MonthStartDate for month filtering in some places.
+                // Keep supporting GeneratedAt filters (from/to) for backwards compatibility.
                 if (from.HasValue)
                     q = q.Where(b => b.GeneratedAt >= from.Value);
 
@@ -74,22 +76,6 @@ namespace AMIProjectAPI.Controllers.Secured
                     q = q.Where(b => b.GeneratedAt <= to.Value);
 
                 q = q.OrderByDescending(b => b.GeneratedAt);
-
-                // projection that matches MVC BillVm
-                Func<IQueryable<Bill>, IQueryable<object>> projector = source => source.Select(b => new
-                {
-                    b.BillId,
-                    MeterID = b.MeterId,
-                    MonthStartDate = b.MonthStartDate,
-                    MonthlyConsumptionkWh = b.MonthlyConsumptionkWh,
-                    Category = b.Category ?? "",
-                    BaseRate = b.BaseRate,
-                    SlabRate = b.SlabRate,
-                    TaxRate = b.TaxRate,
-                    b.Amount,
-                    b.Status,
-                    GeneratedAt = b.GeneratedAt
-                });
 
                 // paging
                 if (page.HasValue && pageSize.HasValue && page > 0 && pageSize > 0)
@@ -124,7 +110,6 @@ namespace AMIProjectAPI.Controllers.Secured
                 }
                 else
                 {
-                    // no paging: return list
                     var list = await q.ToListAsync();
                     var projected = list.Select(b => new
                     {
@@ -182,6 +167,47 @@ namespace AMIProjectAPI.Controllers.Secured
                 b.Status,
                 b.GeneratedAt
             });
+        }
+
+        // POST: api/bills/pay/{id} -> mark bill as paid
+        [HttpPost("pay/{id:int}")]
+        public async Task<IActionResult> Pay(int id)
+        {
+            try
+            {
+                var bill = await _ctx.Bills
+                    .Include(b => b.Meter)
+                    .FirstOrDefaultAsync(b => b.BillId == id);
+
+                if (bill == null) return NotFound(new { error = "Bill not found." });
+
+                var isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+                if (isConsumer)
+                {
+                    if (!TryGetConsumerId(out var cid)) return Forbid("ConsumerId claim missing or invalid.");
+                    if (bill.Meter?.ConsumerId != cid) return Forbid("Not allowed to pay this bill.");
+                }
+
+                // If already paid or not pending, reject
+                if (!string.Equals(bill.Status, "Pending", StringComparison.OrdinalIgnoreCase))
+                    return BadRequest(new { error = $"Bill status is '{bill.Status}' and cannot be paid." });
+
+                bill.Status = "Paid";
+                // Optionally record payment time — preserve GeneratedAt as bill generation time; you may add PaidAt field if needed
+
+                await _ctx.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                _logger.LogError(dbEx, "DB error paying bill {Id}", id);
+                return StatusCode(500, new { error = "Database error while updating bill status." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error paying bill {Id}", id);
+                return StatusCode(500, new { error = "Server error while processing payment." });
+            }
         }
     }
 }
