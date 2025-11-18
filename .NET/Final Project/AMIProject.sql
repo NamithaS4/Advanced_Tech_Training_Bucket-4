@@ -61,7 +61,6 @@ CREATE TABLE Consumer (
     Address NVARCHAR(255),
     Phone NVARCHAR(20),
     Email NVARCHAR(100),
-    TariffId INT NOT NULL REFERENCES Tariff(TariffID),
     Status VARCHAR(20) NOT NULL DEFAULT 'Active' CHECK (Status IN ('Active','Inactive')), 
     CreatedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME(), 
 	CreatedBy NVARCHAR(100) NOT NULL DEFAULT 'admin', 
@@ -144,16 +143,130 @@ BEGIN
     SET NOCOUNT ON;
     DECLARE @Meter NVARCHAR(50);
     DECLARE cur CURSOR LOCAL FAST_FORWARD FOR
-        SELECT DISTINCT MeterID FROM inserted;
+        SELECT DISTINCT MeterID FROM inserted WHERE MeterID IS NOT NULL;
     OPEN cur;
     FETCH NEXT FROM cur INTO @Meter;
     WHILE @@FETCH_STATUS = 0
     BEGIN
+	BEGIN TRY
         EXEC sp_GenerateMonthlyBills @MeterID = @Meter;
+		END TRY
+		BEGIN CATCH
+		END CATCH;
         FETCH NEXT FROM cur INTO @Meter;
     END
     CLOSE cur;
     DEALLOCATE cur;
+END;
+
+GO
+
+CREATE OR ALTER TRIGGER trg_Tariff_Changed
+ON Tariff
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        DECLARE @AffectedTariffIDs TABLE (TariffID INT PRIMARY KEY);
+
+        INSERT INTO @AffectedTariffIDs
+        SELECT DISTINCT TariffID FROM inserted
+        UNION
+        SELECT DISTINCT TariffID FROM deleted;
+
+        IF NOT EXISTS (SELECT 1 FROM @AffectedTariffIDs) RETURN;
+
+        DECLARE @AffectedNames TABLE (TariffName NVARCHAR(200) PRIMARY KEY);
+
+        INSERT INTO @AffectedNames
+        SELECT DISTINCT TariffName
+        FROM Tariff t
+        INNER JOIN @AffectedTariffIDs x ON x.TariffID = t.TariffID;
+
+        DECLARE @Meters TABLE (MeterID NVARCHAR(50) PRIMARY KEY);
+
+        INSERT INTO @Meters
+        SELECT DISTINCT MeterSerialNo
+        FROM Meter m
+        INNER JOIN @AffectedNames n ON m.Category = n.TariffName;
+
+        DECLARE @m NVARCHAR(50);
+        DECLARE cur CURSOR LOCAL FAST_FORWARD FOR SELECT MeterID FROM @Meters;
+
+        OPEN cur;
+        FETCH NEXT FROM cur INTO @m;
+
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            BEGIN TRY
+                EXEC sp_GenerateMonthlyBills @MeterID = @m;
+            END TRY BEGIN CATCH END CATCH;
+
+            FETCH NEXT FROM cur INTO @m;
+        END
+
+        CLOSE cur;
+        DEALLOCATE cur;
+    END TRY
+    BEGIN CATCH
+    END CATCH
+END;
+
+GO
+
+CREATE OR ALTER TRIGGER trg_TariffSlab_Changed
+ON TariffSlab
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        DECLARE @AffectedTariffIDs TABLE (TariffID INT PRIMARY KEY);
+
+        INSERT INTO @AffectedTariffIDs
+        SELECT DISTINCT TariffID FROM inserted
+        UNION
+        SELECT DISTINCT TariffID FROM deleted;
+
+        IF NOT EXISTS (SELECT 1 FROM @AffectedTariffIDs) RETURN;
+
+        DECLARE @AffectedNames TABLE (TariffName NVARCHAR(200) PRIMARY KEY);
+
+        INSERT INTO @AffectedNames
+        SELECT DISTINCT TariffName
+        FROM Tariff t
+        INNER JOIN @AffectedTariffIDs x ON x.TariffID = t.TariffID;
+
+        DECLARE @Meters TABLE (MeterID NVARCHAR(50) PRIMARY KEY);
+
+        INSERT INTO @Meters
+        SELECT DISTINCT MeterSerialNo
+        FROM Meter m
+        INNER JOIN @AffectedNames n ON m.Category = n.TariffName;
+
+        DECLARE @m NVARCHAR(50);
+        DECLARE cur CURSOR LOCAL FAST_FORWARD FOR SELECT MeterID FROM @Meters;
+
+        OPEN cur;
+        FETCH NEXT FROM cur INTO @m;
+
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            BEGIN TRY
+                EXEC sp_GenerateMonthlyBills @MeterID = @m;
+            END TRY BEGIN CATCH END CATCH;
+
+            FETCH NEXT FROM cur INTO @m;
+        END
+
+        CLOSE cur;
+        DEALLOCATE cur;
+    END TRY
+    BEGIN CATCH
+    END CATCH
 END;
 
 GO

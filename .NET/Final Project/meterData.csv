@@ -1,4 +1,4 @@
 ﻿MeterSerialNo,ConsumerID,OrgUnitId,IPAddress,ICCID,IMSI,Manufacturer,Firmware,Category,InstallDate,Status
-MTR2020,2,2,192.168.1.204,ICCID006,IMSI003,Siemens,2.1.0,Commercial Tariff,03-12-2023,Active
+MTR2020,2,2,192.168.1.202,ICCID006,IMSI003,Siemens,2.1.0,Commercial Tariff,03-12-2023,Active
 MTR3032,4,3,192.168.1.304,ICCID010,IMSI002,ABB,3.0.0,Factory Tariff,19-11-2023,Inactive
-MTR1021,3,1,192.168.1.107,ICCID050,IMSI020,Itron,1.0.0,Residential Tariff,07-10-2023,Active
+MTR1021,3,1,192.168.1.116,ICCID050,IMSI020,Itron,1.0.0,Residential Tariff,07-10-2023,Active

@@ -9,7 +9,7 @@ namespace AMIProjectAPI.Controllers.Secured
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // allow any authenticated user to call GETs; writes are protected per-action with UserPolicy
+    [Authorize]
     public class MetersController : ControllerBase
     {
         private readonly AmiprojectContext _ctx;
@@ -29,7 +29,6 @@ namespace AMIProjectAPI.Controllers.Secured
             {
                 var user = HttpContext.User;
 
-                // If caller is a regular user (admin) return all meters
                 if (user.IsUser())
                 {
                     var all = await _ctx.Meters
@@ -39,7 +38,6 @@ namespace AMIProjectAPI.Controllers.Secured
                     return Ok(all);
                 }
 
-                // If consumer: read consumer id from claims and filter
                 var consumerId = user.GetConsumerId();
                 if (consumerId.HasValue)
                 {
@@ -51,7 +49,6 @@ namespace AMIProjectAPI.Controllers.Secured
                     return Ok(result);
                 }
 
-                // no suitable identity -> forbidden
                 _logger.LogWarning("GetAll meters: caller not a User and ConsumerId claim missing/invalid.");
                 return Forbid("ConsumerId claim missing or invalid.");
             }
@@ -101,6 +98,14 @@ namespace AMIProjectAPI.Controllers.Secured
             if (string.IsNullOrWhiteSpace(dto.MeterSerialNo))
                 return BadRequest(new { field = "MeterSerialNo", message = "Serial is required." });
 
+            var ipNorm = (dto.Ipaddress ?? "").Trim();
+            if (!string.IsNullOrEmpty(ipNorm))
+            {
+                var existsIp = await _ctx.Meters.AnyAsync(m => m.Ipaddress == ipNorm);
+                if (existsIp)
+                    return Conflict(new { field = "Ipaddress", message = "IP address already exists." });
+            }
+
             // uniqueness
             if (await _ctx.Meters.AnyAsync(m => m.MeterSerialNo == dto.MeterSerialNo))
                 return Conflict(new { error = $"Meter with serial '{dto.MeterSerialNo}' already exists." });
@@ -122,7 +127,7 @@ namespace AMIProjectAPI.Controllers.Secured
                 MeterSerialNo = dto.MeterSerialNo,
                 ConsumerId = dto.ConsumerId,
                 OrgUnitId = dto.OrgUnitId,
-                Ipaddress = dto.Ipaddress,
+                Ipaddress = ipNorm,
                 Iccid = dto.Iccid,
                 Imsi = dto.Imsi,
                 Manufacturer = dto.Manufacturer,
@@ -141,6 +146,16 @@ namespace AMIProjectAPI.Controllers.Secured
             catch (DbUpdateException dbEx)
             {
                 _logger.LogError(dbEx, "DB error creating meter {Serial}", dto.MeterSerialNo);
+                if (dbEx.InnerException != null)
+                {
+                    var inner = dbEx.InnerException.Message ?? "";
+                    if (inner.IndexOf("Ipaddress", StringComparison.OrdinalIgnoreCase) >= 0
+                        || inner.IndexOf("IX_Meters_Ipaddress", StringComparison.OrdinalIgnoreCase) >= 0
+                        || inner.IndexOf("duplicate", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return Conflict(new { field = "Ipaddress", message = "IP address already exists." });
+                    }
+                }
                 return Conflict(new { error = "Database constraint prevented creating meter." });
             }
         }
@@ -159,10 +174,19 @@ namespace AMIProjectAPI.Controllers.Secured
             if (!await _ctx.OrgUnits.AnyAsync(o => o.OrgUnitId == dto.OrgUnitId))
                 return BadRequest(new { error = $"OrgUnitId {dto.OrgUnitId} is invalid / not found." });
 
+            var ipNorm = (dto.Ipaddress ?? "").Trim();
+            if (!string.IsNullOrEmpty(ipNorm))
+            {
+                var exists = await _ctx.Meters.AnyAsync(x => x.Ipaddress == ipNorm && x.MeterSerialNo != serial);
+                if (exists)
+                    return Conflict(new { field = "Ipaddress", message = "IP address already exists." });
+            }
+
+
             m.ConsumerId = dto.ConsumerId;
             m.OrgUnitId = dto.OrgUnitId;
 
-            if (!string.IsNullOrWhiteSpace(dto.Ipaddress)) m.Ipaddress = dto.Ipaddress;
+            if (!string.IsNullOrWhiteSpace(dto.Ipaddress)) m.Ipaddress = ipNorm;
             if (!string.IsNullOrWhiteSpace(dto.Iccid)) m.Iccid = dto.Iccid;
             if (!string.IsNullOrWhiteSpace(dto.Imsi)) m.Imsi = dto.Imsi;
             if (!string.IsNullOrWhiteSpace(dto.Manufacturer)) m.Manufacturer = dto.Manufacturer;
@@ -186,6 +210,16 @@ namespace AMIProjectAPI.Controllers.Secured
             catch (DbUpdateException dbEx)
             {
                 _logger.LogError(dbEx, "DB error updating meter {Serial}", serial);
+                if (dbEx.InnerException != null)
+                {
+                    var inner = dbEx.InnerException.Message ?? "";
+                    if (inner.IndexOf("Ipaddress", StringComparison.OrdinalIgnoreCase) >= 0
+                        || inner.IndexOf("IX_Meters_Ipaddress", StringComparison.OrdinalIgnoreCase) >= 0
+                        || inner.IndexOf("duplicate", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return Conflict(new { field = "Ipaddress", message = "IP address already exists." });
+                    }
+                }
                 return Conflict(new { error = "Database constraint prevented updating meter." });
             }
         }

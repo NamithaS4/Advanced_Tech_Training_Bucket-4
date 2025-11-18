@@ -3,12 +3,68 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumer\\meters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumer\\meters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumer\\createmeter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumer\\createmeter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\billscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\billscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumer\\bills.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\consumer\\bills.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\consumerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\consumerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\controllers\\metercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:controllers\\metercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\meterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\meterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\meter\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\meter\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\orgunit\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\orgunit\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\meter\\upload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\meter\\upload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\meter\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\meter\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\meter\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:views\\meter\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\metereditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\metereditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\models\\billvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|solutionrelative:models\\billvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9AACE864-670C-4503-A4BC-95B0C508E2B8}|AMIProjectView.csproj|c:\\users\\user\\desktop\\advanced_tech_training_bucket-4\\.net\\final project\\amiprojectview\\views\\consumers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -30,7 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,21 +101,205 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Meters.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumer\\Meters.cshtml",
+              "RelativeDocumentMoniker": "Views\\Consumer\\Meters.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumer\\Meters.cshtml",
+              "RelativeToolTip": "Views\\Consumer\\Meters.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAC4AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T09:56:58.685Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T09:44:51.046Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BillsController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\BillsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BillsController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\BillsController.cs",
+              "RelativeToolTip": "Controllers\\BillsController.cs",
+              "ViewState": "AgIAAMoAAAAAAAAAAAD4v9oAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T09:41:10.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Bills.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumer\\Bills.cshtml",
+              "RelativeDocumentMoniker": "Views\\Consumer\\Bills.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumer\\Bills.cshtml",
+              "RelativeToolTip": "Views\\Consumer\\Bills.cshtml",
+              "ViewState": "AgIAALcAAAAAAAAAAAD4v8wAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T09:40:30.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\OrgUnit\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\OrgUnit\\Index.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\OrgUnit\\Index.cshtml",
+              "RelativeToolTip": "Views\\OrgUnit\\Index.cshtml",
+              "ViewState": "AgIAAKEAAAAAAAAAAAD4v5cAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T09:26:31.046Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Upload.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Upload.cshtml",
+              "RelativeDocumentMoniker": "Views\\Meter\\Upload.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Upload.cshtml",
+              "RelativeToolTip": "Views\\Meter\\Upload.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T08:50:00.82Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Meter\\Index.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Index.cshtml",
+              "RelativeToolTip": "Views\\Meter\\Index.cshtml",
+              "ViewState": "AgIAAMYAAAAAAAAAAAD4v9EAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T08:49:43.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MeterViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\MeterViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\MeterViewModel.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\MeterViewModel.cs",
+              "RelativeToolTip": "Models\\MeterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T08:49:24.575Z"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "CreateMeter.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumer\\CreateMeter.cshtml",
+              "RelativeDocumentMoniker": "Views\\Consumer\\CreateMeter.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumer\\CreateMeter.cshtml",
+              "RelativeToolTip": "Views\\Consumer\\CreateMeter.cshtml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAABMAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T09:56:54.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MeterController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\MeterController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MeterController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\MeterController.cs",
+              "RelativeToolTip": "Controllers\\MeterController.cs",
+              "ViewState": "AgIAADwCAAAAAAAAAIAwwFMCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T08:41:58.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAIAwwCwAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T18:02:43.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BillVm.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\BillVm.cs",
+              "RelativeDocumentMoniker": "Models\\BillVm.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\BillVm.cs",
+              "RelativeToolTip": "Models\\BillVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T08:48:33.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "ConsumersController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumersController.cs",
               "RelativeDocumentMoniker": "Controllers\\ConsumersController.cs",
               "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\ConsumersController.cs",
               "RelativeToolTip": "Controllers\\ConsumersController.cs",
-              "ViewState": "AgIAAG0BAAAAAAAAAAAowHkBAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAGYBAAAAAAAAAAD4v2YBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T18:18:43.211Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T18:18:43.211Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 14,
+              "Title": "MeterEditViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\MeterEditViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\MeterEditViewModel.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Models\\MeterEditViewModel.cs",
+              "RelativeToolTip": "Models\\MeterEditViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T08:49:04.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Meter\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Meter\\Edit.cshtml",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAIwGwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T08:50:05.044Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Meter\\Create.cshtml",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Meter\\Create.cshtml",
+              "RelativeToolTip": "Views\\Meter\\Create.cshtml",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAIwGQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-17T08:50:22.28Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Consumers\\Create.cshtml",
@@ -67,12 +307,11 @@
               "RelativeToolTip": "Views\\Consumers\\Create.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-15T18:18:05.638Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T18:18:05.638Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 18,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Consumers\\Edit.cshtml",
@@ -80,12 +319,11 @@
               "RelativeToolTip": "Views\\Consumers\\Edit.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-15T18:17:20.691Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T18:17:20.691Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 16,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Views\\Consumers\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Consumers\\Index.cshtml",
@@ -93,21 +331,7 @@
               "RelativeToolTip": "Views\\Consumers\\Index.cshtml",
               "ViewState": "AgIAAI0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-15T18:17:19.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\user\\Desktop\\Advanced_Tech_Training_Bucket-4\\.NET\\Final Project\\AMIProjectView\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAwwFAAAABiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T18:02:43.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T18:17:19.104Z"
             }
           ]
         }
