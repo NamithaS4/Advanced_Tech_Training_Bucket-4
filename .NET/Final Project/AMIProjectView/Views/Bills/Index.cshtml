@@ -13,9 +13,15 @@
     string meterFilter = ViewBag.MeterFilter as string ?? "";
     string fromFilter = ViewBag.FromFilter as string ?? "";
     string toFilter = ViewBag.ToFilter as string ?? "";
+    
+    // Check if user is consumer
+    bool isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+    decimal totalPendingAmount = ViewBag.TotalPendingAmount as decimal? ?? 0;
+    decimal consumerBalance = ViewBag.ConsumerBalance as decimal? ?? 0;
 }
 
 <div class="card p-3">
+    @Html.AntiForgeryToken()
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0"><i class="bi bi-file-invoice-dollar"></i> Bills</h4>
     </div>
@@ -37,6 +43,7 @@
                 <option value="">All</option>
                 <option value="Pending" @@(statusFilter= ="Pending" ? "selected" : "" )>Pending</option>
                 <option value="Paid" @@(statusFilter= ="Paid" ? "selected" : "" )>Paid</option>
+                <option value="HalfPaid" @@(statusFilter= ="HalfPaid" ? "selected" : "" )>Half Paid</option>
             </select>
         </div>
 
@@ -57,9 +64,31 @@
 
         <div class="col-md-3 d-flex align-items-end">
             <a class="btn btn-secondary me-2" href="@Url.Action("Bills", "Consumer")">Reset</a>
+            @if (isConsumer)
+            {
+                <button type="button" class="btn btn-success me-2" id="payNowBtn">Pay Now</button>
+            }
             <div class="ms-auto text-muted ps-3" id="billsTotal">Total: @total</div>
         </div>
     </div>
+
+    @if (isConsumer)
+    {
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <strong>Total Pending Amount: ₹@totalPendingAmount.ToString("F2")</strong>
+                    @if (consumerBalance > 0)
+                    {
+                        <span class="ms-3 text-success">
+                            <strong>Available Balance: ₹@consumerBalance.ToString("F2")</strong>
+                            <small class="text-muted">(Will be applied to future bills)</small>
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
 
     <div class="table-responsive">
         <table id="billsTable" class="table table-hover align-middle">
@@ -99,17 +128,6 @@
                             <td>@b.GeneratedAt.ToString("dd-MM-yyyy HH:mm")</td>
                             <td class="text-end">
                                 <a class="btn btn-sm btn-outline-primary" asp-controller="Bills" asp-action="Details" asp-route-id="@b.BillId">View</a>
-
-                                @* Render Pay now only for Consumer principals and only when bill is Pending *@
-                                @if (string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase)
-                                                        && User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer"))
-                                {
-                                    <form asp-controller="Bills" asp-action="PayBill" method="post" class="d-inline ms-1" onsubmit="return confirm('Pay bill @b.BillId for amount @b.Amount.ToString("F2") ?');">
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" name="id" value="@b.BillId" />
-                                        <button class="btn btn-sm btn-success">Pay now</button>
-                                    </form>
-                                }
                             </td>
                         </tr>
                     }
@@ -148,6 +166,7 @@
             const filterFrom = document.getElementById('filterFrom');
             const filterTo = document.getElementById('filterTo');
             const totalEl = document.getElementById('billsTotal');
+            const payNowBtn = document.getElementById('payNowBtn');
 
             // parse yyyy-MM-dd into Date object (local midnight)
             function parseIsoDate(s) {
@@ -196,6 +215,55 @@
             filterStatus && filterStatus.addEventListener('change', applyFilters);
             filterFrom && filterFrom.addEventListener('change', applyFilters);
             filterTo && filterTo.addEventListener('change', applyFilters);
+
+            // Pay Now button handler (only for consumers)
+            if (payNowBtn) {
+                payNowBtn.addEventListener('click', function() {
+                    const amount = prompt('Enter payment amount:');
+                    if (amount === null) return; // User cancelled
+                    
+                    const paymentAmount = parseFloat(amount);
+                    if (isNaN(paymentAmount) || paymentAmount <= 0) {
+                        alert('Please enter a valid amount greater than zero.');
+                        return;
+                    }
+
+                    // Create and submit form
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '@Url.Action("PayBills", "Bills")';
+                    
+                    // Add anti-forgery token
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]');
+                    if (token) {
+                        const tokenInput = document.createElement('input');
+                        tokenInput.type = 'hidden';
+                        tokenInput.name = '__RequestVerificationToken';
+                        tokenInput.value = token.value;
+                        form.appendChild(tokenInput);
+                    } else {
+                        // Try to get token from meta tag or generate one
+                        const metaToken = document.querySelector('meta[name="__RequestVerificationToken"]');
+                        if (metaToken) {
+                            const tokenInput = document.createElement('input');
+                            tokenInput.type = 'hidden';
+                            tokenInput.name = '__RequestVerificationToken';
+                            tokenInput.value = metaToken.content;
+                            form.appendChild(tokenInput);
+                        }
+                    }
+                    
+                    // Add amount input
+                    const amountInput = document.createElement('input');
+                    amountInput.type = 'hidden';
+                    amountInput.name = 'amount';
+                    amountInput.value = paymentAmount;
+                    form.appendChild(amountInput);
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                });
+            }
 
             // initial apply to reflect server-provided control values
             applyFilters();

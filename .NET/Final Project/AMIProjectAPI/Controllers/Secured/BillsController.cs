@@ -96,6 +96,7 @@ namespace AMIProjectAPI.Controllers.Secured
                         SlabRate = b.SlabRate,
                         TaxRate = b.TaxRate,
                         b.Amount,
+                        AmountPaid = b.AmountPaid,
                         b.Status,
                         GeneratedAt = b.GeneratedAt
                     });
@@ -122,6 +123,7 @@ namespace AMIProjectAPI.Controllers.Secured
                         SlabRate = b.SlabRate,
                         TaxRate = b.TaxRate,
                         b.Amount,
+                        AmountPaid = b.AmountPaid,
                         b.Status,
                         GeneratedAt = b.GeneratedAt
                     });
@@ -164,12 +166,96 @@ namespace AMIProjectAPI.Controllers.Secured
                 SlabRate = b.SlabRate,
                 TaxRate = b.TaxRate,
                 b.Amount,
+                AmountPaid = b.AmountPaid,
                 b.Status,
                 b.GeneratedAt
             });
         }
 
-        // POST: api/bills/pay/{id} -> mark bill as paid
+        // PUT: api/bills/PayBill/{id} -> process payment for a bill
+        [HttpPut("PayBill/{id:int}")]
+        public async Task<IActionResult> PayBill(int id, [FromBody] BillPaymentDto payment)
+        {
+            try
+            {
+                var bill = await _ctx.Bills
+                    .Include(b => b.Meter)
+                    .FirstOrDefaultAsync(b => b.BillId == id);
+
+                if (bill == null) return NotFound(new { error = "Bill not found." });
+
+                var isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+                if (isConsumer)
+                {
+                    if (!TryGetConsumerId(out var cid)) return Forbid("ConsumerId claim missing or invalid.");
+                    if (bill.Meter?.ConsumerId != cid) return Forbid("Not allowed to pay this bill.");
+                }
+
+                // Allow payment for Pending and HalfPaid bills
+                if (string.Equals(bill.Status, "Paid", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Check if it's actually fully paid
+                    if (bill.AmountPaid >= bill.Amount)
+                        return BadRequest(new { error = "Bill is already fully paid." });
+                    // If AmountPaid < Amount, allow payment to continue
+                }
+
+                if (payment.AmountPaid <= 0)
+                    return BadRequest(new { error = "Invalid payment amount. Amount must be greater than zero." });
+
+                // Calculate remaining balance
+                // Amount is the original bill amount (never changes)
+                // AmountPaid tracks how much has been paid
+                decimal originalAmount = bill.Amount;
+                decimal currentPaid = bill.AmountPaid;
+                decimal newPaid = currentPaid + payment.AmountPaid;
+                
+                // Don't allow overpayment
+                if (newPaid > originalAmount)
+                {
+                    return BadRequest(new { error = $"Payment amount exceeds bill amount. Maximum payment allowed: ₹{originalAmount - currentPaid:F2}" });
+                }
+                
+                // Update AmountPaid (not Amount - Amount stays as original)
+                bill.AmountPaid = newPaid;
+                
+                // Calculate remaining balance
+                decimal remainingBalance = originalAmount - newPaid;
+
+                // Update status based on remaining balance
+                if (remainingBalance <= 0)
+                {
+                    bill.Status = "Paid";
+                }
+                else
+                {
+                    bill.Status = "HalfPaid";
+                }
+
+                await _ctx.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    message = "Payment processed successfully.",
+                    remainingBalance = Math.Max(0, remainingBalance),
+                    status = bill.Status,
+                    amountPaid = bill.AmountPaid,
+                    originalAmount = bill.Amount
+                });
+            }
+            catch (DbUpdateException dbEx)
+            {
+                _logger.LogError(dbEx, "DB error processing payment for bill {Id}", id);
+                return StatusCode(500, new { error = "Database error while processing payment." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing payment for bill {Id}", id);
+                return StatusCode(500, new { error = "Server error while processing payment." });
+            }
+        }
+
+        // POST: api/bills/pay/{id} -> mark bill as paid (legacy endpoint, kept for backward compatibility)
         [HttpPost("pay/{id:int}")]
         public async Task<IActionResult> Pay(int id)
         {
@@ -188,8 +274,12 @@ namespace AMIProjectAPI.Controllers.Secured
                     if (bill.Meter?.ConsumerId != cid) return Forbid("Not allowed to pay this bill.");
                 }
 
-                // If already paid or not pending, reject
-                if (!string.Equals(bill.Status, "Pending", StringComparison.OrdinalIgnoreCase))
+                // If already paid, reject. Allow Pending or HalfPaid bills to be paid
+                if (string.Equals(bill.Status, "Paid", StringComparison.OrdinalIgnoreCase))
+                    return BadRequest(new { error = $"Bill is already paid." });
+                
+                if (!string.Equals(bill.Status, "Pending", StringComparison.OrdinalIgnoreCase) 
+                    && !string.Equals(bill.Status, "HalfPaid", StringComparison.OrdinalIgnoreCase))
                     return BadRequest(new { error = $"Bill status is '{bill.Status}' and cannot be paid." });
 
                 bill.Status = "Paid";
@@ -208,6 +298,89 @@ namespace AMIProjectAPI.Controllers.Secured
                 _logger.LogError(ex, "Error paying bill {Id}", id);
                 return StatusCode(500, new { error = "Server error while processing payment." });
             }
+        }
+
+        // PATCH: api/bills/{id} -> update bill status and/or amount (for partial payments)
+        [HttpPatch("{id:int}")]
+        public async Task<IActionResult> UpdateBill(int id, [FromBody] BillUpdateDto updateDto)
+        {
+            try
+            {
+                var bill = await _ctx.Bills
+                    .Include(b => b.Meter)
+                    .FirstOrDefaultAsync(b => b.BillId == id);
+
+                if (bill == null) return NotFound(new { error = "Bill not found." });
+
+                var isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+                if (isConsumer)
+                {
+                    if (!TryGetConsumerId(out var cid)) return Forbid("ConsumerId claim missing or invalid.");
+                    if (bill.Meter?.ConsumerId != cid) return Forbid("Not allowed to update this bill.");
+                }
+
+                // Validate status transitions
+                if (!string.IsNullOrWhiteSpace(updateDto.Status))
+                {
+                    var newStatus = updateDto.Status.Trim();
+                    var currentStatus = bill.Status;
+
+                    // Allow: Pending -> HalfPaid, Pending -> Paid, HalfPaid -> Paid
+                    if (string.Equals(newStatus, "HalfPaid", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.Equals(currentStatus, "Pending", StringComparison.OrdinalIgnoreCase))
+                            return BadRequest(new { error = $"Cannot change status from '{currentStatus}' to 'HalfPaid'. Only 'Pending' bills can be partially paid." });
+                    }
+                    else if (string.Equals(newStatus, "Paid", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!string.Equals(currentStatus, "Pending", StringComparison.OrdinalIgnoreCase) 
+                            && !string.Equals(currentStatus, "HalfPaid", StringComparison.OrdinalIgnoreCase))
+                            return BadRequest(new { error = $"Cannot change status from '{currentStatus}' to 'Paid'. Only 'Pending' or 'HalfPaid' bills can be marked as paid." });
+                    }
+                    else if (!string.Equals(newStatus, "Pending", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return BadRequest(new { error = $"Invalid status '{newStatus}'. Allowed values: 'Pending', 'HalfPaid', 'Paid'." });
+                    }
+
+                    bill.Status = newStatus;
+                }
+
+                // Update amount if provided (for partial payments)
+                if (updateDto.Amount.HasValue)
+                {
+                    if (updateDto.Amount.Value < 0)
+                        return BadRequest(new { error = "Amount cannot be negative." });
+                    bill.Amount = updateDto.Amount.Value;
+                }
+
+                await _ctx.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                _logger.LogError(dbEx, "DB error updating bill {Id}", id);
+                return StatusCode(500, new { error = "Database error while updating bill." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating bill {Id}", id);
+                return StatusCode(500, new { error = "Server error while updating bill." });
+            }
+        }
+
+        // DTO for bill updates
+        public class BillUpdateDto
+        {
+            public string? Status { get; set; }
+            public decimal? Amount { get; set; }
+        }
+
+        // DTO for bill payment
+        public class BillPaymentDto
+        {
+            public decimal AmountPaid { get; set; }
+            public string PaymentMode { get; set; } = string.Empty;
+            public DateTime PaymentDate { get; set; }
         }
     }
 }

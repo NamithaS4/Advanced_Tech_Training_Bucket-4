@@ -57,23 +57,29 @@ namespace AMIProjectView.Controllers
                 // 1) Load meters as before
                 var meters = await client.GetFromJsonAsync<List<MeterViewModel>>("api/meters") ?? new List<MeterViewModel>();
 
-                // 2) Load pending bills for this consumer via consumer-scoped endpoint
+                // 2) Load pending and half-paid bills for this consumer via consumer-scoped endpoint
                 try
                 {
-                    // request pending bills (no paging so we can get full list then slice)
-                    var billsResp = await client.GetAsync("api/consumers/me/bills?status=Pending");
-                    if (billsResp.IsSuccessStatusCode)
+                    // Get all bills first
+                    var allBillsResp = await client.GetAsync("api/consumers/me/bills");
+                    if (allBillsResp.IsSuccessStatusCode)
                     {
                         // parse as array
-                        var bills = await billsResp.Content.ReadFromJsonAsync<List<BillVm>>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<BillVm>();
-                        ViewBag.PendingBillsCount = bills.Count;
+                        var allBills = await allBillsResp.Content.ReadFromJsonAsync<List<BillVm>>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<BillVm>();
+                        
+                        // Filter for Pending and HalfPaid bills
+                        var pendingAndHalfPaidBills = allBills.Where(b => 
+                            string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase) || 
+                            string.Equals(b.Status, "HalfPaid", StringComparison.OrdinalIgnoreCase)).ToList();
+                        
+                        ViewBag.PendingBillsCount = pendingAndHalfPaidBills.Count;
                         // keep recent (most recent first)
-                        ViewBag.PendingBills = bills.OrderByDescending(b => b.GeneratedAt).Take(5).ToList();
+                        ViewBag.PendingBills = pendingAndHalfPaidBills.OrderByDescending(b => b.GeneratedAt).Take(5).ToList();
                     }
                     else
                     {
                         // if unauthorized/forbidden show 0 and a message could be set in TempData
-                        _logger.LogWarning("Unable to fetch pending bills: {Status} {Reason}", (int)billsResp.StatusCode, billsResp.ReasonPhrase);
+                        _logger.LogWarning("Unable to fetch bills: {Status} {Reason}", (int)allBillsResp.StatusCode, allBillsResp.ReasonPhrase);
                     }
                 }
                 catch (Exception exBills)

@@ -23,6 +23,8 @@ public partial class Bill
 
     public decimal Amount { get; set; }
 
+    public decimal AmountPaid { get; set; } = 0;
+
     public string Status { get; set; } = null!;
 
     public DateTime GeneratedAt { get; set; }

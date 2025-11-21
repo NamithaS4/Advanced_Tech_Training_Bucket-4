@@ -1,0 +1,199 @@
+@model AMIProjectView.Models.AccountCreateVm
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">📝 Create New Account</h2>
+
+            @if (TempData["msg"] != null)
+            {
+                <div class="alert alert-success mb-3" role="alert">
+                    @TempData["msg"]
+                </div>
+            }
+
+            <form asp-action="Register" method="post" class="needs-validation" novalidate>
+                @Html.AntiForgeryToken()
+
+                <!-- Account Type Selection -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Account Type</label>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="AccountType" id="accountTypeUser" value="User" 
+                               @(Model.AccountType == "User" ? "checked" : "") onchange="toggleAccountFields()">
+                        <label class="btn btn-outline-primary" for="accountTypeUser">User Account</label>
+
+                        <input type="radio" class="btn-check" name="AccountType" id="accountTypeConsumer" value="Consumer" 
+                               @(Model.AccountType == "Consumer" ? "checked" : "") onchange="toggleAccountFields()">
+                        <label class="btn btn-outline-primary" for="accountTypeConsumer">Consumer Account</label>
+                    </div>
+                </div>
+
+                <!-- User Account Fields -->
+                <div id="userFields">
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">Username <span class="text-danger">*</span></label>
+                        <input asp-for="Username" class="form-control" placeholder="Enter username" required />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Password <span class="text-danger">*</span></label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="DisplayName" class="form-label">Display Name</label>
+                        <input asp-for="DisplayName" class="form-control" placeholder="Enter display name" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label">Phone</label>
+                        <input asp-for="Phone" class="form-control" placeholder="Enter phone number" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label">Status</label>
+                        <select asp-for="Status" class="form-select">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Consumer Account Fields -->
+                <div id="consumerFields" style="display: none;">
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Name <span class="text-danger">*</span></label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter consumer name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label">Address</label>
+                        <textarea asp-for="Address" class="form-control" rows="2" placeholder="Enter address"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label">Phone</label>
+                        <input asp-for="Phone" class="form-control" placeholder="Enter phone number" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label">Status</label>
+                        <select asp-for="Status" class="form-select">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <hr class="my-4" />
+                    <h6 class="mb-3">Login Credentials (Optional)</h6>
+                    <p class="text-muted small mb-3">You can create login credentials now, or add them later.</p>
+
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">Username</label>
+                        <input asp-for="Username" class="form-control" placeholder="Enter username (optional)" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter password (optional)" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger mb-4" role="alert">
+                        <strong>Please correct the following errors:</strong>
+                        <ul class="list-unstyled mb-0 mt-2">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                        @if (ViewData["ModelErrors"] != null)
+                        {
+                            <div class="mt-2">@Html.Raw(ViewData["ModelErrors"])</div>
+                        }
+                    </div>
+                }
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Create Account
+                    </button>
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Login
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleAccountFields() {
+            const accountType = document.querySelector('input[name="AccountType"]:checked').value;
+            const userFields = document.getElementById('userFields');
+            const consumerFields = document.getElementById('consumerFields');
+
+            if (accountType === 'User') {
+                userFields.style.display = 'block';
+                consumerFields.style.display = 'none';
+                
+                // Make user fields required
+                const userRequired = userFields.querySelectorAll('input[required]');
+                userRequired.forEach(field => field.required = true);
+                
+                // Make consumer name not required
+                const consumerName = consumerFields.querySelector('input[name="Name"]');
+                if (consumerName) consumerName.required = false;
+            } else {
+                userFields.style.display = 'none';
+                consumerFields.style.display = 'block';
+                
+                // Make user fields not required
+                const userRequired = userFields.querySelectorAll('input[required]');
+                userRequired.forEach(field => field.required = false);
+                
+                // Make consumer name required
+                const consumerName = consumerFields.querySelector('input[name="Name"]');
+                if (consumerName) consumerName.required = true;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleAccountFields();
+        });
+    </script>
+}
+
+
+

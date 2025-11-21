@@ -13,6 +13,7 @@ namespace AMIProjectView.Models
         public decimal SlabRate { get; set; }
         public decimal TaxRate { get; set; }
         public decimal Amount { get; set; }
+        public decimal AmountPaid { get; set; } = 0;
         public string Status { get; set; } = "";
         public DateTime GeneratedAt { get; set; }
     }

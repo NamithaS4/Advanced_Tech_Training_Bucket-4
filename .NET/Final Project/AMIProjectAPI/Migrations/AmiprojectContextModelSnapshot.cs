@@ -34,6 +34,9 @@ namespace AMIProjectAPI.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<decimal>("BaseRate")
                         .HasColumnType("decimal(10, 2)");
 

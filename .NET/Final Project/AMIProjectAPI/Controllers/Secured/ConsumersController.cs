@@ -115,6 +115,7 @@ namespace AMIProjectAPI.Controllers.Secured
                     b.SlabRate,
                     b.TaxRate,
                     b.Amount,
+                    AmountPaid = b.AmountPaid,
                     b.Status,
                     b.GeneratedAt
                 }).ToListAsync();

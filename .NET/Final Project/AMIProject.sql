@@ -113,8 +113,9 @@ CREATE TABLE Bill (
     SlabRate DECIMAL(10,2) NOT NULL,
     TaxRate DECIMAL(10,2) NOT NULL,
     Amount DECIMAL(18,2) NOT NULL,
+	AmountPaid DECIMAL(18,2) NOT NULL DEFAULT 0,
     Status NVARCHAR(20) NOT NULL DEFAULT 'Pending' 
-           CHECK (Status IN ('Paid','Pending')),
+           CHECK (Status IN ('Paid','Pending','HalfPaid')),
     GeneratedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME()
 );
 
@@ -388,14 +389,33 @@ BEGIN
             target.TaxRate = src.TaxRate,
             target.Category = src.Category,
             target.Amount = src.Amount,
-            target.Status = 'Pending',
+            -- Set Status based on how much has already been paid for this bill
+            target.Status = CASE
+                                WHEN ISNULL(target.AmountPaid, 0) >= src.Amount THEN 'Paid'
+                                WHEN ISNULL(target.AmountPaid, 0) > 0 THEN 'HalfPaid'
+                                ELSE 'Pending'
+                            END,
             target.GeneratedAt = SYSUTCDATETIME()
     WHEN NOT MATCHED THEN
         INSERT (MeterID, MonthStartDate, MonthlyConsumptionkWh, Category, BaseRate, SlabRate, TaxRate, Amount, Status, GeneratedAt)
-        VALUES (src.MeterID, src.MonthStartDate, src.ConsumptionkWh, src.Category, src.BaseRate, src.SlabRate, src.TaxRate, src.Amount, 'Pending', SYSUTCDATETIME());
+        VALUES (
+            src.MeterID,
+            src.MonthStartDate,
+            src.ConsumptionkWh,
+            src.Category,
+            src.BaseRate,
+            src.SlabRate,
+            src.TaxRate,
+            src.Amount,
+            -- For new rows, AmountPaid will be the default (0) so this will be 'Pending' (keeps legacy behavior)
+            CASE WHEN 0 >= src.Amount THEN 'Paid'
+                 WHEN 0 > 0 THEN 'HalfPaid'
+                 ELSE 'Pending' END,
+            SYSUTCDATETIME()
+        );
 END;
-
 GO
+
 
 -----INSERT DATA INTO TABLES-----
 
@@ -514,3 +534,12 @@ DROP TABLE DailyConsumption
 DROP TABLE MonthlyConsumption
 DROP TABLE Bill
 DROP TABLE ConsumerLogin
+
+
+INSERT INTO DailyConsumption (MeterID, ConsumptionDate, ConsumptionkWh)
+VALUES
+('MTR2001', '2025-12-01', 6.5);
+
+INSERT INTO DailyConsumption (MeterID, ConsumptionDate, ConsumptionkWh)
+VALUES
+('MTR1003', '2025-12-01', 6.5);

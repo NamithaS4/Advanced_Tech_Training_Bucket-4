@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace AMIProjectView.Controllers
 {
@@ -212,8 +213,25 @@ namespace AMIProjectView.Controllers
                 new Claim("access_token", loginResp.Token)
             };
 
-            if (loginResp.ConsumerId.HasValue)
+            // Extract ConsumerId from JWT token if it's a consumer login
+            if (finalLoginType == "consumer")
+            {
+                int? consumerIdFromToken = ExtractConsumerIdFromToken(loginResp.Token);
+                if (consumerIdFromToken.HasValue)
+                {
+                    claims.Add(new Claim("ConsumerId", consumerIdFromToken.Value.ToString()));
+                    HttpContext.Session.SetString("ConsumerId", consumerIdFromToken.Value.ToString());
+                }
+                else if (loginResp.ConsumerId.HasValue)
+                {
+                    claims.Add(new Claim("ConsumerId", loginResp.ConsumerId.Value.ToString()));
+                    HttpContext.Session.SetString("ConsumerId", loginResp.ConsumerId.Value.ToString());
+                }
+            }
+            else if (loginResp.ConsumerId.HasValue)
+            {
                 claims.Add(new Claim("ConsumerId", loginResp.ConsumerId.Value.ToString()));
+            }
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
@@ -226,6 +244,56 @@ namespace AMIProjectView.Controllers
             return finalLoginType == "consumer"
                 ? RedirectToAction("Index", "Consumer")
                 : RedirectToAction("Index", "Home");
+        }
+
+        // Helper: extract ConsumerId from JWT token
+        private int? ExtractConsumerIdFromToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                return null;
+
+            try
+            {
+                // JWT tokens have 3 parts separated by dots: header.payload.signature
+                var parts = token.Split('.');
+                if (parts.Length != 3)
+                    return null;
+
+                // Decode the payload (second part)
+                var payload = parts[1];
+                
+                // Add padding if needed (base64url encoding)
+                var padding = payload.Length % 4;
+                if (padding != 0)
+                {
+                    payload += new string('=', 4 - padding);
+                }
+                payload = payload.Replace('-', '+').Replace('_', '/');
+
+                var payloadBytes = Convert.FromBase64String(payload);
+                var payloadJson = System.Text.Encoding.UTF8.GetString(payloadBytes);
+                
+                // Parse JSON to find ConsumerId claim
+                var jsonDoc = JsonDocument.Parse(payloadJson);
+                if (jsonDoc.RootElement.TryGetProperty("ConsumerId", out var consumerIdElement))
+                {
+                    if (consumerIdElement.ValueKind == JsonValueKind.Number)
+                    {
+                        return consumerIdElement.GetInt32();
+                    }
+                    else if (consumerIdElement.ValueKind == JsonValueKind.String)
+                    {
+                        if (int.TryParse(consumerIdElement.GetString(), out var cid))
+                            return cid;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to extract ConsumerId from token");
+            }
+
+            return null;
         }
 
         // Helper: extract "error" or "message" string from API JSON or plain text.
@@ -263,6 +331,149 @@ namespace AMIProjectView.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        // Helper: AddBearer for API calls
+        private void AddBearer(HttpClient client)
+        {
+            var token = _httpContextAccessor.HttpContext?.Session?.GetString("ApiToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+        }
+
+        // GET: Register (Create account) - public
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new AccountCreateVm { AccountType = "User", Status = "Active" });
+        }
+
+        // POST: Register (Create account) - public
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(AccountCreateVm vm)
+        {
+            // Ensure a selection
+            vm.AccountType = string.IsNullOrWhiteSpace(vm.AccountType) ? "User" : vm.AccountType;
+
+            // Conditional server-side validation
+            if (string.Equals(vm.AccountType, "User", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrWhiteSpace(vm.Username))
+                    ModelState.AddModelError(nameof(vm.Username), "The Username field is required.");
+
+                if (string.IsNullOrWhiteSpace(vm.Password))
+                    ModelState.AddModelError(nameof(vm.Password), "The Password field is required for user accounts.");
+            }
+            else // Consumer
+            {
+                if (string.IsNullOrWhiteSpace(vm.Name))
+                    ModelState.AddModelError(nameof(vm.Name), "The Name field is required.");
+
+                var wantsLogin = !string.IsNullOrWhiteSpace(vm.Username) || !string.IsNullOrWhiteSpace(vm.Password);
+                if (wantsLogin)
+                {
+                    if (string.IsNullOrWhiteSpace(vm.Username))
+                        ModelState.AddModelError(nameof(vm.Username), "Username is required when creating login for consumer.");
+                    if (string.IsNullOrWhiteSpace(vm.Password))
+                        ModelState.AddModelError(nameof(vm.Password), "Password is required when creating login for consumer.");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // Build readable list of errors for the view and log
+                var errors = ModelState
+                    .Where(kvp => kvp.Value.Errors.Any())
+                    .Select(kvp => new
+                    {
+                        Field = kvp.Key,
+                        Errors = kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                    })
+                    .ToArray();
+
+                var sb = new System.Text.StringBuilder();
+                foreach (var e in errors)
+                {
+                    sb.AppendLine($"{e.Field}: {string.Join("; ", e.Errors)}");
+                }
+
+                _logger.LogWarning("Register validation failed: {Errors}", sb.ToString());
+                ViewData["ModelErrors"] = System.Net.WebUtility.HtmlEncode(sb.ToString()).Replace("\n", "<br/>");
+
+                return View(vm);
+            }
+
+            var client = _httpClientFactory.CreateClient("api");
+            // Note: Register endpoints should be public (no auth required)
+
+            try
+            {
+                if (string.Equals(vm.AccountType, "User", StringComparison.OrdinalIgnoreCase))
+                {
+                    var payload = new
+                    {
+                        Username = vm.Username,
+                        DisplayName = string.IsNullOrWhiteSpace(vm.DisplayName) ? null : vm.DisplayName,
+                        Email = string.IsNullOrWhiteSpace(vm.Email) ? null : vm.Email,
+                        Phone = string.IsNullOrWhiteSpace(vm.Phone) ? null : vm.Phone,
+                        Status = string.IsNullOrWhiteSpace(vm.Status) ? "Active" : vm.Status,
+                        Password = vm.Password
+                    };
+
+                    // POST to public register user endpoint
+                    var resp = await client.PostAsJsonAsync("api/register/user", payload);
+
+                    var respBody = string.Empty;
+                    try { respBody = await resp.Content.ReadAsStringAsync(); } catch { respBody = ""; }
+                    _logger.LogInformation("api/register/user -> Status: {Status}; Body: {Body}", resp.StatusCode, respBody);
+
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        TempData["msg"] = "User created successfully. You may now log in.";
+                        return RedirectToAction("Login", "Account");
+                    }
+
+                    ModelState.AddModelError(string.Empty, $"API returned {(int)resp.StatusCode} {resp.ReasonPhrase}. Response: {respBody}");
+                    return View(vm);
+                }
+                else
+                {
+                    var payload = new
+                    {
+                        Name = vm.Name,
+                        Address = string.IsNullOrWhiteSpace(vm.Address) ? null : vm.Address,
+                        Phone = string.IsNullOrWhiteSpace(vm.Phone) ? null : vm.Phone,
+                        Email = string.IsNullOrWhiteSpace(vm.Email) ? null : vm.Email,
+                        Status = string.IsNullOrWhiteSpace(vm.Status) ? "Active" : vm.Status,
+                        Username = string.IsNullOrWhiteSpace(vm.Username) ? null : vm.Username,
+                        Password = string.IsNullOrWhiteSpace(vm.Password) ? null : vm.Password
+                    };
+
+                    var resp = await client.PostAsJsonAsync("api/register/consumer", payload);
+
+                    var respBody = string.Empty;
+                    try { respBody = await resp.Content.ReadAsStringAsync(); } catch { respBody = ""; }
+                    _logger.LogInformation("api/register/consumer -> Status: {Status}; Body: {Body}", resp.StatusCode, respBody);
+
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        TempData["msg"] = "Consumer created successfully. You may now log in (if you provided credentials).";
+                        return RedirectToAction("Login", "Account");
+                    }
+
+                    ModelState.AddModelError(string.Empty, $"API returned {(int)resp.StatusCode} {resp.ReasonPhrase}. Response: {respBody}");
+                    return View(vm);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Register/Create account failed");
+                ModelState.AddModelError(string.Empty, "Create failed: " + ex.Message);
+                return View(vm);
+            }
         }
     }
 }

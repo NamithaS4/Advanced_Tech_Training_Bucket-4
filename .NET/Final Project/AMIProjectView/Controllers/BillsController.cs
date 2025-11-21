@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using AMIProjectView.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -78,6 +79,26 @@ namespace AMIProjectView.Controllers
                             ViewBag.FromFilter = from?.ToString("yyyy-MM-dd") ?? "";
                             ViewBag.ToFilter = to?.ToString("yyyy-MM-dd") ?? "";
 
+                            // Calculate total pending amount for consumers
+                            if (isConsumer && consumerId.HasValue)
+                            {
+                                // Get all bills for the consumer
+                                var allBills = await client.GetFromJsonAsync<List<BillVm>>("api/bills", jsonOptions) ?? new List<BillVm>();
+                                var meters = await client.GetFromJsonAsync<List<MeterViewModel>>($"api/meters?consumerId={consumerId.Value}", jsonOptions) ?? new List<MeterViewModel>();
+                                var meterIds = new HashSet<string>(meters.Select(m => m.MeterSerialNo));
+                                allBills = allBills.Where(b => meterIds.Contains(b.MeterID)).ToList();
+                                
+                                // Calculate total pending: Sum of (Amount - AmountPaid) for Pending and HalfPaid bills
+                                var pendingAndHalfPaidBills = allBills.Where(b => 
+                                    string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase) || 
+                                    string.Equals(b.Status, "HalfPaid", StringComparison.OrdinalIgnoreCase)).ToList();
+                                
+                                var totalPendingAmount = pendingAndHalfPaidBills.Sum(b => b.Amount - b.AmountPaid);
+                                
+                                ViewBag.TotalPendingAmount = totalPendingAmount;
+                                ViewBag.ConsumerBalance = GetConsumerBalance(consumerId.Value);
+                            }
+
                             return View(wrapper.Items);
                         }
                     }
@@ -118,6 +139,26 @@ namespace AMIProjectView.Controllers
                             ViewBag.MeterFilter = meterId ?? "";
                             ViewBag.FromFilter = from?.ToString("yyyy-MM-dd") ?? "";
                             ViewBag.ToFilter = to?.ToString("yyyy-MM-dd") ?? "";
+
+                            // Calculate total pending amount for consumers
+                            if (isConsumer && consumerId.HasValue)
+                            {
+                                // Get all bills for the consumer
+                                var allBills = await client.GetFromJsonAsync<List<BillVm>>("api/bills", jsonOptions) ?? new List<BillVm>();
+                                var meters = await client.GetFromJsonAsync<List<MeterViewModel>>($"api/meters?consumerId={consumerId.Value}", jsonOptions) ?? new List<MeterViewModel>();
+                                var meterIds = new HashSet<string>(meters.Select(m => m.MeterSerialNo));
+                                allBills = allBills.Where(b => meterIds.Contains(b.MeterID)).ToList();
+                                
+                                // Calculate total pending: Sum of (Amount - AmountPaid) for Pending and HalfPaid bills
+                                var pendingAndHalfPaidBills = allBills.Where(b => 
+                                    string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase) || 
+                                    string.Equals(b.Status, "HalfPaid", StringComparison.OrdinalIgnoreCase)).ToList();
+                                
+                                var totalPendingAmount = pendingAndHalfPaidBills.Sum(b => b.Amount - b.AmountPaid);
+                                
+                                ViewBag.TotalPendingAmount = totalPendingAmount;
+                                ViewBag.ConsumerBalance = GetConsumerBalance(consumerId.Value);
+                            }
 
                             return View(items);
                         }
@@ -166,6 +207,29 @@ namespace AMIProjectView.Controllers
                 ViewBag.MeterFilter = meterId ?? "";
                 ViewBag.FromFilter = from?.ToString("yyyy-MM-dd") ?? "";
                 ViewBag.ToFilter = to?.ToString("yyyy-MM-dd") ?? "";
+
+                // Calculate total pending amount for consumers
+                if (isConsumer && consumerId.HasValue)
+                {
+                    // Get all bills for the consumer
+                    var allBills = await client.GetFromJsonAsync<List<BillVm>>("api/bills", jsonOptions) ?? new List<BillVm>();
+                    if (consumerId.HasValue)
+                    {
+                        var meters = await client.GetFromJsonAsync<List<MeterViewModel>>($"api/meters?consumerId={consumerId.Value}", jsonOptions) ?? new List<MeterViewModel>();
+                        var meterIds = new HashSet<string>(meters.Select(m => m.MeterSerialNo));
+                        allBills = allBills.Where(b => meterIds.Contains(b.MeterID)).ToList();
+                    }
+                    
+                    // Calculate total pending: Sum of (Amount - AmountPaid) for Pending and HalfPaid bills
+                    var pendingAndHalfPaidBills = allBills.Where(b => 
+                        string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase) || 
+                        string.Equals(b.Status, "HalfPaid", StringComparison.OrdinalIgnoreCase)).ToList();
+                    
+                    var totalPendingAmount = pendingAndHalfPaidBills.Sum(b => b.Amount - b.AmountPaid);
+                    
+                    ViewBag.TotalPendingAmount = totalPendingAmount;
+                    ViewBag.ConsumerBalance = GetConsumerBalance(consumerId.Value);
+                }
 
                 return View(paged);
             }
@@ -247,14 +311,343 @@ namespace AMIProjectView.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: /Bills/PayBills
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PayBills(decimal amount)
+        {
+            // Only allow consumers to use this endpoint
+            var isConsumer = User.HasClaim(c => string.Equals(c.Type, "UserType", StringComparison.OrdinalIgnoreCase) && c.Value == "Consumer");
+            if (!isConsumer)
+            {
+                TempData["err"] = "This payment method is only available for consumers.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (amount <= 0)
+            {
+                TempData["err"] = "Payment amount must be greater than zero.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var client = _httpClientFactory.CreateClient("api");
+            AddBearer(client);
+
+            var jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            try
+            {
+                int? consumerId = TryGetConsumerIdFromClaims();
+                if (!consumerId.HasValue)
+                {
+                    TempData["err"] = "Unable to identify consumer.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Get existing balance and add to payment amount
+                decimal existingBalance = GetConsumerBalance(consumerId.Value);
+                decimal totalPayment = amount + existingBalance;
+                
+                // Clear existing balance since we're using it
+                if (existingBalance > 0)
+                {
+                    var session = _httpContextAccessor.HttpContext?.Session;
+                    session?.Remove($"ConsumerBalance_{consumerId.Value}");
+                }
+
+                decimal remainingPayment = totalPayment;
+                int paidCount = 0;
+                int halfPaidCount = 0;
+                List<string> errors = new List<string>();
+
+                // Keep processing bills until payment is exhausted or no more bills to pay
+                bool continueProcessing = true;
+                int maxIterations = 10; // Safety limit
+                int iteration = 0;
+
+                while (remainingPayment > 0 && continueProcessing && iteration < maxIterations)
+                {
+                    iteration++;
+                    
+                    // Get all bills with remaining balance, ordered by MonthStartDate (oldest first)
+                    var billsWithBalance = await GetAllPendingBillsForConsumer(client, consumerId, jsonOptions);
+                    billsWithBalance = billsWithBalance.OrderBy(b => b.MonthStartDate).ToList();
+
+                    if (!billsWithBalance.Any())
+                    {
+                        // No more bills to pay - store remaining as balance
+                        if (remainingPayment > 0)
+                        {
+                            await StoreConsumerBalance(client, consumerId.Value, remainingPayment, jsonOptions);
+                            _logger.LogInformation("No more bills to pay. Stored remaining balance: {Balance}", remainingPayment);
+                        }
+                        break;
+                    }
+
+                    _logger.LogInformation("Iteration {Iteration}: Processing {Count} bills with remaining balance. Remaining payment: {Payment}", 
+                        iteration, billsWithBalance.Count, remainingPayment);
+
+                    bool paymentApplied = false;
+
+                    foreach (var bill in billsWithBalance)
+                    {
+                        if (remainingPayment <= 0)
+                        {
+                            break;
+                        }
+
+                        // Calculate remaining balance for this bill
+                        decimal billRemainingBalance = bill.Amount - bill.AmountPaid;
+                        
+                        if (billRemainingBalance <= 0)
+                        {
+                            continue; // Skip fully paid bills
+                        }
+                        
+                        decimal paymentForThisBill = Math.Min(remainingPayment, billRemainingBalance);
+                        
+                        _logger.LogInformation("Processing bill {BillId}: OriginalAmount={OriginalAmount}, AmountPaid={AmountPaid}, RemainingBalance={RemainingBalance}, Payment={Payment}, RemainingPayment={RemainingPayment}", 
+                            bill.BillId, bill.Amount, bill.AmountPaid, billRemainingBalance, paymentForThisBill, remainingPayment);
+
+                        // Use the new PUT endpoint to process payment
+                        var paymentDto = new
+                        {
+                            AmountPaid = paymentForThisBill,
+                            PaymentMode = "Online",
+                            PaymentDate = DateTime.UtcNow
+                        };
+
+                        try
+                        {
+                            var payResp = await client.PutAsJsonAsync($"api/bills/PayBill/{bill.BillId}", paymentDto);
+                            
+                            if (payResp.IsSuccessStatusCode)
+                            {
+                                var responseJson = await payResp.Content.ReadAsStringAsync();
+                                var response = JsonSerializer.Deserialize<JsonObject>(responseJson, jsonOptions);
+                                var status = response?["status"]?.ToString();
+                                
+                                if (string.Equals(status, "Paid", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    paidCount++;
+                                }
+                                else if (string.Equals(status, "HalfPaid", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    halfPaidCount++;
+                                }
+                                
+                                remainingPayment -= paymentForThisBill;
+                                paymentApplied = true;
+                                _logger.LogInformation("Successfully processed payment for bill {BillId}. Status: {Status}, Remaining payment: {Remaining}", 
+                                    bill.BillId, status, remainingPayment);
+                            }
+                            else
+                            {
+                                var errorBody = await payResp.Content.ReadAsStringAsync();
+                                var errorMsg = $"Failed to pay bill {bill.BillId}: {payResp.StatusCode} - {errorBody}";
+                                errors.Add(errorMsg);
+                                _logger.LogError("Failed to pay bill {BillId}: {Status} - {Error}", bill.BillId, payResp.StatusCode, errorBody);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            var errorMsg = $"Exception processing bill {bill.BillId}: {ex.Message}";
+                            errors.Add(errorMsg);
+                            _logger.LogError(ex, "Exception processing payment for bill {BillId}", bill.BillId);
+                        }
+                    }
+
+                    // If no payment was applied in this iteration, stop to avoid infinite loop
+                    if (!paymentApplied)
+                    {
+                        _logger.LogWarning("No payment was applied in iteration {Iteration}. Stopping.", iteration);
+                        break;
+                    }
+                }
+
+                _logger.LogInformation("Finished processing. Paid: {Paid}, HalfPaid: {HalfPaid}, Remaining: {Remaining}", 
+                    paidCount, halfPaidCount, remainingPayment);
+
+                if (paidCount > 0 || halfPaidCount > 0)
+                {
+                    var msg = $"Payment processed: {paidCount} bill(s) paid in full";
+                    if (halfPaidCount > 0)
+                        msg += $", {halfPaidCount} bill(s) partially paid";
+                    if (remainingPayment > 0)
+                    {
+                        var remainingBills = await GetAllPendingBillsForConsumer(client, consumerId, jsonOptions);
+                        if (!remainingBills.Any())
+                        {
+                            msg += $". Balance of ₹{remainingPayment:F2} stored for future bills";
+                        }
+                    }
+                    if (errors.Any())
+                    {
+                        msg += ". Some errors occurred: " + string.Join("; ", errors);
+                    }
+                    TempData["msg"] = msg;
+                }
+                else
+                {
+                    var errorMsg = "Payment could not be processed.";
+                    if (errors.Any())
+                        errorMsg += " " + string.Join("; ", errors);
+                    TempData["err"] = errorMsg;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Payment processing failed");
+                TempData["err"] = "Payment failed: " + ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<List<BillVm>> GetAllPendingBillsForConsumer(HttpClient client, int? consumerId, JsonSerializerOptions jsonOptions)
+        {
+            // Get all bills for the consumer
+            var allBills = await client.GetFromJsonAsync<List<BillVm>>("api/bills", jsonOptions) ?? new List<BillVm>();
+
+            // Filter by consumer's meters
+            if (consumerId.HasValue)
+            {
+                var meters = await client.GetFromJsonAsync<List<MeterViewModel>>($"api/meters?consumerId={consumerId.Value}", jsonOptions) ?? new List<MeterViewModel>();
+                var meterIds = new HashSet<string>(meters.Select(m => m.MeterSerialNo));
+                allBills = allBills.Where(b => meterIds.Contains(b.MeterID)).ToList();
+            }
+
+            // Return bills that have remaining balance (Pending or HalfPaid with remaining amount)
+            return allBills.Where(b => 
+                (string.Equals(b.Status, "Pending", StringComparison.OrdinalIgnoreCase) || 
+                 string.Equals(b.Status, "HalfPaid", StringComparison.OrdinalIgnoreCase)) &&
+                (b.Amount - b.AmountPaid) > 0).ToList();
+        }
+
+        private async Task StoreConsumerBalance(HttpClient client, int consumerId, decimal balance, JsonSerializerOptions jsonOptions)
+        {
+            // Store balance in session for now (can be moved to database later)
+            // For now, we'll store it in session and calculate from HalfPaid bills
+            try
+            {
+                var session = _httpContextAccessor.HttpContext?.Session;
+                if (session != null)
+                {
+                    var currentBalance = session.GetString($"ConsumerBalance_{consumerId}");
+                    decimal existingBalance = 0;
+                    if (!string.IsNullOrEmpty(currentBalance) && decimal.TryParse(currentBalance, out existingBalance))
+                    {
+                        balance += existingBalance;
+                    }
+                    session.SetString($"ConsumerBalance_{consumerId}", balance.ToString("F2"));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to store consumer balance in session");
+            }
+        }
+
+        private decimal GetConsumerBalance(int consumerId)
+        {
+            try
+            {
+                var session = _httpContextAccessor.HttpContext?.Session;
+                if (session != null)
+                {
+                    var balanceStr = session.GetString($"ConsumerBalance_{consumerId}");
+                    if (!string.IsNullOrEmpty(balanceStr) && decimal.TryParse(balanceStr, out var balance))
+                    {
+                        return balance;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to get consumer balance from session");
+            }
+            return 0;
+        }
+
         private int? TryGetConsumerIdFromClaims()
         {
+            // Try from claims first
             var c = User.Claims.FirstOrDefault(x => string.Equals(x.Type, "ConsumerId", StringComparison.OrdinalIgnoreCase));
             if (c != null && int.TryParse(c.Value, out var cid)) return cid;
+            
+            // Try from NameIdentifier claim
             var nid = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             if (!string.IsNullOrEmpty(nid) && int.TryParse(nid, out var nidInt)) return nidInt;
+            
+            // Try from session
             var s = _httpContextAccessor.HttpContext?.Session?.GetString("ConsumerId");
             if (!string.IsNullOrEmpty(s) && int.TryParse(s, out var sid)) return sid;
+            
+            // Fallback: try to extract from JWT token in session
+            var token = _httpContextAccessor.HttpContext?.Session?.GetString("ApiToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                var consumerIdFromToken = ExtractConsumerIdFromToken(token);
+                if (consumerIdFromToken.HasValue)
+                {
+                    // Cache it in session for future use
+                    _httpContextAccessor.HttpContext?.Session?.SetString("ConsumerId", consumerIdFromToken.Value.ToString());
+                    return consumerIdFromToken;
+                }
+            }
+            
+            return null;
+        }
+
+        private int? ExtractConsumerIdFromToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                return null;
+
+            try
+            {
+                // JWT tokens have 3 parts separated by dots: header.payload.signature
+                var parts = token.Split('.');
+                if (parts.Length != 3)
+                    return null;
+
+                // Decode the payload (second part)
+                var payload = parts[1];
+                
+                // Add padding if needed (base64url encoding)
+                var padding = payload.Length % 4;
+                if (padding != 0)
+                {
+                    payload += new string('=', 4 - padding);
+                }
+                payload = payload.Replace('-', '+').Replace('_', '/');
+
+                var payloadBytes = Convert.FromBase64String(payload);
+                var payloadJson = System.Text.Encoding.UTF8.GetString(payloadBytes);
+                
+                // Parse JSON to find ConsumerId claim
+                var jsonDoc = JsonDocument.Parse(payloadJson);
+                if (jsonDoc.RootElement.TryGetProperty("ConsumerId", out var consumerIdElement))
+                {
+                    if (consumerIdElement.ValueKind == JsonValueKind.Number)
+                    {
+                        return consumerIdElement.GetInt32();
+                    }
+                    else if (consumerIdElement.ValueKind == JsonValueKind.String)
+                    {
+                        if (int.TryParse(consumerIdElement.GetString(), out var cid))
+                            return cid;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to extract ConsumerId from token");
+            }
+
             return null;
         }
 

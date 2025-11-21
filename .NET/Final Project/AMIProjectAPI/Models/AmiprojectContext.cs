@@ -49,6 +49,7 @@ public partial class AmiprojectContext : DbContext
 
             entity.Property(e => e.BillId).HasColumnName("BillID");
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.AmountPaid).HasColumnType("decimal(18, 2)").HasDefaultValue(0);
             entity.Property(e => e.BaseRate).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Category).HasMaxLength(50);
             entity.Property(e => e.GeneratedAt)
